@@ -8,6 +8,8 @@ bodyParser = require("body-parser")
 debug = require('debug')('echo')
 flash = require("connect-flash")
 app = express()
+http = require('http').Server(app)
+io = require('socket.io')(http)
 
 
 # Set flash messages
@@ -75,11 +77,12 @@ app.use (err, req, res, next) ->
 
 
 
-
-
-app.set('port', process.env.PORT || 3000)
-server = app.listen(app.get('port'),->
-	debug('Express server listening on port ' + server.address().port)
+#-----SocketIO------#
+io.on("connection",(socket)->
+	console.log('user connected')
 )
-console.log "Server is running!"
-#module.exports = app
+#-----SocketIO------#
+
+http.listen(3000,->
+	console.log "Server is running!"
+)
