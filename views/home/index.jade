@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+	section.parallax-container
+		.parallax
+			img(src="/images/colorfull2.jpg",class="blur")
+
+	.row
+		section.col.s12.m4.grey.lighten-5
+			h1.tangerine.cyan-text Aimerthyst
+			p.cyan-text ログインはこちらから
+			include ../auth/_login_form
+			include ../auth/_attention	
+		
+			.card
+				.card-image
+					img(src="/images/amethyst_flat.png",class="")
+					span.card-title.ts-grey アメジスト
+				.card-content
+					p 運営チームのことをもっと知る
+				.card-action
+					a(href="") Access!
+
+
+		section.col.s12.m8.cyan.lighten-5
+			.row
+				- for(var i=0;i<18;i++)
+					include ../cards/_post
