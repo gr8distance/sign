@@ -45,28 +45,11 @@ app.use express.static(path.join(__dirname, "public"))
 
 
 #-----Routings-----#
-#
-
-
-
-#routes = require("./routes")
-#for k,v in routes
-#	app.use(k,v)
-#
-routes = require("./app/controllers")
-app.use("/",routes)
-#
-#app.post("/login",
-#	passport.authenticate('local'),
-#	(req,res)->
-#		req.flash("info","ログインしました")
-#		res.redirect("/")
-#)
-#
-#for route in fs.readdirSync("./controllers/")
-#	unless (route == "index.coffee") || route.match(/^\./)
-#		r = route.split(".")[0]
-#		app.use("/#{r}",require("./controllers/#{r}"))
+for route in fs.readdirSync("./app/controllers/")
+	unless route.match(/^\./)
+		r = route.split(".")[0]
+		r = if r == "index" then "/" else r
+		app.use("/#{r}",require("./app/controllers/#{r}"))
 #-----Routings-----#
 
 

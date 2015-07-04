@@ -1,9 +1,9 @@
 express = require("express")
-router = express.Router()
+app = express.Router()
 require("../../lib/models")()
 
 # GET home page. 
-router.get("/", (req, res) ->
+app.get("/", (req, res) ->
 	f = req.flash("info")
 	
 	res.render("home/index",{
@@ -14,7 +14,7 @@ router.get("/", (req, res) ->
 )
 
 #会社概要のページ
-router.get("/company",(req,res)->
+app.get("/company",(req,res)->
 	res.render("home/company",{
 		title: "Company",
 		pretty: true
@@ -22,5 +22,5 @@ router.get("/company",(req,res)->
 )
 
 
-module.exports = router
+module.exports = app
 

@@ -1,0 +1,38 @@
+
+task :model do
+	file = ARGV.last.to_s
+	model = file.capitalize
+	
+	path = "app/models/#{file}.coffee"
+	t1 = "sql = require('../../lib/models')()\n"
+	t2 = "#{model} = sql.s.define('#{model}',{\n\n\n\n\n\n})\n"
+	t3 = "module.exports = #{model}\n"
+	text = "#{t1}\n#{t2}\n#{t3}"
+
+	File.open(path,"w+") do |f|
+		f.write t1
+		f.write t2
+		f.write t3
+	end
+end
+
+task :controller do
+	file = ARGV.last.to_s
+	model = file.capitalize
+	
+	path = "app/controllers/#{file}.coffee"
+
+	t1 = "express = require('express')\n"
+	t2 = "app = express.Router()\n"
+	t3 = "require('../../lib/models')()\n\n\n\n\n\n\n"
+	t4 = "module.exports = app"
+	text = "#{t1}\n#{t2}\n#{t3}\n#{t4}"
+	
+	Dir.mkdir("app/views/#{file}",0755)
+	File.open(path,"w+") do |f|
+		f.write t1
+		f.write t2
+		f.write t3
+		f.write t4
+	end
+end

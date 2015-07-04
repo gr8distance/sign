@@ -1,15 +1,13 @@
 express = require("express")
-router = express.Router()
-models = require("../models/model")
-h = require("../helpers/index")
+app = express.Router()
+require("../../lib/models")()
 
-
-router.get "/", (req, res) ->
+app.get "/", (req, res) ->
   res.send "respond with a resource"
   return
 
 
-router.get("/new",(req,res)->
+app.get("/new",(req,res)->
 	#console.log sql
 	f = req.flash("info")
 
@@ -21,7 +19,7 @@ router.get("/new",(req,res)->
 )
 
 #--メールドレスが登録済みかどうかを確認
-router.post("/email_check",(req,res)->
+app.post("/email_check",(req,res)->
 	models.user.find(where: {
 		email: req.body.email
 	}).then((user)->
@@ -33,14 +31,14 @@ router.post("/email_check",(req,res)->
 	)
 )
 
-router.post("/logout",(req,res)->
+app.post("/logout",(req,res)->
 	#req.clearCookie("")
 	req.flash("info","ログアウトしました。")
 	res.redirect("/")
 )
 
 #ユーザーを保存するためのメソッド
-router.post("/",(req,res)->
+app.post("/",(req,res)->
 	data = req.body
 
 	user = models.user.build({
@@ -60,4 +58,4 @@ router.post("/",(req,res)->
 	
 
 
-module.exports = router
+module.exports = app

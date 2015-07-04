@@ -1,10 +1,25 @@
 fs = require("fs")
+routes = require("../app/controllers/")
+
+index= ->
+	console.log "Called index"
+	
+routes = {
+	
+	"/": {
+		func: index,
+		path: "/home/index",
+		method: "get"
+	},
+
+	"/users/": {
+		func: index,
+		path: "/users/index",
+		method: "get"
+	}
+
+}
 
 
-routes = {}
 
-for route in fs.readdirSync("./controllers")
-	unless route.match(/^\./)
-		r = route.split("_")[0]
-		routes["#{r}"] = require("../controllers/#{r}")
-
+module.exports = routes
