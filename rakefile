@@ -4,7 +4,7 @@ task :model do
 	model = file.capitalize
 	
 	path = "app/models/#{file}.coffee"
-	t1 = "sql = require('../../lib/models')()\n"
+	t1 = "sql = require('../../lib/models/sql')\n"
 	t2 = "#{model} = sql.s.define('#{model}',{\n\n\n\n\n\n})\n"
 	t3 = "module.exports = #{model}\n"
 	text = "#{t1}\n#{t2}\n#{t3}"

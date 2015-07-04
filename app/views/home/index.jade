@@ -1,15 +1,23 @@
 extends ../layout
 
 block content
-	if authed
-		h1= authed
-		form(method="post",action="/users/logout")
-			button(class="btn red",type="submit") Logout
+	if user
+		.parallax-container
+			.parallax
+				img.blur(src='/images/colorfull2.jpg', alt='20150626234732')
+		section.section.grey.lighten-5
+			form(action="/users/logout",method="post")
+				button.red.btn ログアウト
+			#scroll_fire.container
+				#card_box.row
+					- for(var i=0;i<18;i++)
+						include ../posts/_card
+
+
 	else
 		section.parallax-container
 			.parallax
 				img(src="/images/colorfull2.jpg",class="blur")
-
 		.row
 			section.col.s12.m4.grey.lighten-5
 				h1.tangerine.cyan-text Aimerthyst
@@ -22,7 +30,7 @@ block content
 						img(src="/images/amethyst_flat.png",class="")
 						span.card-title.ts-grey Aimerthyst
 					.card-content
-						p 運営チームのことをもっと知る
+						a(href="/company")
 					.card-action
 						a(href="") Access!
 

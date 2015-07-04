@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.col.s12.m8
+				h5.font_size_16.brown-text お問い合わせはこちらから
+				form(action='/company', accept-charset='UTF-8', method='post')
+					.input-field
+						input#contact_name(value='', type='text', name='contact[name]')
+						label(for='name_お名前') お名前
+					.input-field
+						input#contact_email(value='', type='email', name='contact[email]')
+						label(for='email_メールアドレス') メールアドレス
+					.input-field
+						textarea#contact_body.materialize-textarea(name='contact[body]')
+						label(for='body_お問い合わせの内容') お問い合わせの内容
+					.input-field
+						button.btn.waves-effect.waves-light.cyan
+							| この内容で問い合わせる
+							i.mdi-content-send
+

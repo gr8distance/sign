@@ -1,0 +1,21 @@
+mixin _card(user)
+	.col.s12.m6(id='posted_126 timeline_id_')
+		article#126.card
+			.card-content
+				.row
+					.col.s2.m3.l2
+						img.responsive-img.circle(src='/images/colorfull2.jpg', alt='')
+					.col.s10.m9.l10
+						span.card-title
+							a.cyan-text(href="")= user.name
+			.card-content
+				p.font_size_15 なんか書かないとねー(*´∀｀*)
+				p.right-align.font_size_10 07/04 18:16
+			.card-action
+				a.orange-text(href="")
+					| 編集
+				a.teal-text(href="") コメント
+				a.right.red-text()
+					i.mdi-action-delete
+
++_card(user)

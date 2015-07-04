@@ -8,16 +8,8 @@ app.get("/", (req, res) ->
 	
 	res.render("home/index",{
 		title: "Aimerthyst",
-		pretty: true,
-		flash: f[0]
-	})
-)
-
-#会社概要のページ
-app.get("/company",(req,res)->
-	res.render("home/company",{
-		title: "Company",
-		pretty: true
+		flash: f[0],
+		user: req.session.user
 	})
 )
 

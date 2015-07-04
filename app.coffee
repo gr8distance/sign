@@ -15,9 +15,6 @@ http = require('http').Server(app)
 io = require('socket.io')(http)
 fs = require("fs")
 _ = require("underscore")
-passport = require("passport")
-LocalStrategy = require("passport-local").Strategy
-h =require("./helpers/")
 require("./lib/models")()
 
 
@@ -40,30 +37,35 @@ app.use bodyParser.json()
 app.use bodyParser.urlencoded()
 app.use cookieParser()
 app.use express.static(path.join(__dirname, "public"))
-
+app.locals.pretty = true
 
 
 
 #-----Routings-----#
+#
+#全コントローラ共通のメソッドを記述
+#クッキーからログイン中かどうかを判別する
+app.get("/*",(req,res,next)->
+	console.log "ログイン中かどうかを判別するよ！クッキーからな！"
+	
+	s_id = req.cookies._echo_app
+	console.log s_id
+	User.find(where: {
+		uniq_session_id: s_id
+	}).then((user)->
+		req.session.user = user
+		next()
+	).catch((err)->
+		console.log "This cookie is unknown!"
+		next()
+	)
+)
 for route in fs.readdirSync("./app/controllers/")
 	unless route.match(/^\./)
 		r = route.split(".")[0]
 		r = if r == "index" then "/" else r
 		app.use("/#{r}",require("./app/controllers/#{r}"))
 #-----Routings-----#
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #/ catch 404 and forward to error handler
@@ -103,6 +105,8 @@ app.use (err, req, res, next) ->
 #-----SocketIO------#
 io.on("connection",(socket)->
 	console.log('user connected')
+
+
 )
 #-----SocketIO------#
 

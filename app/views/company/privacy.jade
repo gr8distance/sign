@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+	section.parallax-container
+		.parallax
+			img.blur(src='/images/colorfull2.jpg', alt='')
+		#over_marhin.center
+			h1.ts-grey.white-text プライバシーポリシー
+			p.white-text.ts-grey 全ての人が使いやすくあるための決め事
+
+	section
+		.container
+			.row
+				.col.s12
+					for i in policies
+						article.card.grey.lighten-5.green-text.z-depth-3
+							.card-content
+								h1.card-title.cyan-text.u_bord 第#{i.id}条::#{i.title}
+								p.font_size_12= i.description
+style.
+	.parallax-container{
+		height: 333px;
+	}
