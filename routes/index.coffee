@@ -1,23 +1,10 @@
-express = require("express")
-router = express.Router()
-
-# GET home page. 
-router.get("/", (req, res) ->
-	f = req.flash("info")
-
-	res.render("home/index",{
-		title: "Aimerthyst",
-		flash: f[0]
-	})
-)
+fs = require("fs")
 
 
-router.get("/company",(req,res)->
-	res.render("home/company",{
-		title: "Company",
-		pretty: true
-	})
-)
+routes = {}
 
+for route in fs.readdirSync("./controllers")
+	unless route.match(/^\./)
+		r = route.split("_")[0]
+		routes["#{r}"] = require("../controllers/#{r}")
 
-module.exports = router

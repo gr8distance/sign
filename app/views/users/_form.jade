@@ -1,0 +1,21 @@
+form(action="/users",method="post",id="user")
+
+	.input-field
+		input(name="name",id="name",type="text",class="validate[required]")
+		label(class="white-text ts-grey",for="name") お名前
+	
+	.input-field
+		span#attention_new_user_email.red-text
+		input(name="email",id="new_user_email",type="email",class="validate[required,custom[email]]")
+		label(class="white-text ts-grey",for="email") メールドレス
+
+	.input-field
+		input(name="password",id="password",type="password",class="validate[required,minSize[8]]")
+		label(class="white-text ts-grey",for="password") パスワード
+	
+	.input-field
+		input(name="password_confirmation",id="password_confirmation",type="password",class="validate[required,equals[password]]")
+		label(class="white-text ts-grey",for="password_confirmation") パスワードの確認
+
+	.input-field.center
+		button(class="btn-large waves-effect white teal-text",id="",type="submit") ユーザー登録

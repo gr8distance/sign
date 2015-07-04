@@ -16,6 +16,11 @@
 		"cookie-parser": "*",
 		"express-session": "*",
 		"connect-flash": "*",
-		"socket.io":"*"
+		"socket.io":"*",
+		"underscore":"*",
+		"mysql":"*",
+		"sequelize": "*",
+		"passport": "*",
+		"passport-local": "*"
   }
 }
