@@ -46,10 +46,12 @@ app.locals.pretty = true
 #全コントローラ共通のメソッドを記述
 #クッキーからログイン中かどうかを判別する
 app.get("/*",(req,res,next)->
-	console.log "ログイン中かどうかを判別するよ！クッキーからな！"
+	#console.log "ログイン中かどうかを判別するよ！クッキーからな！"
 	
 	s_id = req.cookies._echo_app
-	console.log s_id
+
+	console.log "(´・ω・`)`)#{s_id}"
+
 	User.find(where: {
 		uniq_session_id: s_id
 	}).then((user)->
@@ -105,8 +107,11 @@ app.use (err, req, res, next) ->
 #-----SocketIO------#
 io.on("connection",(socket)->
 	console.log('user connected')
-
-
+	
+	socket.on("send_post_card",(data)->
+		socket.broadcast.emit("hand_out_post_card",data)
+	)
+	
 )
 #-----SocketIO------#
 

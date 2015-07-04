@@ -35,7 +35,13 @@ app.post("/email_check",(req,res)->
 #ログアウトするためのメソッド
 app.post("/logout",(req,res)->
 	req.session.user = null
-	if req.session.user == null
+	res.clearCookie("_echo_app")
+
+	if (req.session.user == null) && (req.cookies._echo_app == null)
+		console.log "(*´∀｀*) #{req.session.user}"
+		console.log "(・∀・)！ #{req.cookies._echo_app}"
+
+
 		req.flash("info","ログアウトしました。")
 		res.redirect("/")
 	else

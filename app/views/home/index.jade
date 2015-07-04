@@ -6,8 +6,16 @@ block content
 			.parallax
 				img.blur(src='/images/colorfull2.jpg', alt='20150626234732')
 		section.section.grey.lighten-5
-			form(action="/users/logout",method="post")
-				button.red.btn ログアウト
+			include ../parts/_logout
+
+			.container
+				.row#socket_post_card
+					.input-field
+						textarea(name="body",id="post_body",class="materialize-textarea")
+						label(for="body")なんか書こう
+					.input-field
+						button.btn.cyan#post Post
+
 			#scroll_fire.container
 				#card_box.row
 					- for(var i=0;i<18;i++)
