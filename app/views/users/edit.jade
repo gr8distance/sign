@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+	if current_user
+		.container
+			.row
+				.col.s12.m6
+					.card-panel
+						h5.font_size_18.brown-text 利用者情報を変更
+						form(action="update",method="post")
+							.input-field
+								input(name="name",type="text",value="#{current_user.name}")
+								label(for="name") お名前
+							.input-field
+								input(name="email",type="email",value="#{current_user.email}")
+								label(for="email") メールアドレス
+
+							.input-field
+								button.btn-flat.cyan.white-text(type="submit") 変更
+					
+				.col.s12.m6
+					.card-panel
+						h5.font_size_18.brown-text プロフィールを編集
+						form(action="update",method="post")
+							.input-field
+								textarea.materialize-textarea(name="profile")= current_user.profile
+								label(for="profile") プロフィールの編集
+							.input-field
+								button.btn-flat.white-text.orange 編集
+				
+				.col.s12.m6
+					.card-panel
+						h5.font_size_18.brown-text 画像を変更する
+						form(action="update",method="post")
+							.input-field
+								button.btn-flat.cyan
+									input(name="image",type="file",style="display:none;")
+									label(for="profile") 選ぶ
+							.input-field
+								button.btn-flat.white-text.orange アップロード
+	
+	
+
+	else
+		a(href="/") エラーが発生しました。

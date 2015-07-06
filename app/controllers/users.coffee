@@ -1,10 +1,7 @@
 express = require("express")
 app = express.Router()
+_ = require("underscore")
 require("../../lib/models")()
-
-app.get "/", (req, res) ->
-  res.send "respond with a resource"
-  return
 
 
 app.get("/new",(req,res)->
@@ -17,6 +14,39 @@ app.get("/new",(req,res)->
 		flash: f[0]
 	})
 )
+
+#USERの詳細情報とかいろいろ表示する
+#来訪者向けの項目
+app.get("/:id",(req,res)->
+	id = req.params.id
+	User.findById(id).then((user)->
+		user.getPosts().then((posts)->
+			res.render("users/show",{
+				title: user.name,
+				user: user,
+				posts: posts
+			})
+		)
+	).catch((err)->
+		req.flash("info","ユーザーが見つかりません(´・ω・)")
+		req.redirect("/")
+	)
+)
+
+
+app.get("/:id/edit",(req,res)->
+	if req.session.current_user?
+		res.render("users/edit",{
+			titiel: "プロフィールの編集",
+			current_user: req.session.current_user
+		})
+	else
+		req.flash("info","ログインして下さい")
+		res.redirect("/")
+)
+
+
+
 
 #--メールドレスが登録済みかどうかを確認
 app.post("/email_check",(req,res)->
@@ -34,18 +64,16 @@ app.post("/email_check",(req,res)->
 
 #ログアウトするためのメソッド
 app.post("/logout",(req,res)->
-	req.session.user = null
+	req.session.current_user = null
 	res.clearCookie("_echo_app")
 
-	if (req.session.user == null) && (req.cookies._echo_app == null)
-		console.log "(*´∀｀*) #{req.session.user}"
-		console.log "(・∀・)！ #{req.cookies._echo_app}"
-
-
-		req.flash("info","ログアウトしました。")
+	if (req.session.current_user?) && (req.cookies._echo_app?)
+		req.flash("info","ログアウトに失敗しました")
 		res.redirect("/")
 	else
-		req.flash("info","ログインに失敗しました")
+		#console.log "(*´∀｀*) #{req.session.user}"
+		#console.log "(・∀・)！ #{req.cookies._echo_app}"
+		req.flash("info","ログアウトしました。")
 		res.redirect("/")
 )
 
@@ -64,7 +92,7 @@ app.post("/",(req,res)->
 	user.save().then((user)->
 		req.flash("info","ユーザー登録に成功しました(*´∀｀*)")
 		req.user = user
-		res.cookie("_echo_app",user.uniq_session_id,{maxAge: 66600})
+		res.cookie("_echo_app",user.uniq_session_id,{maxAge: (60 * 60 * 48)})
 
 		res.redirect("/")
 	).catch((err)->

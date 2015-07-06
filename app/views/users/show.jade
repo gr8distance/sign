@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	.row
+		.col.s12.m4
+			article.card
+				.card-content
+					h1.font_size_28.cyan-text= user.name
+					p.font_size_14 なんか自己紹介記事とか書いといたらいいかな
+				.card-action
+					a.btn-flat.cyan.white-text フォロー
+
+		.col.s12.m8
+			for post in posts
+				include ../home/_post

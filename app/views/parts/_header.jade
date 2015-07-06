@@ -3,14 +3,76 @@ header
 		#header_margin.containers
 			a.brand-logo.cyan-text.thin.tangerine(href='/') Aimerthyst
 				ul#nav-mobile.right.hide-on-med-and-down
+					if current_user
+						li
+							a(href="#!" class="dropdown-button cyan-text" data-activates="current_user_dropdown") プロフィール
 					li
-						a.dropdown-button.cyan-text(data-activates='company_info', href='#!') 運営チームについて
-				ul#company_info.dropdown-content
-					li
-						a(href='/company') 会社概要
-					li
-						a(href='') 特定商取引に基づく表記
-					li
-						a(href='/company/privacy_policy') プライバシーポリシー
-					li
-						a(href='/company/contact') お問い合わせ
+						a(href="#!" class="dropdown-button cyan-text" data-activates="company_info") 運営チームについて
+
+				
+				if current_user
+					ul#mobile-demo.side-nav
+						img.responsive-img(src='/images/amethyst_flat.png', alt='ユーザーの画像')
+						a(href='/')
+							.row
+								.col.s4
+									img.responsive-img.circle.small(alt='UG', src='/images/amethyst_flat.png')
+								.col.s8
+									h5.cyan-text UG
+						p
+							li
+								.row
+									.col.s2
+										i.mdi-action-home.small.cyan-text
+									.col.s10
+										a.cyan-text(href='/') ホーム
+						li
+							.row
+								.col.s2
+									i.mdi-av-queue-music.cyan-text.small
+								.col.s10
+									a.cyan-text(href='/songs') 楽曲一覧
+						li
+							.row
+								.col.s2
+									i.mdi-action-group-work.cyan-text.small
+								.col.s10
+									a.cyan-text(href='/coteries') サークル
+						li
+							.row
+								.col.s2
+									i.mdi-action-account-circle.cyan-text.small
+								.col.s10
+									a.cyan-text(href='/friends') 友だち
+						li
+							.row
+								.col.s2
+									i.mdi-action-assignment-ind.cyan-text.small
+								.col.s10
+									a.cyan-text(href="/users/#{current_user}/edit") プロフィール
+						li.pink-text
+							.row
+								.col.s2
+									i.mdi-action-lock-open.small
+								.col.s10
+									form(action="/users/logout",method="post")
+										button.btn-flat.pink-text ログアウト
+
+if current_user	
+	ul.dropdown-content#current_user_dropdown
+		li
+			a(href="")= current_user.name
+		li
+			form(action="/users/logout",method="post")
+				button.btn-flat.red.white-text
+					i.mdi-action-lock-open ログアウト
+
+ul#company_info.dropdown-content
+	li
+		a(href='/company') 会社概要
+	li
+		a(href='') 特定商取引に基づく表記
+	li
+		a(href='/company/privacy_policy') プライバシーポリシー
+	li
+		a(href='/company/contact') お問い合わせ

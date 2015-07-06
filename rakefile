@@ -2,12 +2,13 @@
 task :model do
 	file = ARGV.last.to_s
 	model = file.capitalize
-	
+
 	path = "app/models/#{file}.coffee"
+	us = "_=require('underscore')\n"
 	t1 = "sql = require('../../lib/models/sql')\n"
-	t2 = "#{model} = sql.s.define('#{model}',{\n\n\n\n\n\n})\n"
+	t2 = "#{model} = sql.s.define('#{model}',{\n\n\n\n\n\n},{underscored: true})\n"
 	t3 = "module.exports = #{model}\n"
-	text = "#{t1}\n#{t2}\n#{t3}"
+	text = "#{us}\n#{t1}\n#{t2}\n#{t3}"
 
 	File.open(path,"w+") do |f|
 		f.write t1
@@ -22,11 +23,12 @@ task :controller do
 	
 	path = "app/controllers/#{file}.coffee"
 
+	us = "_=require('underscore')\n"
 	t1 = "express = require('express')\n"
 	t2 = "app = express.Router()\n"
 	t3 = "require('../../lib/models')()\n\n\n\n\n\n\n"
 	t4 = "module.exports = app"
-	text = "#{t1}\n#{t2}\n#{t3}\n#{t4}"
+	text = "#{us}\n#{t1}\n#{t2}\n#{t3}\n#{t4}"
 	
 	Dir.mkdir("app/views/#{file}",0755)
 	File.open(path,"w+") do |f|

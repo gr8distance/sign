@@ -4,10 +4,6 @@ Session = sql.s.define("Session",{
 	session_id: {
 		type: sql.S.STRING,
 		allowNull: false
-	},
-	user_id: {
-		type: sql.S.STRING,
-		allowNull: false
 	}
 })
 

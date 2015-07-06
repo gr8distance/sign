@@ -19,6 +19,10 @@ html(lang="ja")
 		block content
 		
 		include parts/_footer
+
+		if current_user
+			include parts/_button
+
 		script(src="/js/main.js")
 		script(src="/socket.io/socket.io.js")
 		script(src="/js/socket.js")

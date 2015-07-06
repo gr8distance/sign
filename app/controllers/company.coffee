@@ -1,5 +1,6 @@
 express = require('express')
 app = express.Router()
+_ = require("underscore")
 require('../../lib/models')()
 
 app.get("/",(req,res)->

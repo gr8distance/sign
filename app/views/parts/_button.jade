@@ -1,0 +1,22 @@
+//投稿するためのフォームを記述したブロック
+#create_post.modal
+	.modal-content
+		.row#socket_post_card
+			.input-field
+				textarea(name="body",id="post_body",class="materialize-textarea")
+				label(for="body") なんか書こう
+			.input-field
+				input(type="hidden",value="#{current_user.id}",id="user_id")
+				button.btn.cyan#post Post
+	.modal-footer
+		a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') Close
+
+//投稿するためのフォームを呼び出すためのコード
+.fixed-action-btn(style='bottom: 25px; right: 24px;')
+	a.btn-floating.btn-large.red.waves-effect.waves-light.btn.modal-trigger(href='#create_post')
+		i.large.mdi-content-add.rotate_icon
+
+//メニューを呼び出すためのコード
+.fixed-action-btn(style='bottom: 24px; left: 24px; width: 66px; height: 66px;')
+	a.button-collapse.btn-floating.btn-large.cyan(data-activates='mobile-demo', href='#')
+		i.mdi-navigation-menu.rotate_icon

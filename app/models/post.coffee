@@ -4,12 +4,12 @@ Post = sql.s.define('Post',{
 	body: {
 		type: sql.S.TEXT,
 		allowNull: false
-	},
-	user_id: {
-		type: sql.S.INTEGER,
+	},user_name: {
+		type: sql.S.STRING,
 		allowNull: false
+	},user_image: {
+		type: sql.S.STRING
 	}
-
 },{
 	underscored: true
 })

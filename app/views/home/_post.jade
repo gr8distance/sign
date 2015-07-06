@@ -1,10 +1,15 @@
-mixin _post(i)
-	.col.s12.m6
+mixin _post(post)
+	article.col.s12.m6(id="posted_card_#{post.id}")
 		.card
-			.card-image
-				img(src="/images/amethyst.jpg")
-				span.card-title.ts-grey= i
 			.card-content
-				p テストのカード:
+				.row
+					.col.s2.m3.l2
+						img(src="/images/amethyst_flat.png",class="circle responsive-img")
+					.col.s10.m9.l10
+						span.card-title.cyan-text= post.user_name
+			.card-content
+				p= post.body
 			.card-action
-				a(href="") show more...
+				a(href="/posts/#{post.id}",class="teal-text") コメント
+
++_post(post)
