@@ -19,7 +19,6 @@ end
 
 task :controller do
 	file = ARGV.last.to_s
-	model = file.capitalize
 	
 	path = "app/controllers/#{file}.coffee"
 
@@ -28,7 +27,6 @@ task :controller do
 	t2 = "app = express.Router()\n"
 	t3 = "require('../../lib/models')()\n\n\n\n\n\n\n"
 	t4 = "module.exports = app"
-	text = "#{us}\n#{t1}\n#{t2}\n#{t3}\n#{t4}"
 	
 	Dir.mkdir("app/views/#{file}",0755)
 	File.open(path,"w+") do |f|

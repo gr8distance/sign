@@ -34,6 +34,9 @@ createModels = ->
 	Comment.belongsTo(User)
 	Comment.belongsTo(Post)
 
+	User.hasMany(Session)
+	Session.belongsTo(User)
+
 	
 #sql.s.sync({force: true})
 #sql.s.sync()

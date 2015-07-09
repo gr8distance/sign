@@ -34,5 +34,10 @@ User.make_session = (name,email)->
 	sha512.update(s)
 	return sha512.digest('hex')
 
+
+
+
 #sql.s.sync({force: true})
+#
+#
 module.exports = User

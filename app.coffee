@@ -17,7 +17,6 @@ fs = require("fs")
 _ = require("underscore")
 require("./lib/models")()
 
-
 #-----Flash-----#
 app.use(session({
     secret: "fhaioehf83cyfiqc9qy4cbre8cyo8fneo8cfg8oac8fwbufbghwcvfi7tcew",
@@ -41,26 +40,24 @@ app.locals.pretty = true
 
 
 
-#-----Routings-----#
-
-#全コントローラ共通のメソッドを記述
-#クッキーからログイン中かどうかを判別する
-app.get("/*",(req,res,next)->
-	s_id = req.cookies._echo_app
-	#console.log "ログイン中かどうかを判別するよ！クッキーからな！"
-	#console.log "(´・ω・`)`)#{s_id}"
-	
-	User.find(where: {
-		uniq_session_id: s_id
-	}).then((user)->
-		req.session.current_user = user
-		#console.log req.session.current_user
-		next()
-	).catch((err)->
-		console.log "This cookie is unknown!"
-		next()
-	)
-)
+##全コントローラ共通のメソッドを記述
+##クッキーからログイン中かどうかを判別する
+#app.get("/*",(req,res,next)->
+#	s_id = req.cookies._echo_app
+#	#console.log "ログイン中かどうかを判別するよ！クッキーからな！"
+#	#console.log "(´・ω・`)`)#{s_id}"
+#	
+#	User.find(where: {
+#		uniq_session_id: s_id
+#	}).then((user)->
+#		req.session.current_user = user
+#		#console.log req.session.current_user
+#		next()
+#	).catch((err)->
+#		console.log "This cookie is unknown!"
+#		next()
+#	)
+#)
 
 for route in fs.readdirSync("./app/controllers/")
 	unless route.match(/^\./)

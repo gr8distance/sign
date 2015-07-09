@@ -7,7 +7,7 @@ block content
 				.col.s12.m6
 					.card-panel
 						h5.font_size_18.brown-text 利用者情報を変更
-						form(action="update",method="post")
+						form(action="/users/#{current_user.id}",method="post")
 							.input-field
 								input(name="name",type="text",value="#{current_user.name}")
 								label(for="name") お名前
@@ -21,7 +21,7 @@ block content
 				.col.s12.m6
 					.card-panel
 						h5.font_size_18.brown-text プロフィールを編集
-						form(action="update",method="post")
+						form(action="/users/#{current_user.id}",method="post")
 							.input-field
 								textarea.materialize-textarea(name="profile")= current_user.profile
 								label(for="profile") プロフィールの編集
@@ -31,7 +31,7 @@ block content
 				.col.s12.m6
 					.card-panel
 						h5.font_size_18.brown-text 画像を変更する
-						form(action="update",method="post")
+						form(action="/users/#{current_user.id}",method="post")
 							.input-field
 								button.btn-flat.cyan
 									input(name="image",type="file",style="display:none;")
