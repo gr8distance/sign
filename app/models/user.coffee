@@ -23,6 +23,9 @@ User = sql.s.define("User",{
 	},last_login: {
 		type: sql.S.DATE,
 		defaultValue: new Date
+	},
+	description: {
+		type: sql.S.TEXT
 	}
 },{
 	paranoid: true,
@@ -33,9 +36,6 @@ User.make_session = (name,email)->
 	sha512 = crypto.createHash('sha512')
 	sha512.update(s)
 	return sha512.digest('hex')
-
-
-
 
 #sql.s.sync({force: true})
 #

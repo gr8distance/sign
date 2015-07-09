@@ -12,11 +12,18 @@ header
 				
 				if current_user
 					ul#mobile-demo.side-nav
-						img.responsive-img(src='/images/amethyst_flat.png', alt='ユーザーの画像')
+						if current_user.image
+							img.responsive-img(src="#{current_user.image}", alt='#{current_user.name}')
+						else
+							img.responsive-img(src='/images/amethyst_flat.png', alt='#{current_user.name}')
+
 						a(href='/')
 							.row
 								.col.s4
-									img.responsive-img.circle.small(alt='UG', src='/images/amethyst_flat.png')
+									if current_user.image
+										img.responsive-img.circle.small(alt="#{current_user.name}", src="#{current_user.image}")
+									else
+										img.responsive-img.circle.small(alt="#{current_user.name}",src="/images/aimerthyst_flat.png")
 								.col.s8
 									h5.cyan-text UG
 						p

@@ -1,14 +1,20 @@
 mixin _post(post)
-	article.col.s12.m6(id="posted_card_#{post.id}")
+	article.col.s12.m6.l4(id="posted_card_#{post.id}")
 		.card
 			.card-content
 				.row
 					.col.s2.m3.l2
-						img(src="/images/amethyst_flat.png",class="circle responsive-img")
+						if post.user_image
+							img(src="#{post.user_image}",class="circle  responsive-img")
+						else
+							img(src="/images/amethyst_flat.png",class="circle responsive-img")
+
 					.col.s10.m9.l10
 						span.card-title.cyan-text= post.user_name
-			.card-content
+				
 				p= post.body
+				span.font_size_10.right= post.updated_at
+
 			.card-action
 				a(href="/posts/#{post.id}",class="teal-text") コメント
 

@@ -2,6 +2,12 @@ extends ../layout
 
 block content
 	if current_user
+		section.parallax-container
+			.parallax
+				if current_user.image != null || typeof current_user.image != "undefined"
+					img(src="#{current_user.image}")
+				else
+					img(src="/images/colorfull2.jpg")
 		.container
 			.row
 				.col.s12.m6
@@ -14,28 +20,21 @@ block content
 							.input-field
 								input(name="email",type="email",value="#{current_user.email}")
 								label(for="email") メールアドレス
+							.input-field
+								textarea.materialize-textarea(name="description")= current_user.description
+								label(for="description") プロフィールの編集
 
 							.input-field
 								button.btn-flat.cyan.white-text(type="submit") 変更
 					
-				.col.s12.m6
-					.card-panel
-						h5.font_size_18.brown-text プロフィールを編集
-						form(action="/users/#{current_user.id}",method="post")
-							.input-field
-								textarea.materialize-textarea(name="profile")= current_user.profile
-								label(for="profile") プロフィールの編集
-							.input-field
-								button.btn-flat.white-text.orange 編集
 				
 				.col.s12.m6
 					.card-panel
 						h5.font_size_18.brown-text 画像を変更する
-						form(action="/users/#{current_user.id}",method="post")
+						form(action="/users/#{current_user.id}/image",method="post",enctype="multipart/form-data",id="file_field")
 							.input-field
-								button.btn-flat.cyan
-									input(name="image",type="file",style="display:none;")
-									label(for="profile") 選ぶ
+								input(type="file",name="image",id="image")
+							
 							.input-field
 								button.btn-flat.white-text.orange アップロード
 	

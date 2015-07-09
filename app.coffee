@@ -16,6 +16,7 @@ io = require('socket.io')(http)
 fs = require("fs")
 _ = require("underscore")
 require("./lib/models")()
+multer = require("multer")
 
 #-----Flash-----#
 app.use(session({
@@ -34,6 +35,13 @@ app.use favicon()
 app.use logger("dev")
 app.use bodyParser.json()
 app.use bodyParser.urlencoded()
+#画像のアップロードについていろいろ！
+app.use(multer({
+	dest: './public/uploads/images',
+	rename: (fieldname, filename, req, res)->
+		d = new Date
+		return "#{d.getTime()*18}"
+}))
 app.use cookieParser()
 app.use express.static(path.join(__dirname, "public"))
 app.locals.pretty = true
@@ -42,22 +50,18 @@ app.locals.pretty = true
 
 ##全コントローラ共通のメソッドを記述
 ##クッキーからログイン中かどうかを判別する
-#app.get("/*",(req,res,next)->
-#	s_id = req.cookies._echo_app
-#	#console.log "ログイン中かどうかを判別するよ！クッキーからな！"
-#	#console.log "(´・ω・`)`)#{s_id}"
-#	
-#	User.find(where: {
-#		uniq_session_id: s_id
-#	}).then((user)->
-#		req.session.current_user = user
-#		#console.log req.session.current_user
-#		next()
-#	).catch((err)->
-#		console.log "This cookie is unknown!"
-#		next()
-#	)
-#)
+app.get("/*",(req,res,next)->
+	s_id = req.cookies.remember_me
+	User.find(where: {
+		uniq_session_id: s_id
+	}).then((user)->
+		req.session.current_user = user
+		next()
+	).catch((err)->
+		console.log "This cookie is unknown!"
+		next()
+	)
+)
 
 for route in fs.readdirSync("./app/controllers/")
 	unless route.match(/^\./)
@@ -113,12 +117,12 @@ io.on("connection",(socket)->
 		socket_id = data.socket_id
 
 		User.findById(data.user_id).then((user)->
-			Post.build({
+			Post.create({
 				body: data.body,
 				user_id: data.user_id,
 				user_name: user.name,
 				user_image: user.image
-			}).save().then((post)->
+			}).then((post)->
 				
 				data = {}
 				data.id = post.id
@@ -126,6 +130,7 @@ io.on("connection",(socket)->
 				data.user_id = post.user_id
 				data.user_name = post.user_name
 				data.user_image = post.user_image
+				data.created_at = post.created_at
 
 				io.sockets.emit("hand_out_post_card",data)
 			).catch((err)->

@@ -1,5 +1,6 @@
 express = require("express")
 app = express.Router()
+easyimg = require("easyimage")
 _ = require("underscore")
 require("../../lib/models")()
 
@@ -27,7 +28,9 @@ app.post("/",(req,res)->
 	})
 	
 	user.save().then((user)->
-		req.session.current_user = user.dataValues
+		req.session.current_user = user
+		res.cookie("remember_me",user.uniq_session_id)
+
 		req.flash("info","ユーザー登録が完了しました(・∀・)！ようこそAimethystへ")
 		res.redirect("/")
 	).catch((err)->
@@ -57,25 +60,55 @@ app.get("/:id",(req,res)->
 
 
 app.post("/:id",(req,res)->
-	id = req.params
-	console.log id
-
+	id = req.params.id
 	data = req.body
-	console.log data
-
-	res.redirect("/users/#{id.id}")
-	User.update(data,where: {
-		id: id.id
-	},data)
+	
+	User.findById(id).then((user)->
+		user.updateAttributes(data)
+	).then((user)->
+		req.flash("info","ユーザー情報を更新しました")
+		res.redirect("/users/#{user.id}/edit")
+	).catch((err)->
+		console.log "Failed update in user info"
+		console.log err
+	)
 )
 
+app.post("/:id/image",(req,res)->
+	id = req.params.id
+	file = req.files
+	console.log file.image.name
+
+	easyimg.rescrop({
+		src: file.image.path,
+		dest: "./uploads/images/thumb_#{file.image.name}",
+		width: 250,
+		height: 250,
+		fill: true
+	})
+	console.log file.image.name
+	
+	User.findById(id).then((user)->
+		user.updateAttributes({
+			image: "/uploads/images/#{file.image.name}"
+		}).then((user)->
+			req.flash("info","画像をアップロードしました。")
+			res.redirect("/users/#{id}/edit")
+		).catch((err)->
+			console.log err
+			req.flash("info","ファイルのアップロードに失敗しました")
+			res.redirect("/")
+		)
+	)
+)
 
 #編集ページ
 app.get("/:id/edit",(req,res)->
 	if req.session.current_user?
 		res.render("users/edit",{
 			titiel: "プロフィールの編集",
-			current_user: req.session.current_user
+			current_user: req.session.current_user,
+			flash: req.flash("info")[0]
 		})
 	else
 		req.flash("info","ログインして下さい")
