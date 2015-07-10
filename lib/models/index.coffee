@@ -37,7 +37,10 @@ createModels = ->
 	User.hasMany(Session)
 	Session.belongsTo(User)
 	
+	User.hasMany(Friend)
+	Friend.belongsTo(User)
 	
 #sql.s.sync({force: true})
 #sql.s.sync()
+
 module.exports = createModels

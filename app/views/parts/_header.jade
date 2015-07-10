@@ -17,7 +17,7 @@ header
 						else
 							img.responsive-img(src='/images/amethyst_flat.png', alt='#{current_user.name}')
 
-						a(href='/')
+						a(href='/users/#{current_user.id}')
 							.row
 								.col.s4
 									if current_user.image
@@ -25,7 +25,7 @@ header
 									else
 										img.responsive-img.circle.small(alt="#{current_user.name}",src="/images/aimerthyst_flat.png")
 								.col.s8
-									h5.cyan-text UG
+									h5.cyan-text= current_user.name
 						p
 							li
 								.row

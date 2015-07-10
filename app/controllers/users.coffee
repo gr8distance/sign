@@ -49,7 +49,8 @@ app.get("/:id",(req,res)->
 			res.render("users/show",{
 				title: user.name,
 				user: user,
-				posts: posts
+				posts: posts,
+				current_user: req.session.current_user
 			})
 		)
 	).catch((err)->

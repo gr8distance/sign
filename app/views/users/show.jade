@@ -1,12 +1,21 @@
 extends ../layout
 
 block content
+	section.parallax-container
+		.parallax
+			if user.image
+				img(src="#{user.image}")
+			else
+				img(src="/images/colorfull2.jpg").blur
+				
 	.row
 		.col.s12.m4
 			article.card
 				.card-content
 					h1.font_size_28.cyan-text= user.name
-					p.font_size_14 なんか自己紹介記事とか書いといたらいいかな
+					if user.description
+						p.font_size_14!= user.description.replace(/\n/g,"<br/>")
+
 				.card-action
 					a.btn-flat.cyan.white-text フォロー
 

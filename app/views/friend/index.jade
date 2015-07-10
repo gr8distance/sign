@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	section.parallax-container
+		.parallax
+			img(src="/images/colorfull2.jpg").blur
+
+	.row
+		.col.m3.hide-on-mobile-only
+			ul.collection.with-header
+				li.collection-header
+					h5.cyan-text 一覧
+				for user in users
+					li.collection-item
+						a(href="/users/#{user.id}")= user.name
+		
+		.col.m9
+			.row
+				for user in users
+					article.col.s12.m6.l4
+						.card.small
+							.card-image
+								if user.image
+									img(src="#{user.image}")
+								else
+									img(src="/images/colorfull2.jpg").blur
+							.card-content
+								span.card-title
+									a(href="/users/#{user.id}").cyan-text= user.name
+							.card-action
+								if (friends.indexOf(user.id)) >= 0
+									form(action="/friends/unfollow",method="post")
+										input(type="hidden",value="#{user.id}",name="friend_id")
+										input(type="hidden",value="#{current_user.id}",name="user_id")
+										button.btn-flat.pink.white-text.waves-effect.waves-light フォロー中
+								else
+									form(action="/friends/follow",method="post")
+										input(type="hidden",value="#{user.id}",name="friend_id")
+										input(type="hidden",value="#{current_user.id}",name="user_id")
+										button.btn-flat.blue.white-text.waves-effect.waves-light フォロー

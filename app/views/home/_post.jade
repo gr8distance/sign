@@ -10,7 +10,8 @@ mixin _post(post)
 							img(src="/images/amethyst_flat.png",class="circle responsive-img")
 
 					.col.s10.m9.l10
-						span.card-title.cyan-text= post.user_name
+						span.card-title
+							a.cyan-text(href="/users/#{post.user_id}")= post.user_name
 				
 				p!= post.body.replace(/\n/g,"<br/>")
 				span.font_size_10.right= post.updated_at

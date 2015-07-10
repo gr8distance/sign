@@ -14,7 +14,8 @@ html(lang="ja")
 		link(href='/images/amethyst_flat.png', rel='shortcut icon')
 		link(href='/images/amethyst_flat.png', rel='apple-touch-icon')
 		title= title
-	body
+
+	body.grey.lighten-5
 		include parts/_header		
 		
 		block content
@@ -30,5 +31,6 @@ html(lang="ja")
 		script(src="/js/jquery.validationEngine.js")
 		script(src="/js/jquery.validationEngine-ja.js")
 		script(src="/js/validate.js")
+		script(src="/js/style.js")
 		include parts/_flash
 		

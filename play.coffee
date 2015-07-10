@@ -2,6 +2,7 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-Post.findById(12).then((post)->
-	console.log post.dataValues
+Friend.findAll().then((friends)->
+	for friend in friends
+		console.log friend.dataValues
 )
