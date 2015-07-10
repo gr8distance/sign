@@ -34,8 +34,8 @@ $ ->
 			<div class='col s2 m3 l2'><img src='#{if data.user_image? then data.user_image else "/images/amethyst_flat.png"}' class='circle responsive-img'></div>
 			<div class='col s10 m9 l10'><span class='card-title cyan-text'>#{data.user_name}</span></div>
 			</div>
-			<p>#{data.body}</p>
-			<span class='font_size_10'>#{data.created_at}</span>
+			<p>#{data.body.replace(/\n/g,'<br/>')}</p>
+			<span class='font_size_10 right'>#{data.created_at}</span>
 			</div>
 			<div class='card-action'><a href='/posts/#{data.id}' class='teal-text'>コメント</a></div>
 			</div>
