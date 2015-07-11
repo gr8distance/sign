@@ -10,7 +10,18 @@ $ ->
 		selectMonths: true, #Creates a dropdown to control month
 		selectYears: 15 #Creates a dropdown of 15 years to control year
 	})
+	w = $(window)
+	h = w.height()
+	$("#before_login_page").css({
+		height: h
+	})
 
+	wrf = $(".show_write_rep")
+	wrf.on("click",->
+		this_id =  $(this).attr("id")
+		form_id = "#{this_id}_form"
+		$("##{form_id}").slideToggle()
+	)
 
 	w = $(window)
 	parallax= $(".parallax-container")
