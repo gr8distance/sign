@@ -6,8 +6,9 @@ html(lang="ja")
 		meta(content='', name='keyword')
 		meta(content='', name='descripiton')
 		
-		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/css/materialize.css')
 		link(rel='stylesheet', href='/css/style.css')
+		link(rel='stylesheet', href='/css/main.css')
 		link(rel='stylesheet', href='/css/validationEngine.jquery.css')
 
 		link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
@@ -24,8 +25,9 @@ html(lang="ja")
 
 		if current_user
 			include parts/_button
-
-		script(src="/js/main.js")
+		
+		script(src="/js/jquery.js")
+		script(src="/js/materialize.js")
 		script(src="/socket.io/socket.io.js")
 		script(src="/js/socket.js")
 		script(src="/js/jquery.validationEngine.js")

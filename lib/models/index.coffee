@@ -40,6 +40,12 @@ createModels = ->
 	User.hasMany(Friend)
 	Friend.belongsTo(User)
 	
+	User.hasMany(Song)
+	Song.belongsTo(User)
+	
+	User.hasMany(Cotery)
+	Cotery.belongsTo(User)
+
 #sql.s.sync({force: true})
 #sql.s.sync()
 

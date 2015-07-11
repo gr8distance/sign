@@ -35,6 +35,7 @@ app.use favicon()
 app.use logger("dev")
 app.use bodyParser.json()
 app.use bodyParser.urlencoded()
+
 #画像のアップロードについていろいろ！
 app.use(multer({
 	dest: './public/uploads/images',
@@ -42,11 +43,10 @@ app.use(multer({
 		d = new Date
 		return "#{d.getTime()*18}"
 }))
+
 app.use cookieParser()
 app.use express.static(path.join(__dirname, "public"))
 app.locals.pretty = true
-
-
 
 ##全コントローラ共通のメソッドを記述
 ##クッキーからログイン中かどうかを判別する
@@ -117,23 +117,20 @@ io.on("connection",(socket)->
 		socket_id = data.socket_id
 
 		User.findById(data.user_id).then((user)->
+			#ひとまずすべてのユーザーにデータをEmitする
+			data.user_id = user.id
+			data.user_name = user.name
+			data.user_image = user.image
+			data.created_at = new Date()
+			io.sockets.emit("hand_out_post_card",data)
+
+			#エミットした後にDBに保存する
 			Post.create({
 				body: data.body,
 				user_id: data.user_id,
 				user_name: user.name,
 				user_image: user.image
-			}).then((post)->
-				
-				data = {}
-				data.id = post.id
-				data.body = post.body
-				data.user_id = post.user_id
-				data.user_name = post.user_name
-				data.user_image = post.user_image
-				data.created_at = post.created_at
-
-				io.sockets.emit("hand_out_post_card",data)
-			).catch((err)->
+			}).catch((err)->
 				console.log err
 			)
 		).catch((err)->

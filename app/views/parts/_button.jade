@@ -1,15 +1,71 @@
-//投稿するためのフォームを記述したブロック
-#create_post.modal
-	.modal-content
-		.row#socket_post_card
-			include ../posts/_form
-	.modal-footer
-		a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') Close
 
-//投稿するためのフォームを呼び出すためのコード
-.fixed-action-btn(style='bottom: 25px; right: 24px;')
-	a.btn-floating.btn-large.red.waves-effect.waves-light.btn.modal-trigger(href='#create_post')
-		i.large.mdi-content-add.rotate_icon
+
+case btn
+	when "home"
+		//投稿するためのフォームを記述したブロック
+		#create_post.modal
+			.modal-content
+				.row#socket_post_card
+					include ../posts/_form
+			.modal-footer
+				a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') Close
+
+		//投稿するためのフォームを呼び出すためのコード
+		.fixed-action-btn(style='bottom: 25px; right: 24px;')
+			a.btn-floating.btn-large.red.waves-effect.waves-light.btn.modal-trigger(href='#create_post')
+				i.large.mdi-content-add.rotate_icon
+	
+	when "cotery"
+		#create_new_cotery.modal
+			.modal-content
+				h5.font_size_18.brown-text 新しいサークルを作成する
+				form#new_cotery.new_cotery(action='/coteries', accept-charset='UTF-8', method='post')
+					.input-field
+						input#enter_coteries_name(type='text', name='name')
+						label(for='cotery_name') サークル名
+					.input-field
+						textarea#cotery_description.materialize-textarea(name='description')
+						label(for='cotery_description') サークルの説明
+					.input-field
+						p
+							input(type='checkbox', value='1', name="permit")#permit
+							label(for='permit') 誰でも参加できるようにする場合はチェックをつけてね(｀･ω･´)ゞ
+					.input-field
+						button.btn.cyan サークルを設立する
+			.modal-action
+				a.right.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') close
+
+		//サークルを作成するためのフォームを呼び出すコード
+		.fixed-action-btn(style='bottom: 25px; right: 24px;')
+			a.btn-floating.btn-large.yellow.waves-effect.modal-trigger(href='#create_new_cotery')
+				i.large.mdi-content-add.rotate_icon
+	
+	when "song"
+		#upload_song.modal
+			.modal-content
+				form#new_song.new_song(enctype='multipart/form-data', action='/songs', accept-charset='UTF-8', method='post')
+					.input-field
+						input#song_name(type='text', name='song[name]')
+						label(for='song_name') 曲名
+						input#song_user_id(type='hidden', value='1', name='song[user_id]')
+					.input-field
+						p.btn
+							| ジャケットをアップロード
+							input#song_image(type='file', name='song[image]')
+					.input-field
+						p.btn
+							| 楽曲アップロード
+							input#song_data(type='file', name='song[data]')
+					.input-field
+						button.btn.cyan.waves-effect.waves-light 投稿
+			.modal-action
+				a.right.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') close
+		
+		//楽曲を公開するためのフォームを呼び出すコード					
+		.fixed-action-btn(style='bottom: 25px; right: 25px;')
+			a.btn-floating.btn-large.teal.accent-2.waves-effect.waves-light.btn.modal-trigger(href='#upload_song')
+				i.large.mdi-content-add.rotate_icon
+
 
 //メニューを呼び出すためのコード
 .fixed-action-btn(style='bottom: 24px; left: 24px; width: 66px; height: 66px;')

@@ -27,7 +27,7 @@ $ ->
 
 	socket.on("hand_out_post_card",(data)->
 
-		post_card = "<article id='posted_card_#{data.id}' class='col s12 m6'>
+		post_card = "<article id='posted_card_#{data.id}' class='col s12 m6 l4'>
 			<div class='card'>
 			<div class='card-content'>
 			<div class='row'>

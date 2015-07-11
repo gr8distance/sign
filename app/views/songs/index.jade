@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+	section.parallax-container
+		.parallax
+			if current_user.image
+				img(src="#{current_user.image}")
+			else
+				img(src="/images/colorfull2.jpg")
+
+	.container
+		.row
+			if songs.length != 0
+				for song in songs
+					article.col.s12.m6.ml4
+						.card
+							.card-image
+								if song.image
+									img(src="#{song.image}")
+								else
+									img(src="/images/amethyst_flat.png")
+								span.card-title.ts-grey.white-text= song.name
+							.card-action
+								audio(src="#{song.data}",controls)
+			else
+				h1 nothing song	

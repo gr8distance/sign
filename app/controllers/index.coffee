@@ -12,7 +12,7 @@ app.get("/", (req, res) ->
 		v_posts = []
 		friends = [user.dataValues.id]
 
-		Post.findAll(where:{user_id: friends},order: "updated_at desc").then((posts)->
+		Post.findAll(where:{user_id: friends},order: "updated_at desc",limit: 18).then((posts)->
 			for post in posts
 				v_posts.push post.dataValues
 
@@ -21,7 +21,8 @@ app.get("/", (req, res) ->
 				title: "Aimerthyst:ホーム",
 				flash: req.flash("info")[0],
 				current_user: req.session.current_user,
-				posts: v_posts
+				posts: v_posts,
+				btn: "home"
 			})
 		).catch((err)->
 			console.log err
@@ -29,8 +30,9 @@ app.get("/", (req, res) ->
 			res.redirect("/")
 		)
 	else
-
+		v_posts = []
 		res.render("home/index",{
+			posts: v_posts,
 			title: "Aimerthyst:ホーム",
 			flash: req.flash("info")[0],
 		})

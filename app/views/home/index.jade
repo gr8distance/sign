@@ -14,9 +14,20 @@ block content
 					if posts.length != 0
 						for post in posts
 							include _post
-					else
-						include ../posts/_form
-						
+
+				//追加の記事を読み込むときはこれQ
+				#read_more.center
+					.preloader-wrapper.active#loading
+						.spinner-layer.spinner-blue-only
+							.circle-clipper.left
+								.circle
+							.gap-patch
+								.circle
+							.circle-clipper.right
+								.circle
+					i.mdi-editor-vertical-align-bottom.center.cyan-text.small.btn-flat#load_more
+
+
 
 	else
 		section.parallax-container

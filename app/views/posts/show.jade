@@ -1,6 +1,9 @@
 extends ../layout
 
 block content
+	section.parallax-container
+		.parallax
+			img(src="/images/colorfull2.jpg").blur
 	.container
 		.row
 			.s12.m6
@@ -15,7 +18,5 @@ block content
 					.card-action
 						form(action="",method="post")
 							.input-field
-								input(class="",name="comment")
+								input(class="",name="comment",type="text")
 								label(name="comment") コメントをする
-							.input-field
-								button.btn-flat.cyan.white-text(type="submit") コメントする

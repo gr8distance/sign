@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+	section.parallax-container
+		.parallax
+			if cotery.image
+				img(src="#{cotery.image}")
+			else
+				img(src="/images/colorfull2.jpg").blur
+	
+	.row
+		.col.s12.m4
+			.forms
+				.input-field
+					textarea.materialize-textarea(name="cotery_textarea",id="cotery_textarea")
+					input(type="hidden",value="#{current_user.id}",name="user_id")
+					input(type="hidden",value="#{cotery.id}",name="cotery_id")
+				.input-field
+					button.btn-flat.right.cyan.white-text Send
+
+		.col.s12.m8
