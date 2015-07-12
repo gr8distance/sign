@@ -37,6 +37,17 @@
         return parallax_img.removeClass("blur");
       }
     });
+    $("#sub").on("click", function() {
+      var d, data;
+      console.log("clicked");
+      d = $("#dammy").val() || "stone";
+      console.log(d);
+      data = {};
+      data.send = d;
+      return $.post("/users/ajax", data, function(data) {
+        return console.log("Return data");
+      });
+    });
     loading = $("#loading");
     load_more = $("#load_more");
     loading.hide();

@@ -1,14 +1,14 @@
 form(action="/auth/login",method="post",accept-charset="UTF-8")
 	.input-field
-		input(name="email",type="email")
+		input(name="email",type="email",id="login_email")
 		label(name="email") メールドレス
 	.input-field
-		input(name="password",type="password")
+		input(name="password",type="password",id="login_pass")
 		label(name="password") パスワード
 	P
 		input(name="remember_me",type="checkbox",value="1",id="remember_me")
 		label(for="remember_me",id="remember_me") ログインを記憶する
 	.input-field
-		button.btn-flat.waves-light.cyan.white-text.waves-effect
+		button.btn-flat.waves-light.cyan.white-text.waves-effect#login_submit
 			i.mdi-action-lock-outline ログイン
-
+	

@@ -110,6 +110,20 @@ app.use (err, req, res, next) ->
 #-----SocketIO------#
 io.on("connection",(socket)->
 	console.log("(・∀・)！User connected")
+	
+	#サークルでトークするためのコード
+	socket.on("send_circle_talk",(data)->
+		
+		if data.firsr_check
+			console.log "first"
+			socket.join(data.room_id)
+		else
+			console.log "second"
+			#io.sockets.emit("sent_talk_from_server",data)
+			io.sockets.to(data.room_id).emit("sent_talk_from_server",data)
+	)
+
+	############ここまで！###########
 
 	#トップページからのPOSTアクセスを管理する
 	socket.on("send_post_card",(data)->

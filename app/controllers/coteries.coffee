@@ -27,7 +27,8 @@ app.get("/:id",(req,res)->
 		res.render("coteries/show",{
 			title: "#{cotery.name}::Aimerthyst",
 			cotery: cotery.dataValues,
-			current_user: req.session.current_user
+			current_user: req.session.current_user,
+			room_id: Cotery.hash("cotery_#{cotery.id}")
 		})
 	).catch((err)->
 		req.flash("info","サークルが見つからないよ(´・ω・｀)")

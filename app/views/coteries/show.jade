@@ -12,10 +12,11 @@ block content
 		.col.s12.m4
 			.forms
 				.input-field
-					textarea.materialize-textarea(name="cotery_textarea",id="cotery_textarea")
-					input(type="hidden",value="#{current_user.id}",name="user_id")
-					input(type="hidden",value="#{cotery.id}",name="cotery_id")
+					textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
+					input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+					input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
+					input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
 				.input-field
-					button.btn-flat.right.cyan.white-text Send
+					button.btn-flat.right.cyan.white-text#submit_talk Send
 
 		.col.s12.m8

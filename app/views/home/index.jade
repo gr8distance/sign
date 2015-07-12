@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+	input(id="friends_id",type="hidden",value="#{friends_id}")
 	if current_user
 		.parallax-container
 			.parallax
@@ -53,5 +54,5 @@ block content
 
 			section.col.s12.m8.cyan.lighten-5
 				.row
-					- for(var i=0;i<18;i++)
-						include ../cards/_post
+					for post in posts
+						include _post

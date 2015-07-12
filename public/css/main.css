@@ -7,19 +7,13 @@
     width: 96%; }
 
   .nav-wrapper {
-    z-index: 1000; }
-
-  .parallax-container {
-    height: 180px; } }
+    z-index: 1000; } }
 @media screen and (min-width: 640px) {
   #scroll_fire {
     width: 80%; }
 
   .nav-wrapper {
-    z-index: 998; }
-
-  .parallax-container {
-    height: 400px; } }
+    z-index: 998; } }
 .tangerine {
   font-family: 'Tangerine', cursive; }
 

@@ -42,3 +42,30 @@ $ ->
 			</article>"
 		card_box.prepend(post_card)
 	)
+
+	socket.emit("send_circle_talk",{
+		firsr_check: true,
+		room_id: $("#room_id").val()
+	})
+
+	#############################
+	#サークル内で会話するためのSocket
+	$("#submit_talk").on("click",()->
+		data = {}
+		data.body = $("#circle_talk").val()
+		data.user_id = $("#user_id").val()
+		data.circle_id = $("#circle_id").val()
+		data.room_id = $("#room_id").val()
+		data.firsr_check = false
+		
+		console.log data.room_id
+
+		socket.emit("send_circle_talk",data)
+		$("#circle_talk").val("")
+	)
+
+	socket.on("sent_talk_from_server",(data)->
+		#サーバーから帰ってきたトークを表示する
+		console.log "Return from server"
+		console.log data
+	)

@@ -22,6 +22,10 @@ app.get("/", (req, res) ->
 				for post in posts
 					v_posts.push post.dataValues
 				
+				fr_id = ""
+				for id in v_friends
+					fr_id+="_#{id}"
+
 				#ビューを生成していろいろなデータを送り込む
 				res.render("home/index",{
 					title: "Aimerthyst:ホーム",
@@ -29,7 +33,7 @@ app.get("/", (req, res) ->
 					current_user: req.session.current_user,
 					posts: v_posts,
 					btn: "home",
-					friends_id: v_friends
+					friends_id: fr_id
 				})
 			).catch((err)->
 				console.log err
@@ -38,12 +42,19 @@ app.get("/", (req, res) ->
 			)
 		)
 	else
+		#ログインしていない場合の処理
 		v_posts = []
-		res.render("home/index",{
-			posts: v_posts,
-			title: "Aimerthyst:ホーム",
-			flash: req.flash("info")[0],
-		})
+		owner = [1]
+		Post.findAll(where: {user_id: owner},limit: 36,order: "updated_at desc").then((posts)->
+			for post in posts
+				v_posts.push post.dataValues
+
+			res.render("home/index",{
+				posts: v_posts,
+				title: "Aimerthyst:ホーム",
+				flash: req.flash("info")[0],
+			})
+		)
 
 )
 

@@ -10,11 +10,14 @@ $ ->
 		selectMonths: true, #Creates a dropdown to control month
 		selectYears: 15 #Creates a dropdown of 15 years to control year
 	})
+
+	#必要があればパララックス・ビューの高さを画面の高さと同じにする
 	w = $(window)
 	h = w.height()
 	$("#before_login_page").css({
 		height: h
 	})
+	
 
 	wrf = $(".show_write_rep")
 	wrf.on("click",->
@@ -22,7 +25,8 @@ $ ->
 		form_id = "#{this_id}_form"
 		$("##{form_id}").slideToggle()
 	)
-
+	
+	#スクロールすればパララックス・ビューにぶらーをかける
 	w = $(window)
 	parallax= $(".parallax-container")
 	parallax_height = (parallax.height() * 0.666)
@@ -36,7 +40,34 @@ $ ->
 			parallax_img.removeClass("blur")
 
 	)
+	
+	$("#sub").on("click",->
+		console.log "clicked"
+		d = $("#dammy").val() || "stone"
+		console.log d
+		data = {}
+		data.send = d
 
+		$.post("/users/ajax",data,(data)->
+			console.log "Return data"
+
+		)
+	)
+
+	##ログインする時AJAXでログインする
+	#$("#login_submit").on("click",()->
+	#	email = $("#login_email").val()
+	#	password = $("#login_pass").val()
+	#	remember_me = $("#remember_me").val()
+
+	#	$.post("/auth/login",{
+	#		email: email,
+	#		password: password,
+	#		remember_me: remember_me
+	#	})
+	#)
+
+	#次の投稿をAJAXで取得する時にローディングする
 	loading = $("#loading")
 	load_more = $("#load_more")
 	loading.hide()

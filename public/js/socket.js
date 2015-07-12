@@ -27,10 +27,30 @@
         return console.log("unsaved!");
       }
     });
-    return socket.on("hand_out_post_card", function(data) {
+    socket.on("hand_out_post_card", function(data) {
       var post_card;
       post_card = "<article id='posted_card_" + data.id + "' class='col s12 m6 l4'> <div class='card'> <div class='card-content'> <div class='row'> <div class='col s2 m3 l2'><img src='" + (data.user_image != null ? data.user_image : "/images/amethyst_flat.png") + "' class='circle responsive-img'></div> <div class='col s10 m9 l10'><span class='card-title cyan-text'>" + data.user_name + "</span></div> </div> <p>" + (data.body.replace(/\n/g, '<br/>')) + "</p> <span class='font_size_10 right'>" + data.created_at + "</span> </div> <div class='card-action'><a href='/posts/" + data.id + "' class='teal-text'>コメント</a></div> </div> </article>";
       return card_box.prepend(post_card);
+    });
+    socket.emit("send_circle_talk", {
+      firsr_check: true,
+      room_id: $("#room_id").val()
+    });
+    $("#submit_talk").on("click", function() {
+      var data;
+      data = {};
+      data.body = $("#circle_talk").val();
+      data.user_id = $("#user_id").val();
+      data.circle_id = $("#circle_id").val();
+      data.room_id = $("#room_id").val();
+      data.firsr_check = false;
+      console.log(data.room_id);
+      socket.emit("send_circle_talk", data);
+      return $("#circle_talk").val("");
+    });
+    return socket.on("sent_talk_from_server", function(data) {
+      console.log("Return from server");
+      return console.log(data);
     });
   });
 

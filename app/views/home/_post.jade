@@ -19,7 +19,7 @@ mixin _post(post)
 			.card-action
 				a(href="/posts/#{post.id}",class="teal-text") コメント
 				
-				if current_user.id == post.user_id
+				if (current_user != null || typeof current_user!="undefined") && current_user.id == post.user_id
 					a(href="/posts/:id/edit") 編集
 					a(href="/posts/:id/delete").right
 						i.mdi-action-delete.red-text
