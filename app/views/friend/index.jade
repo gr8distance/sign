@@ -29,12 +29,12 @@ block content
 									a(href="/users/#{user.id}").cyan-text= user.name
 							.card-action
 								if (friends.indexOf(user.id)) >= 0
-									form(action="/friends/unfollow",method="post")
-										input(type="hidden",value="#{user.id}",name="friend_id")
-										input(type="hidden",value="#{current_user.id}",name="user_id")
-										button.btn-flat.pink.white-text.waves-effect.waves-light フォロー中
+									form(action="/friends/unfollow",method="post",id="be_friend_form_#{user.id}",class="be_friend_form")
+										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
+										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+										button.btn-flat.pink.white-text.waves-effect.waves-light#friend_follow_submit フォロー中
 								else
-									form(action="/friends/follow",method="post")
-										input(type="hidden",value="#{user.id}",name="friend_id")
-										input(type="hidden",value="#{current_user.id}",name="user_id")
-										button.btn-flat.blue.white-text.waves-effect.waves-light フォロー
+									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}",class="be_friend_form")
+										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
+										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー

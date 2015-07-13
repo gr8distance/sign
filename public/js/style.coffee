@@ -67,7 +67,8 @@ $ ->
 	#	})
 	#)
 
-	#次の投稿をAJAXで取得する時にローディングする
+
+	#次の投稿をAJAXで取得する時にローディングする######################
 	loading = $("#loading")
 	load_more = $("#load_more")
 	loading.hide()
@@ -106,4 +107,43 @@ $ ->
 			,1800)
 		)
 	)
+	###################################################################
+	###################################################################
+	
+	#友だち追加と削除のボタンをAJAX対応にした
+	#まずはボタンが押されたことを検知する
+	$(".be_friend_form").submit((e)->
+		#とりあえずフォームの送信を停止
+		e.preventDefault()
 
+		#2重送信を防ぐためにボタンを削除
+		fr_sub = $("#friend_follow_submit")
+		fr_sub.hide()
+		
+		#友達のIDを取得
+		form_id = $(@).attr("id")
+		
+		#URLと送信しないと行けないデータを取得
+		url = $(@).attr("action")
+		data = {}
+		data.user_id = $("#user_id").val()
+		data.friend_id = $("#friend_id").val()
+
+		#AJAXで送信する
+		$.post(url,data,(data)->
+			#戻りのデータから処理を開始
+			Materialize.toast(data.flash,3330)
+
+			if data.state
+				fr_sub.show()
+				BASE = "/friends"
+				path = url.split("/")[2]
+				switch path
+					when "follow"
+						$("##{form_id}").attr("action","#{BASE}/unfollow")
+						$("##{form_id} #friend_follow_submit").text("フォロー中").removeClass("blue").addClass("pink")
+					when "unfollow"
+						$("##{form_id}").attr("action","#{BASE}/follow")
+						$("##{form_id} #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue")
+		)
+	)

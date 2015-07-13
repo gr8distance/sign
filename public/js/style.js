@@ -52,7 +52,7 @@
     load_more = $("#load_more");
     loading.hide();
     card_box = $("#card_box");
-    return load_more.on("click", function() {
+    load_more.on("click", function() {
       var p, page_id;
       $(this).hide();
       loading.show();
@@ -72,6 +72,34 @@
           loading.hide();
           return load_more.fadeIn();
         }, 1800);
+      });
+    });
+    return $(".be_friend_form").submit(function(e) {
+      var data, form_id, fr_sub, url;
+      e.preventDefault();
+      fr_sub = $("#friend_follow_submit");
+      fr_sub.hide();
+      form_id = $(this).attr("id");
+      url = $(this).attr("action");
+      data = {};
+      data.user_id = $("#user_id").val();
+      data.friend_id = $("#friend_id").val();
+      return $.post(url, data, function(data) {
+        var BASE, path;
+        Materialize.toast(data.flash, 3330);
+        if (data.state) {
+          fr_sub.show();
+          BASE = "/friends";
+          path = url.split("/")[2];
+          switch (path) {
+            case "follow":
+              $("#" + form_id).attr("action", BASE + "/unfollow");
+              return $("#" + form_id + " #friend_follow_submit").text("フォロー中").removeClass("blue").addClass("pink");
+            case "unfollow":
+              $("#" + form_id).attr("action", BASE + "/follow");
+              return $("#" + form_id + " #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue");
+          }
+        }
       });
     });
   });
