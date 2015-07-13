@@ -21,6 +21,7 @@
 		"mysql":"*",
 		"sequelize": "*",
 		"passport": "*",
-		"passport-local": "*"
+		"passport-local": "*",
+		"config": "*"
   }
 }

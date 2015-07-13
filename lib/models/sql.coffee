@@ -1,6 +1,8 @@
 app = require("express")()
 crypto = require("crypto")
+conf = require "config"
 Sequelize =  require("sequelize")
+
 
 switch app.get("env")
 	when "development"
@@ -11,7 +13,7 @@ switch app.get("env")
 		})
 	when "production"
 		console.log "Start at development mode"
-		sequelize =  new Sequelize("radio","suzaku","Lancelot183")
+		sequelize =  new Sequelize(conf.mysql.name,conf.mysql.user,conf.mysql.password)
 
 
 data = {
