@@ -43,7 +43,7 @@ app.post("/",(req,res)->
 #USERの詳細情報とかいろいろ表示する
 #来訪者向けの項目
 app.get("/:id",(req,res)->
-	id = req.params.id
+	id = req.params
 	User.findById(id).then((user)->
 		user.getPosts().then((posts)->
 			res.render("users/show",{

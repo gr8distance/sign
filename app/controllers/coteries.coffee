@@ -22,14 +22,20 @@ app.get("/",(req,res)->
 ##Show
 app.get("/:id",(req,res)->
 	id = req.params.id
-
+	room_id = Cotery.hash("cotery_#{id}")
+	
 	Cotery.findById(id).then((cotery)->
-		res.render("coteries/show",{
-			title: "#{cotery.name}::Aimerthyst",
-			cotery: cotery.dataValues,
-			current_user: req.session.current_user,
-			room_id: Cotery.hash("cotery_#{cotery.id}")
-		})
+		talks = []
+		Talk.findAll(where: {room_id: room_id}).then((talks)->
+
+			res.render("coteries/show",{
+				title: "#{cotery.name}::Aimerthyst",
+				cotery: cotery.dataValues,
+				current_user: req.session.current_user,
+				room_id: room_id,
+				talks: talks
+			})
+		)
 	).catch((err)->
 		req.flash("info","サークルが見つからないよ(´・ω・｀)")
 		res.redirect "/coteries"

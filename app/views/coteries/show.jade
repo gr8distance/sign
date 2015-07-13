@@ -20,3 +20,6 @@ block content
 					button.btn-flat.right.cyan.white-text#submit_talk Send
 
 		.col.s12.m8
+			#cotery_comments_field
+				for talk in talks
+					p= talk.body

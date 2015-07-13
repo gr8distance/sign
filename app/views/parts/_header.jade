@@ -23,7 +23,7 @@ header
 									if current_user.image
 										img.responsive-img.circle.small(alt="#{current_user.name}", src="#{current_user.image}")
 									else
-										img.responsive-img.circle.small(alt="#{current_user.name}",src="/images/aimerthyst_flat.png")
+										img.responsive-img.circle.small(alt="#{current_user.name}",src="/images/amethyst_flat.png")
 								.col.s8
 									h5.cyan-text= current_user.name
 						p
@@ -56,7 +56,7 @@ header
 								.col.s2
 									i.mdi-action-assignment-ind.cyan-text.small
 								.col.s10
-									a.cyan-text(href="/users/#{current_user}/edit") プロフィール
+									a.cyan-text(href="/users/#{current_user.id}/edit") プロフィール
 						li.pink-text
 							.row
 								.col.s2

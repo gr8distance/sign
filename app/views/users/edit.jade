@@ -4,10 +4,10 @@ block content
 	if current_user
 		section.parallax-container
 			.parallax
-				if current_user.image != null || typeof current_user.image != "undefined"
+				if current_user.image
 					img(src="#{current_user.image}")
 				else
-					img(src="/images/colorfull2.jpg")
+					img(src="/images/colorfull2.jpg").blur
 		.container
 			.row
 				.col.s12.m6

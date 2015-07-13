@@ -45,6 +45,12 @@ createModels = ->
 	
 	User.hasMany(Cotery)
 	Cotery.belongsTo(User)
+	
+	Cotery.hasMany(Talk)
+	Talk.belongsTo(Cotery)
+
+	User.hasMany(Talk)
+	Talk.belongsTo(User)
 
 #sql.s.sync({force: true})
 #sql.s.sync()

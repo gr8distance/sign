@@ -115,12 +115,22 @@ io.on("connection",(socket)->
 	socket.on("send_circle_talk",(data)->
 		
 		if data.firsr_check
-			console.log "first"
 			socket.join(data.room_id)
 		else
-			console.log "second"
-			#io.sockets.emit("sent_talk_from_server",data)
 			io.sockets.to(data.room_id).emit("sent_talk_from_server",data)
+
+			User.findById(data.user_id).then((u)->
+				user = u.dataValues
+
+				Talk.create({
+					body: data.body,
+					room_id: data.room_id,
+					user_name: user.name,
+					user_image: user.image
+				})
+			).catch((err)->
+				console.log err
+			)
 	)
 
 	############ここまで！###########
