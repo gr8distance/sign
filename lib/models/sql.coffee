@@ -1,9 +1,18 @@
+app = require("express")()
 crypto = require("crypto")
 Sequelize =  require("sequelize")
-sequelize =  new Sequelize("","","",{
-  dialect: "sqlite",
-  storage: "./db/development.sql"
-})
+
+switch app.get("env")
+	when "development"
+		console.log "Start at development mode"
+		sequelize =  new Sequelize("","","",{
+		  dialect: "sqlite",
+		  storage: "./db/development.sql"
+		})
+	when "production"
+		console.log "Start at development mode"
+		sequelize =  new Sequelize("radio","suzaku","Lancelot183")
+
 
 data = {
   s: sequelize,

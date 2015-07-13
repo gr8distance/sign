@@ -17,6 +17,7 @@ fs = require("fs")
 _ = require("underscore")
 require("./lib/models")()
 multer = require("multer")
+conf = require('config')
 
 #-----Flash-----#
 app.use(session({
@@ -162,6 +163,15 @@ io.on("connection",(socket)->
 )
 #-----SocketIO------#
 
-http.listen(3000,->
-	console.log "Server is running!"
-)
+switch app.get("env")
+	when "development"
+		http.listen(3000,->
+			console.log "Server is running!"
+			console.log "Dev"
+		)
+	when "production"
+		http.listen(80,->
+			console.log "Server is running!"
+			console.log "Production"
+		)
+

@@ -25,13 +25,13 @@ $ ->
 			console.log "unsaved!"
 	)
 
-	
+		
 	socket.on("hand_out_post_card",(data)->
 		friends_id = $("#friends_id").val().split("_")
 		friends_id.shift()
 
 		if friends_id.indexOf("#{data.user_id}") >= 0
-			post_card = "<article id='posted_card_#{data.id}' class='col s12 m6 l4'>
+			post_card = "<article id='posted_card_#{data.id}' class='col s12 m6'>
 				<div class='card'>
 				<div class='card-content'>
 				<div class='row'>
