@@ -22,7 +22,7 @@ conf = require('config')
 
 #-----Flash-----#
 app.use(session({
-    secret: "fhaioehf83cyfiqc9qy4cbre8cyo8fneo8cfg8oac8fwbufbghwcvfi7tcew",
+    secret: conf.secrets.pass,
     resave: true,
     saveUninitialized: true
 }))
@@ -168,7 +168,7 @@ switch app.get("env")
 	when "development"
 		http.listen(3000,->
 			console.log "Server is running!"
-			console.log "Dev"
+			console.log "development"
 		)
 	when "production"
 		http.listen(80,->
