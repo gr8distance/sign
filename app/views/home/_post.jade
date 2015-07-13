@@ -21,7 +21,9 @@ mixin _post(post)
 				
 				if (current_user != null || typeof current_user!="undefined") && current_user.id == post.user_id
 					a(href="/posts/:id/edit") 編集
-					a(href="/posts/:id/delete").right
-						i.mdi-action-delete.red-text
+					form(action="/posts/#{post.id}/delete",method="post",class="right")
+						input(type="hidden",name="post_id",value="#{post.id}")
+						button.btn-flat.waves-none.small
+							i.mdi-action-delete.red-text.tiny
 
 +_post(post)

@@ -26,7 +26,7 @@ app.get("/:id",(req,res)->
 	
 	Cotery.findById(id).then((cotery)->
 		talks = []
-		Talk.findAll(where: {room_id: room_id}).then((talks)->
+		Talk.findAll(where: {room_id: room_id},order: "updated_at desc",limit: 54).then((talks)->
 
 			res.render("coteries/show",{
 				title: "#{cotery.name}::Aimerthyst",

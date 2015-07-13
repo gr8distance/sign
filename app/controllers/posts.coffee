@@ -21,6 +21,29 @@ app.get("/:id",(req,res)->
 	)
 )
 
+app.post("/:id/edit",(req,res)->
+	data = req.body
+	
+	req.flash("info","投稿を編集しました")
+	res.redirect "/"
+)
+
+app.post("/:id/delete",(req,res)->
+	id = req.body.post_id
+	console.log id
+	
+	Post.findById(id).then((post)->
+		post.destroy()
+		req.flash("info","投稿を削除しました")
+		res.redirect("/")
+	).catch((e)->
+		console.log e
+		req.flash("info","投稿を削除できませんでした(´・ω・｀)")
+		res.redirect("/")
+	)
+)
+
+##トップページで表示分以上のカードを取得するためのコード
 app.post("/more",(req,res)->
 	PAGE_NUM = 18
 	id = req.body.page_id

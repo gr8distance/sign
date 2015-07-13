@@ -9,17 +9,53 @@ block content
 				img(src="/images/colorfull2.jpg").blur
 	
 	.row
-		.col.s12.m4
-			.forms
-				.input-field
-					textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
-					input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
-					input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
-					input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
-				.input-field
-					button.btn-flat.right.cyan.white-text#submit_talk Send
+		.col.s12.m5
+			.state_post_form
+				.forms
+					.input-field
+						textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
+						input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+						input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
 
-		.col.s12.m8
+						input(type="hidden",value="#{current_user.name}",name="user_name",id="user_name")
+						input(type="hidden",value="#{current_user.image}",name="user_image",id="user_image")
+
+						input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
+					.input-field
+						button.btn-flat.right.cyan.white-text#submit_talk Send
+
+		.col.s12.m7
 			#cotery_comments_field
 				for talk in talks
-					p= talk.body
+					if current_user.id == talk.user_id
+
+						.card.blue.lighten-1.white-text
+							.card-content
+								.row
+									.col.s2
+										if talk.user_image
+											img(src="#{talk.user_image}").circle.responsive-img
+										else
+											img(src="/images/colorfull2.jpg").circle.responsive-img.blue
+
+									.col.s10
+										= talk.user_name
+								.row
+									.col.s12
+										= talk.body.replace("\n","<br/>")
+
+					else
+						.card.grey.lighten-1.white-text
+							.card-content
+								.row
+									.col.s2
+										if talk.user_image
+											img(src="#{talk.user_image}").circle.responsive-img
+										else
+											img(src="/images/colorfull2.jpg").circle.responsive-img.blue
+
+									.col.s10
+										= talk.user_name
+								.row
+									.col.s12
+										= talk.body.replace("\n","<br/>")

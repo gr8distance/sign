@@ -57,15 +57,37 @@ $ ->
 	$("#submit_talk").on("click",()->
 		data = {}
 		data.body = $("#circle_talk").val()
-		data.user_id = $("#user_id").val()
-		data.circle_id = $("#circle_id").val()
-		data.room_id = $("#room_id").val()
-		data.firsr_check = false
-		
-		socket.emit("send_circle_talk",data)
-		$("#circle_talk").val("")
+
+		if data.body.length >= 1
+			data.user_id = $("#user_id").val()
+			data.user_name = $("#user_name").val()
+			data.user_image = $("#user_image").val()
+			data.circle_id = $("#circle_id").val()
+			data.room_id = $("#room_id").val()
+			data.firsr_check = false
+			
+			socket.emit("send_circle_talk",data)
+			$("#circle_talk").val("")
 	)
 	
 	socket.on("sent_talk_from_server",(data)->
-		$("#cotery_comments_field").append("<p>#{data.body}</p>")
+		card_panel = "<article class='card #{if data.user_id == $('#user_id').val() then 'blue' else 'grey'} lighten-1 white-text'>
+			<div class='card-content'>
+			<div class='row'>
+			<div class='col s2'>
+			<img src='#{if data.user_image then data.user_image else '/images/colorfull2.jpg'}' class='circle responsive-img blue'>
+			</div>
+			<div class='col s10'>
+			<h5 class='font_size_18'>#{data.user_name}</h5>
+			</div>
+			</div>
+			<div class='row'>
+			<div class='col s12'>
+			<p class='font_size_12'>#{data.body.replace('\n','<br/>')}</p>
+			</div>
+			</div>
+			</div>
+			</article>"
+
+		$("#cotery_comments_field").prepend(card_panel)
 	)

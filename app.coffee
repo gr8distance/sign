@@ -117,20 +117,17 @@ io.on("connection",(socket)->
 		if data.firsr_check
 			socket.join(data.room_id)
 		else
+			console.log data
+
 			io.sockets.to(data.room_id).emit("sent_talk_from_server",data)
-
-			User.findById(data.user_id).then((u)->
-				user = u.dataValues
-
-				Talk.create({
-					body: data.body,
-					room_id: data.room_id,
-					user_name: user.name,
-					user_image: user.image
-				})
-			).catch((err)->
-				console.log err
-			)
+	
+			Talk.create({
+				body: data.body,
+				room_id: data.room_id,
+				user_name: data.user_name,
+				user_image: data.user_image,
+				user_id: data.user_id
+			})
 	)
 
 	############ここまで！###########

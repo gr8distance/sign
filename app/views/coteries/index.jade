@@ -11,10 +11,19 @@ block content
 	.row
 		if coteries.length != 0
 			for cotery in coteries
+
 				article.col.s12.m4.l3
 					.card.small
 						.card-image
 							img(src="/images/colorfull2.jpg")
 							span.card-title.ts-grey= cotery.name
 						.card-action
-							a(href="/coteries/#{cotery.id}").orange-text Show more
+							if cotery.permit
+								a(href="/coteries/#{cotery.id}").orange-text サークルを見る
+							else
+								a(href="/coteries/#{cotery.id}").orange-text サークルを見る
+								form(method="post",action="/coteries/get_permit")
+									input(type="hidden",value="#{current_user.id}",name="user_id")
+									input(type="hidden",value="#{cotery.id}",name="cotery_id")
+									button(type="submit").btn-flat.waves-effect.waves-light.cyan.white-text サークルに参加する
+
