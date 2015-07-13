@@ -67,11 +67,18 @@ app.post("/:id",(req,res)->
 	User.findById(id).then((user)->
 		user.updateAttributes(data)
 	).then((user)->
-		req.flash("info","ユーザー情報を更新しました")
-		res.redirect("/users/#{user.id}/edit")
+		#req.flash("info","ユーザー情報を更新しました")
+		#res.redirect("/users/#{user.id}/edit")
+		data.state = true
+		data.flash = "ユーザー情報を更新しました"
+		res.json data
+
 	).catch((err)->
-		console.log "Failed update in user info"
-		console.log err
+		#console.log "Failed update in user info"
+		#console.log err
+		data.state = false
+		data.flash = "情報の保存に失敗した(´・ω・｀)"
+		res.json data
 	)
 )
 

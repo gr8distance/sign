@@ -13,20 +13,19 @@ block content
 				.col.s12.m6
 					.card-panel
 						h5.font_size_18.brown-text 利用者情報を変更
-						form(action="/users/#{current_user.id}",method="post")
-							.input-field
-								input(name="name",type="text",value="#{current_user.name}")
-								label(for="name") お名前
-							.input-field
-								input(name="email",type="email",value="#{current_user.email}")
-								label(for="email") メールアドレス
-							.input-field
-								textarea.materialize-textarea(name="description")= current_user.description
-								label(for="description") プロフィールの編集
+						table.bordered
+							tr
+								td お名前
+								td#usr_name= current_user.name
+							tr
+								td メールアドレス
+								td#usr_email= current_user.email
+							tr
+								td Profile
+								td#usr_prof !{current_user.description.replace(/\n/g,"<br/>")}
+						
+						a(href="#edit_user_profile",class="modal-trigger waves-effect waves-light btn-flat teal accent-3 white-text") 編集する
 
-							.input-field
-								button.btn-flat.cyan.white-text(type="submit") 変更
-					
 				
 				.col.s12.m6
 					.card-panel
@@ -38,7 +37,26 @@ block content
 							.input-field
 								button.btn-flat.white-text.orange アップロード
 	
-	
+			
+			#edit_user_profile.modal
+				.modal-content
+					h4 情報を編集する
+					form(action="/users/#{current_user.id}",method="post",id="edit_user_profile_form")
+						.input-field
+							input(name="name",type="text",value="#{current_user.name}",id="user_name")
+							label(for="name") お名前
+						.input-field
+							input(name="email",type="email",value="#{current_user.email}",id="user_email")
+							label(for="email") メールアドレス
+						.input-field
+							textarea.materialize-textarea(name="description")#user_profile= current_user.description
+							label(for="description") プロフィールの編集
+						.input-field
+							button.btn-flat.cyan.white-text(type="submit") 変更
+				.modal-action.right
+					a(href="#",class=" modal-action modal-close waves-effect waves-green btn-flat") Close
+
+
 
 	else
 		a(href="/") エラーが発生しました。

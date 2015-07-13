@@ -74,7 +74,7 @@
         }, 1800);
       });
     });
-    return $(".be_friend_form").submit(function(e) {
+    $(".be_friend_form").submit(function(e) {
       var data, form_id, fr_sub, url;
       e.preventDefault();
       fr_sub = $("#friend_follow_submit");
@@ -99,6 +99,29 @@
               $("#" + form_id).attr("action", BASE + "/follow");
               return $("#" + form_id + " #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue");
           }
+        }
+      });
+    });
+    return $("#edit_user_profile_form").submit(function(e) {
+      var data, url;
+      e.preventDefault();
+      data = {};
+      data.name = $("#user_name").val();
+      data.email = $("#user_email").val();
+      data.description = $("#user_profile").val();
+      url = $(this).attr("action");
+      return $.post(url, data, function(data) {
+        if (data.state) {
+          Materialize.toast(data.flash, 3330);
+          $("#usr_name").text(data.name);
+          $("#usr_email").text(data.email);
+          $("#usr_prof").text(data.description);
+          $("#user_name").text(data.name);
+          $("#user_email").text(data.email);
+          $("#user_profile").text(data.description);
+          return $("#edit_user_profile").closeModal();
+        } else {
+          return Materialize.toast(data.flash, 3330);
         }
       });
     });

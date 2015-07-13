@@ -147,3 +147,38 @@ $ ->
 						$("##{form_id} #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue")
 		)
 	)
+	########################
+	#
+	#####ユーザー情報の編集を行う
+	$("#edit_user_profile_form").submit((e)->
+		#自動送信を解除
+		e.preventDefault()
+
+		#送信用のデータを作成
+		data = {}
+		data.name = $("#user_name").val()
+		data.email = $("#user_email").val()
+		data.description = $("#user_profile").val()
+		
+		#URLを取得
+		url = $(@).attr("action")
+
+		#AJAXで送信
+		$.post(url,data,(data)->
+			if data.state
+				Materialize.toast(data.flash,3330)
+				$("#usr_name").text(data.name)
+				$("#usr_email").text(data.email)
+				$("#usr_prof").text(data.description)
+				$("#user_name").text(data.name)
+				$("#user_email").text(data.email)
+				$("#user_profile").text(data.description)
+				
+				$("#edit_user_profile").closeModal()
+			else
+				Materialize.toast(data.flash,3330)
+		)
+	)
+	##########################################
+	
+
