@@ -1,4 +1,4 @@
-form(action="/users",method="post",id="user")
+form(action="/users",method="post",id="create_new_user")
 
 	.input-field
 		input(name="name",id="name",type="text",class="validate[required]")
@@ -6,7 +6,7 @@ form(action="/users",method="post",id="user")
 	
 	.input-field
 		span#attention_new_user_email.red-text
-		input(name="email",id="new_user_email",type="email",class="validate[required,custom[email]]")
+		input(name="email",type="email",class="validate[required,custom[email]]",id="email")
 		label(class="white-text ts-grey",for="email") メールドレス
 
 	.input-field
@@ -18,4 +18,4 @@ form(action="/users",method="post",id="user")
 		label(class="white-text ts-grey",for="password_confirmation") パスワードの確認
 
 	.input-field.center
-		button(class="btn-large waves-effect white teal-text",id="",type="submit") ユーザー登録
+		button(class="btn-large waves-effect white teal-text",id="user_submit",type="submit") ユーザー登録

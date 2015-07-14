@@ -3,6 +3,7 @@ _ = require("underscore")
 eimg = require("easyimage")
 
 
-Cotery.findById(3).then((cotery)->
-	console.log cotery.dataValues
+User.findAll().then((users)->
+	for user in users
+		console.log user.dataValues
 )
