@@ -20,11 +20,12 @@ mixin _post(post)
 			.card-action
 				a(href="/posts/#{post.id}",class="teal-text") コメント
 				
-				if (current_user != null || typeof current_user!="undefined") && current_user.id == post.user_id
-					a(href="/posts/:id/edit") 編集
-					form(action="/posts/#{post.id}/delete",method="post",class="right delete_post_form",id="delete_post_#{post.id}")
-						input(type="hidden",name="post_id",value="#{post.id}")
-						button.btn-flat.waves-none.small
-							i.mdi-action-delete.red-text.tiny
+				if current_user
+					if (current_user != null || typeof current_user!="undefined") && current_user.id == post.user_id
+						a(href="/posts/:id/edit") 編集
+						form(action="/posts/#{post.id}/delete",method="post",class="right delete_post_form",id="delete_post_#{post.id}")
+							input(type="hidden",name="post_id",value="#{post.id}")
+							button.btn-flat.waves-none.small
+								i.mdi-action-delete.red-text.tiny
 
 +_post(post)

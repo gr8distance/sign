@@ -45,23 +45,33 @@ app.post("/",(req,res)->
 app.get("/:id",(req,res)->
 	id = req.params.id
 	User.findById(id).then((user)->
-		user.getFriends().then((friends)->
-			v_friends = []
-			for friend in friends
-				v_friends.push friend.dataValues
 
-			console.log	v_friends
-
+		if req.session.current_user?
+			User.findById(req.session.current_user.id).then((c_user)->
+				c_user.getFriends().then((friends)->
+					v_friends = []
+					for friend in friends
+						v_friends.push friend.dataValues.friend_id
+					user.getPosts(order: "updated_at desc").then((posts)->
+						res.render("users/show",{
+							title: user.name,
+							user: user,
+							posts: posts,
+							current_user: req.session.current_user,
+							friends: v_friends
+						})
+					)
+				)
+			)
+		else
 			user.getPosts(order: "updated_at desc").then((posts)->
 				res.render("users/show",{
 					title: user.name,
 					user: user,
 					posts: posts,
-					current_user: req.session.current_user,
-					friends: v_friends
+					current_user: req.session.current_user
 				})
 			)
-		)
 	).catch((err)->
 		req.flash("info","ユーザーが見つかりません(´・ω・)")
 		res.redirect("/")
