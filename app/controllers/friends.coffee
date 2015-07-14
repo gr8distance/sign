@@ -6,8 +6,7 @@ require('../../lib/models')()
 #他のユーザー一覧を表示するためのアクション
 app.get("/",(req,res)->
 	
-	User.findAll().then((users)->
-		
+	User.findAll(limit: 18,order: "created_at desc").then((users)->
 		v_users = []
 		for user in users
 			if user.dataValues.id != req.session.current_user.id
@@ -29,6 +28,23 @@ app.get("/",(req,res)->
 	).catch((err)->
 		console.log err
 		console.log "(´・ω・｀)"
+	)
+)
+
+#次のユーザを読み込
+app.post("/more",(req,res)->
+	data = req.body
+	console.log data
+	BASE_NUM = 18
+	User.findAll(limit: BASE_NUM,order: "created_at desc",offset: (BASE_NUM * data.page_id)).then((users)->
+		v_users = []
+		for user in users
+			v_users.push user.dataValues
+		res.json v_users
+	).catch((e)->
+		console.log e
+		data = false
+		res.json data
 	)
 )
 

@@ -15,9 +15,9 @@ block content
 						a(href="/users/#{user.id}")= user.name
 		
 		.col.m9
-			.row
+			.row#friend_place
 				for user in users
-					article.col.s12.m6.l4
+					article.col.s12.m6.l3
 						.card.small
 							.card-image
 								if user.image
@@ -38,3 +38,16 @@ block content
 										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
 										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
 										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
+
+				//if posts.length >= 18
+				#read_more_friend.center
+					input(type="hidden",value="1",class="page_id")
+					.preloader-wrapper.active#loading_friend
+						.spinner-layer.spinner-blue-only
+							.circle-clipper.left
+								.circle
+							.gap-patch
+								.circle
+							.circle-clipper.right
+								.circle
+					i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more_friend
