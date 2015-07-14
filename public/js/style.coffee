@@ -74,7 +74,7 @@ $ ->
 		},(data)->
 			setTimeout(->
 				for post in data
-					post_card = "<article id='posted_card_#{post.id}' class='col s12 m6 l4'>
+					post_card = "<article id='posted_card_#{post.id}' class='col s12 m6'>
 						<div class='card'>
 						<div class='card-content'>
 						<div class='row'>

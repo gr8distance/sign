@@ -67,7 +67,7 @@
           var i, len, post, post_card;
           for (i = 0, len = data.length; i < len; i++) {
             post = data[i];
-            post_card = "<article id='posted_card_" + post.id + "' class='col s12 m6 l4'> <div class='card'> <div class='card-content'> <div class='row'> <div class='col s2 m3 l2'> <img src='" + (post.user_image != null ? post.user_image : "/images/amethyst_flat.png") + "' class='circle responsive-img'>i </div> <div class='col s10 m9 l10'><span class='card-title cyan-text'>" + post.user_name + "</span></div> </div> <p>" + (post.body.replace(/\n/g, '<br/>')) + "</p> <span class='font_size_10 right'>" + post.created_at + "</span> </div> <div class='card-action'><a href='/posts/" + post.id + "' class='teal-text'>コメント</a></div> </div> </article>";
+            post_card = "<article id='posted_card_" + post.id + "' class='col s12 m6'> <div class='card'> <div class='card-content'> <div class='row'> <div class='col s2 m3 l2'> <img src='" + (post.user_image != null ? post.user_image : "/images/amethyst_flat.png") + "' class='circle responsive-img'>i </div> <div class='col s10 m9 l10'><span class='card-title cyan-text'>" + post.user_name + "</span></div> </div> <p>" + (post.body.replace(/\n/g, '<br/>')) + "</p> <span class='font_size_10 right'>" + post.created_at + "</span> </div> <div class='card-action'><a href='/posts/" + post.id + "' class='teal-text'>コメント</a></div> </div> </article>";
             card_box.append(post_card);
           }
           loading.hide();
