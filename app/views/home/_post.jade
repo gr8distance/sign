@@ -13,7 +13,7 @@ mixin _post(post)
 						span.card-title
 							a.cyan-text(href="/users/#{post.user_id}")= post.user_name
 				
-				p!= post.body.replace(/\n/g,"<br/>")
+				p!= post.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")
 				include _strf
 				//span.font_size_10.right= post.updated_at
 

@@ -40,7 +40,24 @@ block content
 							.input-field
 								button.btn-flat.white-text.orange アップロード
 	
-			
+
+				.col.s12
+					.card-panel
+						h5.teal-text ブログを書く
+						form(action="/blogs",method="post",id="blog_form")
+							.input-field
+								input(type="text",name="title",id="title")
+								input(type="hidden",name="user_name",id="user_name",value="#{current_user.name}")
+								input(type="hidden",name="user_id",id="user_id",value="#{current_user.id}")
+								input(type="hidden",name="user_image",id="user_image",value="#{current_user.image}")
+								label(for="title") タイトル
+							.input-field
+								textarea(class="materialize-textarea",id="body",name="body")
+								label(for="body") 本文
+							.input-field
+								button.btn-flat.waves-effect.waves-light.white-text.teal 投稿
+
+
 			#edit_user_profile.modal
 				.modal-content
 					h4 情報を編集する
