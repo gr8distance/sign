@@ -1,0 +1,4 @@
+mixin _strf(post)
+	span.right.font_size_10 #{post.updated_at.getFullYear()}-#{post.updated_at.getMonth()+1}-#{post.updated_at.getDay()} #{post.updated_at.getHours()}:#{post.updated_at.getMinutes()}
+
++_strf(post)

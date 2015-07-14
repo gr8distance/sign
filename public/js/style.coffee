@@ -179,5 +179,21 @@ $ ->
 				Materialize.toast(data.flash,3330)
 		)
 	)
+	
+	#####投稿を削除する時に使う
+	$(".delete_post_form").submit((e)->
+		e.preventDefault()
+		data = {}
+		data.post_id = $(@).attr("id").split("_")[2]
+		url = $(@).attr("action")
 
+		$.post(url,data,(data)->
+			if data.state
+				Materialize.toast("#{data.flash}",3330)
+				$("#posted_card_#{data.id}").fadeOut()
+			else
+				Materialize.toast("#{data.flash}",3330)
+
+		)
+	)
 

@@ -140,11 +140,12 @@ io.on("connection",(socket)->
 		socket_id = data.socket_id
 
 		User.findById(data.user_id).then((user)->
+			d = new Date()
 			#ひとまずすべてのユーザーにデータをEmitする
 			data.user_id = user.id
 			data.user_name = user.name
 			data.user_image = user.image
-			data.created_at = new Date()
+			data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDay()} #{d.getHours()}:#{d.getMinutes()} "
 			io.sockets.emit("hand_out_post_card",data)
 
 			#エミットした後にDBに保存する

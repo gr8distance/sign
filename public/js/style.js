@@ -102,7 +102,7 @@
         }
       });
     });
-    return $("#edit_user_profile_form").submit(function(e) {
+    $("#edit_user_profile_form").submit(function(e) {
       var data, url;
       e.preventDefault();
       data = {};
@@ -122,6 +122,21 @@
           return $("#edit_user_profile").closeModal();
         } else {
           return Materialize.toast(data.flash, 3330);
+        }
+      });
+    });
+    return $(".delete_post_form").submit(function(e) {
+      var data, url;
+      e.preventDefault();
+      data = {};
+      data.post_id = $(this).attr("id").split("_")[2];
+      url = $(this).attr("action");
+      return $.post(url, data, function(data) {
+        if (data.state) {
+          Materialize.toast("" + data.flash, 3330);
+          return $("#posted_card_" + data.id).fadeOut();
+        } else {
+          return Materialize.toast("" + data.flash, 3330);
         }
       });
     });

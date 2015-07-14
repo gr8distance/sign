@@ -1,9 +1,12 @@
+puts = (s)->
+	console.log s
+
 require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-
-User.findAll().then((users)->
-	for user in users
-		console.log user.dataValues
+dd = new Date()
+Post.findAll().then((posts)->
+	for i in posts
+		console.log i.id
 )
