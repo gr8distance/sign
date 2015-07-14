@@ -5,7 +5,7 @@
   socket = io();
 
   $(function() {
-    var card_box, post, u_id;
+    var card_box, data, post, u_id;
     post = $("#post");
     card_box = $("#card_box");
     u_id = $("#user_id");
@@ -56,10 +56,35 @@
         return $("#circle_talk").val("");
       }
     });
-    return socket.on("sent_talk_from_server", function(data) {
+    socket.on("sent_talk_from_server", function(data) {
       var card_panel;
       card_panel = "<article class='card " + (data.user_id === $('#user_id').val() ? 'blue' : 'grey') + " lighten-1 white-text'> <div class='card-content'> <div class='row'> <div class='col s2'> <img src='" + (data.user_image ? data.user_image : '/images/colorfull2.jpg') + "' class='circle responsive-img blue'> </div> <div class='col s10'> <h5 class='font_size_18'>" + data.user_name + "</h5> </div> </div> <div class='row'> <div class='col s12'> <p class='font_size_12'>" + (data.body.replace('\n', '<br/>')) + "</p> </div> </div> </div> </article>";
       return $("#cotery_comments_field").prepend(card_panel);
+    });
+    if (location.pathname.match(/posts\/[0-9]*$/)) {
+      data = {
+        first_check: true,
+        room_id: $("#room_id").val()
+      };
+      socket.emit("create_new_comment", data);
+    }
+    $("#make_comment").submit(function(e) {
+      e.preventDefault();
+      data = {};
+      data.room_id = $("#room_id").val();
+      data.body = $("#comment_body").val();
+      data.user_id = $("#user_id").val();
+      data.user_name = $("#user_name").val();
+      data.user_image = $("#user_image").val();
+      data.post_id = $("#post_id").val();
+      data.first_check = false;
+      return socket.emit("create_new_comment", data);
+    });
+    return socket.on("sent_create_new_comment", function(data) {
+      var comment_data;
+      comment_data = "<li class='collection-item avatar'> <img src='" + (data.user_image != null ? data.user_image : "/images/amethyst_flat.png") + "' class='circle'> <span class='title'>" + data.user_name + "</span> <p>" + data.body + "</p> </li>";
+      $("#comments").append(comment_data);
+      return $("#comment_body").val("");
     });
   });
 

@@ -92,4 +92,33 @@ $ ->
 		$("#cotery_comments_field").prepend(card_panel)
 	)
 
+	#ポストにコメントをするためのコード
+	if location.pathname.match(/posts\/[0-9]*$/)
+		data = {first_check: true,room_id: $("#room_id").val()}
+		socket.emit "create_new_comment",data
+
+	$("#make_comment").submit((e)->
+		e.preventDefault()
+		data = {}
+		data.room_id = $("#room_id").val()
+		data.body = $("#comment_body").val()
+		data.user_id = $("#user_id").val()
+		data.user_name = $("#user_name").val()
+		data.user_image = $("#user_image").val()
+		data.post_id = $("#post_id").val()
+		data.first_check = false
+		
+		socket.emit("create_new_comment",data)
+	)
+
+	socket.on("sent_create_new_comment",(data)->
+		comment_data = "<li class='collection-item avatar'>
+		<img src='#{if data.user_image? then data.user_image else "/images/amethyst_flat.png"}' class='circle'>
+		<span class='title'>#{data.user_name}</span>
+		<p>#{data.body}</p>
+	  </li>"
+		#console.log data
+		$("#comments").append(comment_data)
+		$("#comment_body").val("")
+	)
 

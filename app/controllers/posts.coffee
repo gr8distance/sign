@@ -7,12 +7,24 @@ require("../../lib/models")()
 app.get("/:id",(req,res)->
 	id = req.params.id
 	Post.findById(id).then((post)->
-		post.getUser().then((user)->
-			post.user = user.dataValues
-			res.render("posts/show",{
-				post:	post,
-				current_user: req.session.current_user
-			})
+		post.getComments().then((comments)->
+			v_comments = []
+			for comment in comments
+				v_comments.push comment.dataValues
+
+			post.getUser().then((user)->
+				post.user = user.dataValues
+				res.render("posts/show",{
+					post:	post,
+					current_user: req.session.current_user,
+					room_id: User.hash("posts_#{id}"),
+					comments: v_comments
+				})
+			)
+		).catch((e)->
+			console.log e
+			req.flash "info","コメントの取得に失敗しました"
+			res.redirect "/posts/#{id}"
 		)
 	).catch((err)->
 		console.log err

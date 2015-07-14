@@ -13,10 +13,26 @@ block content
 						p= post.body
 					
 					.card-content
-						p.cyan-text コメント一覧
+						ul.collection#comments.with-header
+							li.collection-header コメント一覧
+							if comments
+								for comment in comments
+									li.collection-item.avatar 
+										if comment.user_image == "null"
+											img(src="/images/amethyst_flat.png").circle
+										else
+											img(src="#{comment.user_image}").circle
+										span.title= comment.user_name
+										p #{comment.user_name}#{comment.body}
+
 
 					.card-action
-						form(action="",method="post")
+						form(action="/posts/comment",method="post",id="make_comment")
 							.input-field
-								input(class="",name="comment",type="text")
+								input(class="",name="comment",type="text",id="comment_body")
+								input(class="",name="user_id",type="hidden",id="user_id",value="#{current_user.id}")
+								input(class="",name="user_name",type="hidden",id="user_name",value="#{current_user.name}")
+								input(class="",name="user_image",type="hidden",id="user_image",value="#{current_user.image}")
+								input(class="",name="room_id",type="hidden",id="room_id",value="#{room_id}")
+								input(class="",name="post_id",type="hidden",id="post_id",value="#{post.id}")
 								label(name="comment") コメントをする

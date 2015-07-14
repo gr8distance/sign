@@ -113,16 +113,29 @@ app.use (err, req, res, next) ->
 io.on("connection",(socket)->
 	console.log("(・∀・)！User connected")
 	
+	#新しいコメントを書くためのコード
+	socket.on("create_new_comment",(data)->
+		if data.first_check
+			socket.join(data.room_id)
+		else
+			io.sockets.to(data.room_id).emit("sent_create_new_comment",data)
+			Comment.create({
+				body: data.body,
+				user_id: data.user_id,
+				post_id: data.post_id,
+				user_name: data.user_name,
+				user_image: data.user_image
+			})
+	)
+
+
 	#サークルでトークするためのコード
 	socket.on("send_circle_talk",(data)->
 		
 		if data.firsr_check
 			socket.join(data.room_id)
 		else
-			console.log data
-
 			io.sockets.to(data.room_id).emit("sent_talk_from_server",data)
-	
 			Talk.create({
 				body: data.body,
 				room_id: data.room_id,
@@ -162,6 +175,7 @@ io.on("connection",(socket)->
 			io.to(data.socket_id).emit("failed_save_data",err)
 		)
 	)
+
 )
 #-----SocketIO------#
 

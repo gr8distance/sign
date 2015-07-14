@@ -5,7 +5,11 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-Friend.findAll().then((friends)->
-	for friend in friends
-		friend.destroy()
+
+Post.findById(153).then((post)->
+	post.getComments().then((comments)->
+		console.log comments.length
+		for comment in comments
+			console.log comment.destroy()
+	)
 )
