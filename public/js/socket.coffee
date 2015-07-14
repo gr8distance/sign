@@ -91,3 +91,5 @@ $ ->
 
 		$("#cotery_comments_field").prepend(card_panel)
 	)
+
+
