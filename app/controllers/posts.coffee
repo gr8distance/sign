@@ -21,11 +21,37 @@ app.get("/:id",(req,res)->
 	)
 )
 
-app.post("/:id/edit",(req,res)->
+app.get("/:id/edit",(req,res)->
+	id = req.params.id
 	data = req.body
-	
-	req.flash("info","投稿を編集しました")
-	res.redirect "/"
+
+	if req.session.current_user?
+		Post.findById(id).then((post)->
+
+			res.render("posts/edit",{
+				current_user: req.session.current_user,
+				post: post.dataValues
+			})
+		).catch((err)->
+			console.log err
+			req.flash("info","投稿編集中にエラーが発生しました")
+			res.redirect "/"
+		)
+	else
+		req.flash "info","投稿を編集するにはログインしている必要があります"
+		res.redirect "/"
+)
+
+
+app.post("/:id",(req,res)->
+	data = req.body
+	id = req.params.id
+
+	Post.findById(id).then((post)->
+		post.updateAttributes(data)
+		req.flash("info","投稿を編集しました")
+		res.redirect "/"
+	)
 )
 
 app.post("/:id/delete",(req,res)->

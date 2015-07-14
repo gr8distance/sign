@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.col.s12.m8.l6
+				.card-panel
+					form(action="/posts/#{post.id}/",method="post",id="edit_post_form")
+						.input-field
+							textarea(class="materialize-textarea",id="body",name="body") !{post.body}
+
+						.input-field
+							button.btn-flat.white-text.teal.waves-effect.waves-light#submit_edit_form 編集
