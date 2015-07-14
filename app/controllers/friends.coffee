@@ -22,7 +22,8 @@ app.get("/",(req,res)->
 				users: v_users,
 				friends: my_friends,
 				current_user: req.session.current_user,
-				flash: req.flash("info")[0]
+				flash: req.flash("info")[0],
+				title: "アメジストに登録しているユーザーを探す"
 			})
 		)
 	).catch((err)->
