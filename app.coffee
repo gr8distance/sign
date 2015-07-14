@@ -18,7 +18,19 @@ _ = require("underscore")
 require("./lib/models")()
 multer = require("multer")
 conf = require('config')
+Log4js = require('log4js')
 
+
+#------Logファイルの設定-----#
+Log4js.configure('./config/log-config.json')
+systemLogger = Log4js.getLogger('system')
+accessLogger = Log4js.getLogger('access')
+errorLogger = Log4js.getLogger('error')
+
+systemLogger.info("システムログやで(・∀・)！！")
+accessLogger.info("アクセスログやで(・∀・)！！")
+errorLogger.info("エラーログやで(・∀・)！！")
+#-------------------------------###
 
 #-----Flash-----#
 app.use(session({
@@ -179,15 +191,18 @@ io.on("connection",(socket)->
 )
 #-----SocketIO------#
 
-switch app.get("env")
-	when "development"
-		http.listen(3000,->
-			console.log "Server is running!"
-			console.log "development"
-		)
-	when "production"
-		http.listen(80,->
-			console.log "Server is running!"
-			console.log "Production"
-		)
+try
+	switch app.get("env")
+		when "development"
+			http.listen(3000,->
+				console.log "Server is running!"
+				console.log "development"
+			)
+		when "production"
+			http.listen(80,->
+				console.log "Server is running!"
+				console.log "Production"
+			)
+catch err
+	console.log err
 

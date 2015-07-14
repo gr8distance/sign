@@ -51,7 +51,9 @@ createModels = ->
 
 	User.hasMany(Talk)
 	Talk.belongsTo(User)
-
+	
+	User.hasMany(Blog)
+	Blog.belongsTo(User)
 #sql.s.sync({force: true})
 #sql.s.sync()
 

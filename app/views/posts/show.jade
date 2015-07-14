@@ -27,12 +27,13 @@ block content
 
 
 					.card-action
-						form(action="/posts/comment",method="post",id="make_comment")
-							.input-field
-								input(class="",name="comment",type="text",id="comment_body")
-								input(class="",name="user_id",type="hidden",id="user_id",value="#{current_user.id}")
-								input(class="",name="user_name",type="hidden",id="user_name",value="#{current_user.name}")
-								input(class="",name="user_image",type="hidden",id="user_image",value="#{current_user.image}")
-								input(class="",name="room_id",type="hidden",id="room_id",value="#{room_id}")
-								input(class="",name="post_id",type="hidden",id="post_id",value="#{post.id}")
-								label(name="comment") コメントをする
+						if current_user
+							form(action="/posts/comment",method="post",id="make_comment")
+								.input-field
+									input(class="",name="comment",type="text",id="comment_body")
+									input(class="",name="user_id",type="hidden",id="user_id",value="#{current_user.id}")
+									input(class="",name="user_name",type="hidden",id="user_name",value="#{current_user.name}")
+									input(class="",name="user_image",type="hidden",id="user_image",value="#{current_user.image}")
+									input(class="",name="room_id",type="hidden",id="room_id",value="#{room_id}")
+									input(class="",name="post_id",type="hidden",id="post_id",value="#{post.id}")
+									label(name="comment") コメントをする

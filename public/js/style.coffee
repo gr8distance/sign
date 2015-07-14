@@ -53,21 +53,7 @@ $ ->
 
 		)
 	)
-
-	##ログインする時AJAXでログインする
-	#$("#login_submit").on("click",()->
-	#	email = $("#login_email").val()
-	#	password = $("#login_pass").val()
-	#	remember_me = $("#remember_me").val()
-
-	#	$.post("/auth/login",{
-	#		email: email,
-	#		password: password,
-	#		remember_me: remember_me
-	#	})
-	#)
-
-
+	
 	#次の投稿をAJAXで取得する時にローディングする######################
 	loading = $("#loading")
 	load_more = $("#load_more")
@@ -75,6 +61,8 @@ $ ->
 	card_box = $("#card_box")
 
 	load_more.on("click",->
+		console.log "clicked"
+
 		$(@).hide()
 		loading.show()
 		page_id = $(".page_id")

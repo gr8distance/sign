@@ -23,9 +23,9 @@ block content
 							tr
 								td Profile
 								if current_user.description == "undefined" || typeof current_user.description
-									td#usr_prof !{current_user.description}
-								else
 									td#usr_prof !{current_user.description.replace(/\n/g,"<br/>")}
+								else
+									td#usr_prof !{current_user.description}
 						
 						a(href="#edit_user_profile",class="modal-trigger waves-effect waves-light btn-flat teal accent-3 white-text") 編集する
 

@@ -41,7 +41,7 @@ $ ->
 				<p>#{data.body.replace(/\n/g,'<br/>')}</p>
 				<span class='font_size_10 right'>#{data.created_at}</span>
 				</div>
-				<div class='card-action'><a href='/posts/#{data.id}' class='teal-text'>コメント</a></div>
+				<div class='card-action'><a href='/posts/#{data.id}/' class='teal-text'>コメント</a></div>
 				</div>
 				</article>"
 			card_box.prepend(post_card)

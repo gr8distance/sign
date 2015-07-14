@@ -5,11 +5,9 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-
-Post.findById(153).then((post)->
-	post.getComments().then((comments)->
-		console.log comments.length
-		for comment in comments
-			console.log comment.destroy()
-	)
-)
+for i in [0...1000]
+	Post.create({
+		user_id: 1,
+		user_name: "UG",
+		body: "POST_#{i}"
+	})

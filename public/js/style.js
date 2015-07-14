@@ -54,6 +54,7 @@
     card_box = $("#card_box");
     load_more.on("click", function() {
       var p, page_id;
+      console.log("clicked");
       $(this).hide();
       loading.show();
       page_id = $(".page_id");
