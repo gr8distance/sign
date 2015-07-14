@@ -34,18 +34,13 @@ app.get("/",(req,res)->
 #ユーザーをフォローするためのアクション
 app.post("/follow",(req,res)->
 	data = req.body
-	
 	Friend.create({
 		user_id: data.user_id,
 		friend_id: data.friend_id
 	}).then((friend)->
-		#req.flash("info","フォローしました(・∀・)！！")
-		#res.redirect("/friends")
 		data = {state: true,flash: "フォローしました！"}
 		res.json data
 	).catch((err)->
-		#req.flash("info","フォローに失敗しました(´・ω・｀)")
-		#res.redirect("/friends")
 		data = {state: false,flash: "フォローに失敗しました(´・ω・｀)"}
 		res.json data
 	)
@@ -59,8 +54,6 @@ app.post("/unfollow",(req,res)->
 	Friend.findOne(where: {user_id: data.user_id,friend_id: data.friend_id}).then((friend)->
 		friend.destroy()
 	)
-	#req.flash("info","フォローを外しました")
-	#res.redirect("/friends")
 	data = {state: true,flash: "フォローを解除しました。"}
 	res.json(data)
 )

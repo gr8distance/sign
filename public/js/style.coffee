@@ -122,13 +122,14 @@ $ ->
 		
 		#友達のIDを取得
 		form_id = $(@).attr("id")
+		fs = form_id.split("_")
 		
 		#URLと送信しないと行けないデータを取得
 		url = $(@).attr("action")
 		data = {}
-		data.user_id = $("#user_id").val()
-		data.friend_id = $("#friend_id").val()
-
+		data.user_id = fs[4]
+		data.friend_id = fs[3]
+			
 		#AJAXで送信する
 		$.post(url,data,(data)->
 			#戻りのデータから処理を開始

@@ -75,15 +75,16 @@
       });
     });
     $(".be_friend_form").submit(function(e) {
-      var data, form_id, fr_sub, url;
+      var data, form_id, fr_sub, fs, url;
       e.preventDefault();
       fr_sub = $("#friend_follow_submit");
       fr_sub.hide();
       form_id = $(this).attr("id");
+      fs = form_id.split("_");
       url = $(this).attr("action");
       data = {};
-      data.user_id = $("#user_id").val();
-      data.friend_id = $("#friend_id").val();
+      data.user_id = fs[4];
+      data.friend_id = fs[3];
       return $.post(url, data, function(data) {
         var BASE, path;
         Materialize.toast(data.flash, 3330);
