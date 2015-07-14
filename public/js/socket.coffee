@@ -4,11 +4,11 @@ $ ->
 	post = $("#post")
 	card_box = $("#card_box")
 	u_id = $("#user_id")
-
-	post.on("click",()->
-		body = $("#post_body")
+	
+	$("#post_form").submit((e)->
+		e.preventDefault()
 		post.hide()
-
+		body = $("#post_body")
 		data = {}
 		data.body = body.val()
 		data.user_id = u_id.val()
