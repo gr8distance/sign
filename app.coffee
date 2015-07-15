@@ -138,15 +138,19 @@ io.on("connection",(socket)->
 				user_name: data.user_name,
 				user_image: data.user_image
 			}).then((comment)->
-
-				Notification.create({
-					user_name: data.user_name,
-					user_id: data.user_id,
-					user_image: data.user_image,
-					model_name: "posts",
-					model_id: data.post_id,
-					message: "#{data.user_name}さんがあなたの書き込みにコメントしました。"
-				})
+				
+				Post.findById(data.post_id).then((post)->
+					post.getUser().then((user)->
+						Notification.create({
+							user_name: data.user_name,
+							user_id: user.dataValues.id,
+							user_image: data.user_image,
+							model_name: "posts",
+							model_id: data.post_id,
+							message: "#{data.user_name}さんがあなたの書き込みにコメントしました。"
+						})
+					)
+				)
 			).catch((e)->
 				console.log e
 			)
