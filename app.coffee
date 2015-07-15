@@ -199,19 +199,7 @@ io.on("connection",(socket)->
 				user_id: data.user_id,
 				user_name: user.name,
 				user_image: user.image
-			}).then((post)->
-				Notification.create({
-					user_name: data.user_name,
-					user_id: data.user_id,
-					user_image: data.user_image,
-					model_name: "posts",
-					model_id: post.id,
-					message: "#{data.user_name}さんの新しい投稿。"
-				})
-
-				#可能ならSOCKETでユーザーに通知してやれば良い
-				#
-			).catch((err)->
+			}).catch((err)->
 				console.log err
 			)
 		).catch((err)->

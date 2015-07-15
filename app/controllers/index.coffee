@@ -25,17 +25,19 @@ app.get("/", (req, res) ->
 				fr_id = ""
 				for id in v_friends
 					fr_id+="_#{id}"
-
-				#ビューを生成していろいろなデータを送り込む
-				res.render("home/index",{
-					title: "Aimerthyst:ホーム",
-					flash: req.flash("info")[0],
-					current_user: req.session.current_user,
-					posts: v_posts,
-					btn: "home",
-					friends_id: fr_id,
-					notifications: req.session.notifications
-				})
+				
+				User.findAll(order: "updated_at desc",limit: 3).then((users)->
+					#ビューを生成していろいろなデータを送り込む
+					res.render("home/index",{
+						title: "Aimerthyst:ホーム",
+						flash: req.flash("info")[0],
+						current_user: req.session.current_user,
+						posts: v_posts,
+						btn: "home",
+						friends_id: fr_id,
+						users: users
+					})
+				)
 			).catch((err)->
 				console.log err
 				req.flash("info","表示関連でなにかのエラーが発生しました(・∀・):")

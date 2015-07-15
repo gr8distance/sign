@@ -14,15 +14,19 @@ app.get("/",(req,res)->
 		
 		req.session.current_user.getFriends().then((friends)->
 			my_friends = []
+			all_friends = ""
+			
 			for friend in friends
 				my_friends.push friend.dataValues.friend_id
+				all_friends += "#{friend.dataValues.friend_id}_"
 
 			res.render("friend/index",{
 				users: v_users,
 				friends: my_friends,
 				current_user: req.session.current_user,
 				flash: req.flash("info")[0],
-				title: "アメジストに登録しているユーザーを探す"
+				title: "アメジストに登録しているユーザーを探す",
+				all_friends: all_friends
 			})
 		)
 	).catch((err)->

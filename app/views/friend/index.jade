@@ -4,6 +4,8 @@ block content
 	section.parallax-container
 		.parallax
 			img(src="/images/colorfull2.jpg").blur
+			input(id="all_friends_id",type="hidden",value="#{all_friends}")
+			input(id="current_user_id",type="hidden",value="#{current_user.id}")
 
 	.row
 		.col.m3.hide-on-mobile-only
@@ -30,13 +32,9 @@ block content
 							.card-action
 								if (friends.indexOf(user.id)) >= 0
 									form(action="/friends/unfollow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
-										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
 										button.btn-flat.pink.white-text.waves-effect.waves-light#friend_follow_submit フォロー中
 								else
 									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
-										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
 										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
 
 			//if posts.length >= 18

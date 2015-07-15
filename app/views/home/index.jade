@@ -13,9 +13,29 @@ block content
 			#scroll_fire.container
 				#card_box.row
 					if posts.length != 0
+						- i = 0
 						for post in posts
 							include _post
+							- i++
+					else
+						ul.collection.with-header
+							li.collection-header
+								h5.font_size_22 友達をフォローしよう
 
+							for user in users
+								li.collection-item.avatar
+									if user.image
+										img(src="#{user.image}").circle
+									else
+										img(src="/images/amethyst_flat.png").circle
+									span.title friend.name
+									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
+										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
+										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
+
+	
+							
 				//追加の記事を読み込むときはこれQ
 				if posts.length >= 18
 					#read_more.center

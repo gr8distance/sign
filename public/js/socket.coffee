@@ -31,6 +31,7 @@ $ ->
 		friends_id.shift()
 
 		if friends_id.indexOf("#{data.user_id}") >= 0
+
 			post_card = "<article id='posted_card_#{data.id}' class='col s12 m6'>
 				<div class='card'>
 				<div class='card-content'>
@@ -41,7 +42,9 @@ $ ->
 				<p>#{data.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}</p>
 				<span class='font_size_10 right'>#{data.created_at}</span>
 				</div>
-				<div class='card-action'><a href='/posts/#{data.id}/' class='teal-text'>コメント</a></div>
+				<div class='card-action'>
+				<a href='/posts/#{data.id}/' class='teal-text'>コメント</a>
+				</div>
 				</div>
 				</article>"
 			card_box.prepend(post_card)

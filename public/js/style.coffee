@@ -61,7 +61,9 @@ $ ->
 	friend_box = $("#friend_place")
 
 	load_more_friend.on("click",->
-		console.log "clicked"
+		all_friends = $("#all_friends_id").val().split("_")
+		console.log all_friends
+
 
 		$(@).hide()
 		loading_friend.show()
@@ -72,6 +74,7 @@ $ ->
 		$.post("/friends/more",{
 			page_id: p
 		},(data)->
+			current_user_id = $("#current_user_id").val()
 			setTimeout(->
 				for user in data
 					post_card = "<article class='col s12 m6 l3'>
@@ -80,6 +83,7 @@ $ ->
 						</div>
 						<div class='card-content'><span class='card-title'><a href='/users/#{user.id}' class='cyan-text'>#{user.name}</a></span></div>
 						<div class='card-action'>
+						<a href='/users/#{user.id}'>もっと詳しく</a>
 						</div>
 						</div>
 						</article>"

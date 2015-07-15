@@ -53,8 +53,9 @@
     loading_friend.hide();
     friend_box = $("#friend_place");
     load_more_friend.on("click", function() {
-      var p, page_id;
-      console.log("clicked");
+      var all_friends, p, page_id;
+      all_friends = $("#all_friends_id").val().split("_");
+      console.log(all_friends);
       $(this).hide();
       loading_friend.show();
       page_id = $(".page_id");
@@ -63,11 +64,13 @@
       return $.post("/friends/more", {
         page_id: p
       }, function(data) {
+        var current_user_id;
+        current_user_id = $("#current_user_id").val();
         return setTimeout(function() {
           var i, len, post_card, user;
           for (i = 0, len = data.length; i < len; i++) {
             user = data[i];
-            post_card = "<article class='col s12 m6 l3'> <div class='card small'> <div class='card-image'><img src='" + (user.image != null ? user.image : '/images/colorfull2.jpg') + "' class='blur'> </div> <div class='card-content'><span class='card-title'><a href='/users/" + user.id + "' class='cyan-text'>" + user.name + "</a></span></div> <div class='card-action'> </div> </div> </article>";
+            post_card = "<article class='col s12 m6 l3'> <div class='card small'> <div class='card-image'><img src='" + (user.image != null ? user.image : '/images/colorfull2.jpg') + "' class='blur'> </div> <div class='card-content'><span class='card-title'><a href='/users/" + user.id + "' class='cyan-text'>" + user.name + "</a></span></div> <div class='card-action'> <a href='/users/" + user.id + "'>もっと詳しく</a> </div> </div> </article>";
             friend_box.append(post_card);
           }
           loading_friend.hide();
