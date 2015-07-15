@@ -54,6 +54,44 @@ $ ->
 		)
 	)
 	
+	#友達を順次AJAXで取得する時にローディングする######################
+	loading_friend = $("#loading_friend")
+	load_more_friend = $("#load_more_friend")
+	loading_friend.hide()
+	friend_box = $("#friend_place")
+
+	load_more_friend.on("click",->
+		console.log "clicked"
+
+		$(@).hide()
+		loading_friend.show()
+		page_id = $(".page_id")
+		p = parseInt(page_id.val())
+		page_id.val("#{p+1}")
+
+		$.post("/friends/more",{
+			page_id: p
+		},(data)->
+			setTimeout(->
+				for user in data
+					post_card = "<article class='col s12 m6 l3'>
+						<div class='card small'>
+						<div class='card-image'><img src='#{if user.image? then user.image else '/images/colorfull2.jpg'}' class='blur'>
+						</div>
+						<div class='card-content'><span class='card-title'><a href='/users/#{user.id}' class='cyan-text'>#{user.name}</a></span></div>
+						<div class='card-action'>
+						</div>
+						</div>
+						</article>"
+					friend_box.append(post_card)
+				loading_friend.hide()
+				load_more_friend.fadeIn()
+			,1800)
+		)
+	)
+	#########################
+	
+
 	#次の投稿をAJAXで取得する時にローディングする######################
 	loading = $("#loading")
 	load_more = $("#load_more")
@@ -61,7 +99,6 @@ $ ->
 	card_box = $("#card_box")
 
 	load_more.on("click",->
-		console.log "clicked"
 
 		$(@).hide()
 		loading.show()
