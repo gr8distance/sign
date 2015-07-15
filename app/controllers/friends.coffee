@@ -31,7 +31,7 @@ app.get("/",(req,res)->
 	)
 )
 
-#次のユーザを読み込
+#次のユーザを順次読み込んでいくためのアクション
 app.post("/more",(req,res)->
 	data = req.body
 	console.log data

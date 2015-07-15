@@ -54,6 +54,9 @@ createModels = ->
 	
 	User.hasMany(Blog)
 	Blog.belongsTo(User)
+
+	User.hasMany(Notification)
+	Notification.belongsTo(User)
 #sql.s.sync({force: true})
 #sql.s.sync()
 

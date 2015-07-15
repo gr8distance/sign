@@ -116,7 +116,7 @@ $ ->
 						<div class='card-content'>
 						<div class='row'>
 						<div class='col s2 m3 l2'>
-						<img src='#{if post.user_image? then post.user_image else "/images/amethyst_flat.png"}' class='circle responsive-img'>i
+						<img src='#{if post.user_image? then post.user_image else "/images/amethyst_flat.png"}' class='circle responsive-img'>
 						</div>
 						<div class='col s10 m9 l10'><span class='card-title cyan-text'>#{post.user_name}</span></div>
 						</div>
@@ -212,11 +212,11 @@ $ ->
 		data = {}
 		data.post_id = $(@).attr("id").split("_")[2]
 		url = $(@).attr("action")
+		$("#posted_card_#{data.post_id}").fadeOut()
 
 		$.post(url,data,(data)->
 			if data.state
 				Materialize.toast("#{data.flash}",3330)
-				$("#posted_card_#{data.id}").fadeOut()
 			else
 				Materialize.toast("#{data.flash}",3330)
 

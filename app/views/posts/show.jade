@@ -1,10 +1,7 @@
 extends ../layout
 
 block content
-	section.parallax-container
-		.parallax
-			img(src="/images/colorfull2.jpg").blur
-	.container
+	section.container
 		.row
 			.s12.m6
 				.card
@@ -22,8 +19,7 @@ block content
 											img(src="/images/amethyst_flat.png").circle
 										else
 											img(src="#{comment.user_image}").circle
-										span.title= comment.user_name
-										p #{comment.user_name}#{comment.body}
+										p #{comment.body}
 
 
 					.card-action

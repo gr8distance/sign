@@ -25,7 +25,7 @@ app.post("/",(req,res)->
 app.get("/contact",(req,res)->
 	res.render("company/contact",{
 		title: "お問い合わせAimerthyst",
-		pretty: true
+		current_user: req.session.current_user
 	})
 )
 
@@ -35,7 +35,7 @@ app.get("/privacy_policy",(req,res)->
 		res.render("company/privacy",{
 			title: "プライバシーポリシーAimerthyst",
 			policies: p,
-			pretty: true
+			current_user: req.session.current_user
 		})
 	)
 )

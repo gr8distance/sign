@@ -5,9 +5,11 @@ header
 				ul#nav-mobile.right.hide-on-med-and-down
 					if current_user
 						li
-							a(href="#!" class="dropdown-button cyan-text" data-activates="current_user_dropdown") プロフィール
+							a(href="#!",class="dropdown-button cyan-text",data-activates="current_user_dropdown") プロフィール
+						li
+							a(href="#!",class="dropdown-button cyan-text",data-activates="notification") お知らせ
 					li
-						a(href="#!" class="dropdown-button cyan-text" data-activates="company_info") 運営チームについて
+						a(href="#!",class="dropdown-button cyan-text",data-activates="company_info") 運営チームについて
 
 				
 				if current_user
@@ -33,6 +35,12 @@ header
 										i.mdi-action-home.small.cyan-text
 									.col.s10
 										a.cyan-text(href='/') ホーム
+						li
+							.row
+								.col.s2
+									i.mdi-notification-sms-failed.cyan-text.small
+								.col.s10
+									a.cyan-text(href='/notifications') 新着情報
 						li
 							.row
 								.col.s2
@@ -70,9 +78,14 @@ if current_user
 		li
 			a(href="")= current_user.name
 		li
+			a(href="/notifications") 通知を確認する
+		li
 			form(action="/auth/logout",method="post")
 				button.btn-flat.red.white-text
-					i.mdi-action-lock-open ログアウト
+					i.mdi-action-lock-open
+		
+
+	ul.dropdown-content#notigi
 
 ul#company_info.dropdown-content
 	li

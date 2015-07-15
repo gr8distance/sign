@@ -39,15 +39,15 @@ block content
 										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
 										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
 
-				//if posts.length >= 18
-				#read_more_friend.center
-					input(type="hidden",value="1",class="page_id")
-					.preloader-wrapper.active#loading_friend
-						.spinner-layer.spinner-blue-only
-							.circle-clipper.left
-								.circle
-							.gap-patch
-								.circle
-							.circle-clipper.right
-								.circle
-					i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more_friend
+			//if posts.length >= 18
+			#read_more_friend.center
+				input(type="hidden",value="1",class="page_id")
+				.preloader-wrapper.active#loading_friend
+					.spinner-layer.spinner-blue-only
+						.circle-clipper.left
+							.circle
+						.gap-patch
+							.circle
+						.circle-clipper.right
+							.circle
+				i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more_friend

@@ -45,15 +45,20 @@ app.get("/", (req, res) ->
 		#ログインしていない場合の処理
 		v_posts = []
 		owner = [1]
-		Post.findAll(where: {user_id: owner},limit: 36,order: "updated_at desc").then((posts)->
+		Post.findAll(where: {user_id: owner},limit: 18,order: "updated_at desc").then((posts)->
 			for post in posts
 				v_posts.push post.dataValues
-
-			res.render("home/index",{
-				posts: v_posts,
-				title: "Aimerthyst:ホーム",
-				flash: req.flash("info")[0],
-			})
+			
+			User.findById(1).then((user)->
+				res.render("home/index",{
+					posts: v_posts,
+					title: "Aimerthyst:ホーム",
+					flash: req.flash("info")[0],
+					aimerthyst: user.dataValues
+				})
+			).catch((e)->
+				console.log e
+			)
 		)
 
 )

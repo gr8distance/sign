@@ -49,10 +49,12 @@ app.get("/:id",(req,res)->
 		if req.session.current_user?
 			User.findById(req.session.current_user.id).then((c_user)->
 				c_user.getFriends().then((friends)->
+					
 					v_friends = []
 					for friend in friends
 						v_friends.push friend.dataValues.friend_id
-					user.getPosts(order: "updated_at desc").then((posts)->
+
+					user.getPosts(order: "updated_at desc",limit: 18).then((posts)->
 						res.render("users/show",{
 							title: user.name,
 							user: user,

@@ -9,7 +9,7 @@ block content
 					img(src="#{current_user.image}")
 				else
 					img.blur(src='/images/colorfull2.jpg', alt='Aimerthyst')
-		section.section.grey.lighten-5
+		section.section.grey.lighten-3
 			#scroll_fire.container
 				#card_box.row
 					if posts.length != 0
@@ -43,18 +43,27 @@ block content
 				p.cyan-text ログインはこちらから
 				include ../auth/_login_form
 				include ../auth/_attention	
-			
-				.card
-					.card-image
-						img(src="/images/amethyst_flat.png",class="")
-						span.card-title.ts-grey Aimerthyst
-					.card-content
-						a(href="/company")
-					.card-action
-						a(href="") Access!
+				
+				article
+					h5.font_size_22.orange-text Aimerthyst運営のアカウント
+					.card
+						.card-image
+							img(src="#{aimerthyst.image}")
+							span.card-title.ts-grey #{aimerthyst.name}
+						.card-content
+							p  
+								| Aimerthyst運営チームのアカウントです
+								| 少しでも興味を持っていただければ幸いです(・∀・)！！
+						.card-action
+							a(href="/company") 会社概要
+							a(href="/users/#{aimerthyst.id}") もっと見る
 
 
 			section.col.s12.m8.cyan.lighten-5
 				.row
 					for post in posts
 						include _post
+
+				.card-panel
+					.center
+						a.cyan-text(href="/users/1") もっと詳しく見てみよう(・∀・)！！
