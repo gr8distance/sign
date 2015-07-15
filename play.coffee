@@ -5,8 +5,10 @@ _ = require("underscore")
 eimg = require("easyimage")
 
 
-User.findAll().then((users)->
-	for i in users
-		console.log i.dataValues
+User.findById(1).then((user)->
+	user.getNotifications().then((notifications)->
+		for i in notifications
+			puts i.dataValues
+	)
 )
 

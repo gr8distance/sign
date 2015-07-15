@@ -66,11 +66,15 @@ app.locals.pretty = true
 ##クッキーからログイン中かどうかを判別する
 app.get("/*",(req,res,next)->
 	s_id = req.cookies.remember_me
-	User.find(where: {
-		uniq_session_id: s_id
-	}).then((user)->
-		req.session.current_user = user
-		next()
+	User.find(where: {uniq_session_id: s_id}).then((user)->
+		user.getNotifications().then((notifications)->
+			v_notifs = []
+			for notification in notifications
+				v_notifs.push notification.dataValues
+			req.session.current_user = user
+			res.session.notifications = v_notifs
+			next()
+		)
 	).catch((err)->
 		console.log "This cookie is unknown!"
 		next()

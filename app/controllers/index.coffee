@@ -33,7 +33,8 @@ app.get("/", (req, res) ->
 					current_user: req.session.current_user,
 					posts: v_posts,
 					btn: "home",
-					friends_id: fr_id
+					friends_id: fr_id,
+					notifications: req.session.notifications
 				})
 			).catch((err)->
 				console.log err

@@ -3,13 +3,13 @@ mixin _post(post)
 		.card
 			.card-content
 				.row
-					.col.s2.m3.l2
+					.col.s2.m4.l2
 						if post.user_image
 							img(src="#{post.user_image}",class="circle  responsive-img")
 						else
 							img(src="/images/amethyst_flat.png",class="circle responsive-img")
 
-					.col.s10.m9.l10
+					.col.s10.m8.l10
 						span.card-title
 							a.cyan-text(href="/users/#{post.user_id}")= post.user_name
 				
