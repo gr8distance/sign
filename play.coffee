@@ -5,10 +5,8 @@ _ = require("underscore")
 eimg = require("easyimage")
 
 
-Notification.findAll(where: {user_id: 1}).then((notifs)->
-	for n in notifs
-		#n.destroy()
-		console.log n.dataValues
+User.findAll().then((users)->
+	for i in users
+		console.log i.dataValues
 )
-
 

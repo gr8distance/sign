@@ -22,11 +22,10 @@ block content
 								td#usr_email= current_user.email
 							tr
 								td Profile
-								if current_user.description == "undefined" || typeof current_user.description
-									td#usr_prof !{current_user.description.replace(/\n/g,"<br/>")}
+								if current_user.description != null
+									td#usr_prof !{current_user.description.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
 								else
-									td#usr_prof !{current_user.description}
-						
+									td#usr_prof プロフィールを書き足そう！
 						a(href="#edit_user_profile",class="modal-trigger waves-effect waves-light btn-flat teal accent-3 white-text") 編集する
 
 				
