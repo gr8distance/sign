@@ -20,6 +20,7 @@ case btn
 				form#new_cotery.new_cotery(action='/coteries', accept-charset='UTF-8', method='post')
 					.input-field
 						input#enter_coteries_name(type='text', name='name')
+						input(type='hidden', name='user_id',id="user_id",value="#{current_user.id}")
 						label(for='cotery_name') サークル名
 					.input-field
 						textarea#cotery_description.materialize-textarea(name='description')

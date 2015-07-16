@@ -61,6 +61,12 @@ app.get("/", (req, res) ->
 				})
 			).catch((e)->
 				console.log e
+				res.render("home/index",{
+					posts: v_posts,
+					title: "Aimerthyst:ホーム",
+					flash: req.flash("info")[0],
+					aimerthyst: []
+				})
 			)
 		)
 

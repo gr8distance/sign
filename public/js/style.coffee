@@ -226,4 +226,21 @@ $ ->
 
 		)
 	)
-	
+
+	####サークルへの参加申請
+	$(".commit_cotery").submit((e)->
+		e.preventDefault()
+		url = $(@).attr("action")
+		id = $(".commit_btn").attr("id")
+		data = {
+			user_id: id.split("_")[3]
+			cotery_id: id.split("_")[2]
+		}
+		
+		$.post(url,data,(data)->
+			if data.state
+				Materialize.toast data.flash,3330
+			else
+				Materialize.toast data.flash,3330
+		)
+	)

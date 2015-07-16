@@ -4,11 +4,7 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-
-User.findById(1).then((user)->
-	user.getNotifications().then((notifications)->
-		for i in notifications
-			puts i.dataValues
-	)
+Post.findAll(order: "updated_at desc").then((posts)->
+	for post in posts
+		puts post.dataValues
 )
-

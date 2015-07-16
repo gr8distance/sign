@@ -10,6 +10,25 @@ block content
 	
 	.row
 		.col.s12.m5
+			ul.collection
+				for user in users
+					li.collection-item.avatar
+						img.circle(src="/images/amethyst_flat.png")
+						span.title.cyan-text= user.user_name
+						if user.permit
+							form(action="/coteries/remove_permit" method="post")
+								.input-field.right
+									input(type="hidden" id="cotery_id" name="cotery_id" value="#{cotery.id}")
+									input(type="hidden" id="permit_user_id" name="permit_user_id" value="#{current_user.id}")
+									input(type="hidden" id="user_id" name="user_id" value="#{user.user_id}")
+									button.btn-flat.pink.white-text 退会
+						else
+							form(action="/coteries/add_permit" method="post")
+								.input-field.right
+									input(type="hidden" id="cotery_id" name="cotery_id" value="#{cotery.id}")
+									input(type="hidden" id="permit_user_id" name="permit_user_id" value="#{current_user.id}")
+									input(type="hidden" id="user_id" name="user_id" value="#{user.user_id}")
+									button.btn-flat.blue.white-text 承認
 			.state_post_form
 				.forms
 					.input-field

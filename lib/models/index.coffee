@@ -57,6 +57,9 @@ createModels = ->
 
 	User.hasMany(Notification)
 	Notification.belongsTo(User)
+
+	User.hasMany(Permit)
+	Permit.belongsTo(User)
 #sql.s.sync({force: true})
 #sql.s.sync()
 

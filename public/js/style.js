@@ -156,7 +156,7 @@
         }
       });
     });
-    return $(".delete_post_form").submit(function(e) {
+    $(".delete_post_form").submit(function(e) {
       var data, url;
       e.preventDefault();
       data = {};
@@ -168,6 +168,23 @@
           return Materialize.toast("" + data.flash, 3330);
         } else {
           return Materialize.toast("" + data.flash, 3330);
+        }
+      });
+    });
+    return $(".commit_cotery").submit(function(e) {
+      var data, id, url;
+      e.preventDefault();
+      url = $(this).attr("action");
+      id = $(".commit_btn").attr("id");
+      data = {
+        user_id: id.split("_")[3],
+        cotery_id: id.split("_")[2]
+      };
+      return $.post(url, data, function(data) {
+        if (data.state) {
+          return Materialize.toast(data.flash, 3330);
+        } else {
+          return Materialize.toast(data.flash, 3330);
         }
       });
     });

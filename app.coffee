@@ -190,7 +190,7 @@ io.on("connection",(socket)->
 			data.user_id = user.id
 			data.user_name = user.name
 			data.user_image = user.image
-			data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDay()} #{d.getHours()}:#{d.getMinutes()} "
+			data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDate()} #{d.getHours()}:#{d.getMinutes()} "
 			io.sockets.emit("hand_out_post_card",data)
 
 			#エミットした後にDBに保存する
