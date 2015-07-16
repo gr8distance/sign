@@ -75,7 +75,7 @@
           }
           loading_friend.hide();
           return load_more_friend.fadeIn();
-        }, 1800);
+        }, 666);
       });
     });
     loading = $("#loading");
@@ -101,7 +101,7 @@
           }
           loading.hide();
           return load_more.fadeIn();
-        }, 1800);
+        }, 666);
       });
     });
     $(".be_friend_form").submit(function(e) {

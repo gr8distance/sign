@@ -28,6 +28,14 @@ app.get("/",(req,res)->
 		res.redirect("/")
 )
 
+app.post("/",(req,res)->
+	current_user = req.session.current_user
+	if current_user?
+		
+	else
+		req.flash "info","ログインしていない場合は楽曲の公開はできません"
+		res.redirect "/"
+)
 
 
 

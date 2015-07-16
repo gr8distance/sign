@@ -90,7 +90,7 @@ $ ->
 					friend_box.append(post_card)
 				loading_friend.hide()
 				load_more_friend.fadeIn()
-			,1800)
+			,666)
 		)
 	)
 	#########################
@@ -110,9 +110,7 @@ $ ->
 		p = parseInt(page_id.val())
 		page_id.val("#{p+1}")
 
-		$.post("/posts/more",{
-			page_id: p
-		},(data)->
+		$.post("/posts/more",{page_id: p},(data)->
 			setTimeout(->
 				for post in data
 					post_card = "<article id='posted_card_#{post.id}' class='col s12 m6'>
@@ -133,7 +131,7 @@ $ ->
 					card_box.append(post_card)
 				loading.hide()
 				load_more.fadeIn()
-			,1800)
+			,666)
 		)
 	)
 	###################################################################

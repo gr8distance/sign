@@ -20,7 +20,7 @@ block content
 					else
 						ul.collection.with-header
 							li.collection-header
-								h5.font_size_22 友達をフォローしよう
+								h5.font_size_22 他のユーザーをフォローしてみよう
 
 							for user in users
 								li.collection-item.avatar
@@ -28,7 +28,7 @@ block content
 										img(src="#{user.image}").circle
 									else
 										img(src="/images/amethyst_flat.png").circle
-									span.title friend.name
+									span.title= friend.name
 									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
 										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
 										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")

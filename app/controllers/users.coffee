@@ -104,7 +104,7 @@ app.post("/:id",(req,res)->
 app.post("/:id/image",(req,res)->
 	id = req.params.id
 	file = req.files
-	console.log file.image.name
+	#console.log file.image.name
 
 	easyimg.rescrop({
 		src: file.image.path,
@@ -113,7 +113,7 @@ app.post("/:id/image",(req,res)->
 		height: 250,
 		fill: true
 	})
-	console.log file.image.name
+	#console.log file.image.name
 	
 	User.findById(id).then((user)->
 		user.updateAttributes({

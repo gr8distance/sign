@@ -31,5 +31,20 @@ block content
 									button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
 
 		.col.s12.m8
-			for post in posts
-				include ../home/_post
+			#card_box
+				for post in posts
+					include ../home/_post
+
+			if posts.length >= 18
+				#read_more.center
+					input(type="hidden",value="1",class="page_id")
+					.preloader-wrapper.active#loading
+						.spinner-layer.spinner-blue-only
+							.circle-clipper.left
+								.circle
+							.gap-patch
+								.circle
+							.circle-clipper.right
+								.circle
+					i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more
+
