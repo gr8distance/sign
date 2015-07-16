@@ -124,4 +124,12 @@ $ ->
 		$("#comments").append(comment_data)
 		$("#comment_body").val("")
 	)
+	
+	##サークルに書き込みがあった場合にサークルに関わる人全員に通知を送る
+	#user_id_for_all_page = $("#user_id_for_all_page").val()
+	#console.log "notification_#{user_id_for_all_page}"
 
+	#socket.on("notification_#{user_id_for_all_page}",(data)->
+	#	console.log data
+	#	#Materialize.toast("<a href='/coteries/#{data.cotery_id}'>#{data.flash}</a>",3330)
+	#)

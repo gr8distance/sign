@@ -163,7 +163,8 @@ io.on("connection",(socket)->
 
 	#サークルでトークするためのコード
 	socket.on("send_circle_talk",(data)->
-		
+		#最初のアクセスでROOM分けを行う
+		#次のアクセスからは通常通りの運用を行う
 		if data.firsr_check
 			socket.join(data.room_id)
 		else
@@ -174,7 +175,43 @@ io.on("connection",(socket)->
 				user_name: data.user_name,
 				user_image: data.user_image,
 				user_id: data.user_id
-			})
+			}).then((talk)->
+				#サークルの参加権限持つユーザーを割り出しすべてのユーザーに通知を送る
+				Cotery.findById(data.circle_id).then((cotery)->
+					
+					
+					#さらに通知を逃した人のためにDBにも保存する
+					unless cotery.dataValues.permit
+						Permit.findAll(where: {model_name: "Cotery",model_id: data.circle_id}).then((users)->
+							for user in users
+								#DBに保存するためのコード
+								#DBに保存する。ただし掲示板への参加権限を持ち合わせてい人のみ
+								u = user.dataValues
+								if u.user_id != parseInt(data.user_id)
+									if u.permit
+
+										##誰かが掲示板に書き込んだら全員に通知が行くようにする
+										#notif = {
+										#	id: data.user_id,
+										#	cotery_id: data.circle_id,
+										#	flash: "#{data.user_name}さんが掲示板に書き込みしました"
+										#}
+										#return_notification = "notification_#{u.user_id}"
+										#socket.emit(return_notification,notif)
+
+										Notification.create({
+											user_name: data.user_name,
+											user_image: data.user_image,
+											model_id: data.circle_id,
+											model_name: "coteries",
+											message: "#{data.user_name}さんがサークルに書き込みしました",
+											user_id: u.user_id
+										}).catch((e)->
+											console.log e
+										)
+						)
+				)
+			)
 	)
 
 	############ここまで！###########

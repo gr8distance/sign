@@ -25,7 +25,8 @@ html(lang="ja")
 
 		if current_user
 			include parts/_button
-		
+			input(id="user_id_for_all_page",type="hidden",value="#{current_user.id}")
+
 		script(src="/js/jquery.js")
 		script(src="/js/materialize.js")
 		script(src="/socket.io/socket.io.js")

@@ -47,8 +47,8 @@ app.get("/:id",(req,res)->
 		if cotery.permit
 			users = []
 			Permit.findAll(where: {model_name: "Cotery",model_id: cotery.id}).then((permits)->
-				for permit in permits
-					users.push permit
+				#for permit in permits
+				#	users.push permit.dataValues
 				Talk.findAll(where: {room_id: room_id},order: "updated_at desc",limit: 54).then((talks)->
 					res.render("coteries/show",{
 						title: "#{cotery.name}::Aimerthyst",
@@ -71,7 +71,8 @@ app.get("/:id",(req,res)->
 					users = []
 					Permit.findAll(where: {model_name: "Cotery",model_id: cotery.id}).then((permits)->
 						for permit in permits
-							users.push permit
+							unless permit.dataValues.permit
+								users.push permit.dataValues
 						Talk.findAll(where: {room_id: room_id},order: "updated_at desc",limit: 54).then((talks)->
 							res.render("coteries/show",{
 								title: "#{cotery.name}::Aimerthyst",
