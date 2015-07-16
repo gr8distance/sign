@@ -4,7 +4,11 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-Post.findAll(order: "updated_at desc").then((posts)->
-	for post in posts
-		puts post.dataValues
+Permit.findAll().then((pp)->
+	for p in pp
+		p.destroy()
+)
+Cotery.findAll().then((pp)->
+	for p in pp
+		p.destroy()
 )

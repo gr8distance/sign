@@ -236,10 +236,35 @@ $ ->
 			user_id: id.split("_")[3]
 			cotery_id: id.split("_")[2]
 		}
-		
+		t = $(@)
 		$.post(url,data,(data)->
 			if data.state
+				$(t).append("<p>サークルに参加希望をだしました</p>")
+				$("##{id}").hide()
 				Materialize.toast data.flash,3330
+			else
+				Materialize.toast data.flash,3330
+		)
+	)
+
+	#####サークルへの参加権限を与えるたり奪ったりするコード
+	$(".change_permit").submit((e)->
+		e.preventDefault()
+		console.log "clocked"
+
+		url = $(@).attr("action")
+		id = $(@).attr("id")
+		ids = id.split("_")
+		data = {
+			cotery_id: ids[1],
+			user_id: ids[2],
+			permit_user_id: ids[3]
+		}
+		$.post(url,data,(data)->
+			console.log data
+			if data.state
+				Materialize.toast data.flash,3330
+				$("#waiting_user_#{data.user_id}").fadeOut()
 			else
 				Materialize.toast data.flash,3330
 		)

@@ -171,8 +171,8 @@
         }
       });
     });
-    return $(".commit_cotery").submit(function(e) {
-      var data, id, url;
+    $(".commit_cotery").submit(function(e) {
+      var data, id, t, url;
       e.preventDefault();
       url = $(this).attr("action");
       id = $(".commit_btn").attr("id");
@@ -180,9 +180,34 @@
         user_id: id.split("_")[3],
         cotery_id: id.split("_")[2]
       };
+      t = $(this);
       return $.post(url, data, function(data) {
         if (data.state) {
+          $(t).append("<p>サークルに参加希望をだしました</p>");
+          $("#" + id).hide();
           return Materialize.toast(data.flash, 3330);
+        } else {
+          return Materialize.toast(data.flash, 3330);
+        }
+      });
+    });
+    return $(".change_permit").submit(function(e) {
+      var data, id, ids, url;
+      e.preventDefault();
+      console.log("clocked");
+      url = $(this).attr("action");
+      id = $(this).attr("id");
+      ids = id.split("_");
+      data = {
+        cotery_id: ids[1],
+        user_id: ids[2],
+        permit_user_id: ids[3]
+      };
+      return $.post(url, data, function(data) {
+        console.log(data);
+        if (data.state) {
+          Materialize.toast(data.flash, 3330);
+          return $("#waiting_user_" + data.user_id).fadeOut();
         } else {
           return Materialize.toast(data.flash, 3330);
         }

@@ -135,17 +135,26 @@ app.post("/add_permit",(req,res)->
 		if permit? && permit.permit
 			Permit.findOne(where: {user_id: data.user_id,model_id: data.cotery_id,model_name: "Cotery"}).then((perm)->
 				perm.updateAttributes({permit: true}).then((pp)->
-					req.flash "info","管理者権限を付与しました"
-					res.redirect "/coteries/#{data.cotery_id}"
+					data.state = true
+					data.flash = "#{data.user_name}さんに参加権限を与えました"
+					res.json data
+					#req.flash "info","管理者権限を付与しました"
+					#res.redirect "/coteries/#{data.cotery_id}"
 				).catch((e)->
+					data.state = false
+					data.flash = "参加権限の取得に失敗しました。"
 					console.log e
-					res.redirect "/coteries/#{data.cotery_id}"
+					res.json data
+					#res.redirect "/coteries/#{data.cotery_id}"
 				)
 			)
 		else
 			#管理者権限を持っていないのでサークルに戻す
-			req.flash "info","He has not permit!"
-			res.redirect "/coteries/#{data.cotery_id}"
+			data.state = false
+			data.flash = "管理者権限がありません "
+			res.json data
+			#req.flash "info","He has not permit!"
+			#res.redirect "/coteries/#{data.cotery_id}"
 	)
 )
 
@@ -159,15 +168,24 @@ app.post("/remove_permit",(req,res)->
 			Permit.findOne(where: user_id: data.user_id,model_id: data.cotery_id,model_name: "Cotery").then((permit)->
 				if permit? && permit.permit
 					permit.destroy()
-					console.log "Destroyed"
-					res.redirect "/coteries/#{data.cotery_id}"
+					data.state = true
+					data.flash = "参加権限を剥奪しました"
+					res.json data
+					#console.log "Destroyed"
+					#res.redirect "/coteries/#{data.cotery_id}"
 				else
-					console.log "Undeleted"
-					res.redirect "/coteries/#{data.cotery_id}"
+					data.state = false
+					data.flash = "参加権限の剥奪に失敗しました"
+					res.json data
+					#console.log "Undeleted"
+					#res.redirect "/coteries/#{data.cotery_id}"
 			)
 		else
-			req.flash "info","He has not permit!"
-			res.redirect "/coteries/#{data.cotery_id}"
+			data.state = false
+			data.flash = "権限を削除する権限を持っていません。"
+			res.json data
+			#req.flash "info","He has not permit!"
+			#res.redirect "/coteries/#{data.cotery_id}"
 	)
 )
 
