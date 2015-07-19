@@ -106,6 +106,21 @@ app.post("/:id/image",(req,res)->
 	file = req.files
 	#console.log file.image.name
 	path = "public/uploads/images/#{file.image.name}"
+	
+	if file.image.size >= 100001
+		easyimg.resize({
+			src: path,
+			dst: path,
+			width: 1200,
+			height: 1200,
+			fill: true
+		}).then((image)->
+			console.log "#{image}(・∀・)！！"
+		).catch((err)->
+			console.log err
+		)
+
+	console.log "(・∀・)！！#{file.image.size}"
 
 	fs.stat(path,(err,stats)->
 		if err
