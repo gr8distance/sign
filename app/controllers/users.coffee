@@ -3,7 +3,7 @@ app = express.Router()
 easyimg = require("easyimage")
 _ = require("underscore")
 require("../../lib/models")()
-
+fs = require("fs")
 
 app.get("/new",(req,res)->
 	#console.log sql
@@ -105,15 +105,25 @@ app.post("/:id/image",(req,res)->
 	id = req.params.id
 	file = req.files
 	#console.log file.image.name
+	path = "public/uploads/images/#{file.image.name}"
 
-	easyimg.rescrop({
-		src: file.image.path,
-		dest: "./uploads/images/thumb_#{file.image.name}",
-		width: 250,
-		height: 250,
-		fill: true
-	})
-	#console.log file.image.name
+	fs.stat(path,(err,stats)->
+		if err
+			console.log "(´・ω・｀)"
+		else
+			#console.log stats
+			easyimg.rescrop({
+				src: path,
+				dst: "public/thumb/uploads/images/#{file.image.name}",
+				width: 250,
+				height: 250,
+				fill: true
+			}).then((image)->
+				console.log "(・∀・)！！#{image}"
+			).catch((err)->
+				console.log "(´・ω・｀)#{err}"
+			)
+	)
 	
 	User.findById(id).then((user)->
 		user.updateAttributes({
