@@ -145,7 +145,7 @@ io.on("connection",(socket)->
 				user_id: data.user_id,
 				post_id: data.post_id,
 				user_name: data.user_name,
-				user_image: data.user_image
+				user_image: "thumb/#{data.user_image}"
 			}).then((comment)->
 				
 				Post.findById(data.post_id).then((post)->
@@ -153,7 +153,7 @@ io.on("connection",(socket)->
 						Notification.create({
 							user_name: data.user_name,
 							user_id: user.dataValues.id,
-							user_image: data.user_image,
+							user_image: "thumb/#{data.user_image}",
 							model_name: "posts",
 							model_id: data.post_id,
 							message: "#{data.user_name}さんがあなたの書き込みにコメントしました。"
@@ -178,7 +178,7 @@ io.on("connection",(socket)->
 				body: data.body,
 				room_id: data.room_id,
 				user_name: data.user_name,
-				user_image: data.user_image,
+				user_image: "/thumb/#{data.user_image}",
 				user_id: data.user_id
 			}).then((talk)->
 				#サークルの参加権限持つユーザーを割り出しすべてのユーザーに通知を送る
@@ -206,7 +206,7 @@ io.on("connection",(socket)->
 
 										Notification.create({
 											user_name: data.user_name,
-											user_image: data.user_image,
+											user_image: "/thumb/#{data.user_image}",
 											model_id: data.circle_id,
 											model_name: "coteries",
 											message: "#{data.user_name}さんがサークルに書き込みしました",
@@ -240,7 +240,7 @@ io.on("connection",(socket)->
 				body: data.body,
 				user_id: data.user_id,
 				user_name: user.name,
-				user_image: "thumb/#{user.image}"
+				user_image: "/thumb/#{user.image}"
 			}).catch((err)->
 				console.log err
 			)

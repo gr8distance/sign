@@ -79,7 +79,7 @@ $ ->
 			<div class='card-content'>
 			<div class='row'>
 			<div class='col s2'>
-			<img src='#{if data.user_image then data.user_image else '/images/colorfull2.jpg'}' class='circle responsive-img blue'>
+			<img src='#{if data.user_image then "/thumb/#{data.user_image}" else '/images/colorfull2.jpg'}' class='circle responsive-img blue'>
 			</div>
 			<div class='col s10'>
 			<h5 class='font_size_18'>#{data.user_name}</h5>
