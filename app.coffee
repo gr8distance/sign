@@ -240,7 +240,7 @@ io.on("connection",(socket)->
 				body: data.body,
 				user_id: data.user_id,
 				user_name: user.name,
-				user_image: user.image
+				user_image: "thumb/#{user.image}"
 			}).catch((err)->
 				console.log err
 			)

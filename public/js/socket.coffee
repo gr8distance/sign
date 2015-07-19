@@ -36,7 +36,8 @@ $ ->
 				<div class='card'>
 				<div class='card-content'>
 				<div class='row'>
-				<div class='col s2 m3 l2'><img src='#{if data.user_image? then data.user_image else "/images/amethyst_flat.png"}' class='circle responsive-img'></div>
+				<div class='col s2 m3 l2'>
+				<img src='#{if data.user_image? then "thumb#{data.user_image}" else "/images/amethyst_flat.png"}' class='circle responsive-img'></div>
 				<div class='col s10 m9 l10'><span class='card-title cyan-text'>#{data.user_name}</span></div>
 				</div>
 				<p>#{data.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}</p>
