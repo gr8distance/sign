@@ -19,7 +19,7 @@ header
 				if current_user
 					ul#mobile-demo.side-nav
 						if current_user.image
-							img.responsive-img(src="#{current_user.image}", alt='#{current_user.name}')
+							img.responsive-img(src="thumb/#{current_user.image}", alt='#{current_user.name}')
 						else
 							img.responsive-img(src='/images/amethyst_flat.png', alt='#{current_user.name}')
 
@@ -27,7 +27,7 @@ header
 							.row
 								.col.s4
 									if current_user.image
-										img.responsive-img.circle.small(alt="#{current_user.name}", src="#{current_user.image}")
+										img.responsive-img.circle.small(alt="#{current_user.name}", src="thumb/#{current_user.image}")
 									else
 										img.responsive-img.circle.small(alt="#{current_user.name}",src="/images/amethyst_flat.png")
 								.col.s8
