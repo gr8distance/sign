@@ -53,11 +53,6 @@ app.use bodyParser.urlencoded()
 #画像のアップロードについていろいろ！
 app.use(multer({
 	dest: './public/uploads/images',
-	#changeDest: (dest, req, res)->
-	#	stat = fs.statSync(dest)
-	#	console.log stat
-	#	return "./public/uploads/images"
-
 	rename: (fieldname, filename, req, res)->
 		d = new Date
 		return "#{d.getTime()*18}"
