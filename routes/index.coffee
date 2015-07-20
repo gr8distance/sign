@@ -11,13 +11,11 @@ routes = {
 		path: "/home/index",
 		method: "get"
 	},
-
 	"/users/": {
 		func: index,
 		path: "/users/index",
 		method: "get"
 	}
-
 }
 
 
