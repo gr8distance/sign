@@ -104,42 +104,44 @@ app.post("/:id",(req,res)->
 app.post("/:id/image",(req,res)->
 	id = req.params.id
 	file = req.files
-	#console.log file.image.name
 	path = "public/uploads/images/#{file.image.name}"
 	
-	if file.image.size >= 100001
-		easyimg.resize({
-			src: path,
-			dst: path,
-			width: 1200,
-			height: 1200,
-			fill: true
-		}).then((image)->
-			console.log "#{image}(・∀・)！！"
-		).catch((err)->
-			console.log err
-		)
-
-	console.log "(・∀・)！！#{file.image.size}"
-
-	fs.stat(path,(err,stats)->
-		if err
-			console.log "(´・ω・｀)"
-		else
-			#console.log stats
-			easyimg.rescrop({
+	try
+		if file.image.size >= 100001
+			easyimg.resize({
 				src: path,
-				dst: "public/thumb/uploads/images/#{file.image.name}",
-				width: 250,
-				height: 250,
+				dst: path,
+				width: 1200,
+				height: 1200,
 				fill: true
 			}).then((image)->
-				console.log "(・∀・)！！#{image}"
+				#console.log "#{image}(・∀・)！！"
 			).catch((err)->
-				console.log "(´・ω・｀)#{err}"
+				console.log err
 			)
-	)
-	
+
+		#console.log "(・∀・)！！#{file.image.size}"
+
+		fs.stat(path,(err,stats)->
+			if err
+				console.log "(´・ω・｀)"
+			else
+				#console.log stats
+				easyimg.rescrop({
+					src: path,
+					dst: "public/thumb/uploads/images/#{file.image.name}",
+					width: 250,
+					height: 250,
+					fill: true
+				}).then((image)->
+					#console.log "(・∀・)！！#{image}"
+				).catch((err)->
+					console.log "(´・ω・｀)#{err}"
+				)
+		)
+	catch(e)->
+		console.log e
+
 	User.findById(id).then((user)->
 		user.updateAttributes({
 			image: "/uploads/images/#{file.image.name}"
