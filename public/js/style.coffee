@@ -267,3 +267,21 @@ $ ->
 				Materialize.toast data.flash,3330
 		)
 	)
+
+	#投稿を削除するためのコード
+	#書きなおした
+	#このコードなら動的に追加されてもイベントが白化する
+	$(document).on("click",".delete_post_form",->
+		console.log "cliecled"
+		id = $(@).attr("id")
+		data = {post: id.split("_")[2],user: id.split("_")[3]}
+		url = "/posts/#{data.post}/delete"
+		$("#posted_card_#{data.post}").fadeOut()
+
+		$.post(url,data,(data)->
+			if data.state
+				Materialize.toast(data.flash,3330)
+			else
+				Materialize.toast(data.flash,3330)
+		)
+	)

@@ -222,13 +222,13 @@ io.on("connection",(socket)->
 		socket_id = data.socket_id
 
 		User.findById(data.user_id).then((user)->
-			d = new Date()
-			#ひとまずすべてのユーザーにデータをEmitする
-			data.user_id = user.id
-			data.user_name = user.name
-			data.user_image = user.image
-			data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDate()} #{d.getHours()}:#{d.getMinutes()} "
-			io.sockets.emit("hand_out_post_card",data)
+			#d = new Date()
+			##ひとまずすべてのユーザーにデータをEmitする
+			#data.user_id = user.id
+			#data.user_name = user.name
+			#data.user_image = user.image
+			#data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDate()} #{d.getHours()}:#{d.getMinutes()} "
+			#io.sockets.emit("hand_out_post_card",data)
 
 			#エミットした後にDBに保存する
 			Post.create({
@@ -236,7 +236,13 @@ io.on("connection",(socket)->
 				user_id: data.user_id,
 				user_name: user.name,
 				user_image: "/thumb/#{user.image}"
-			}).catch((err)->
+			}).then((post)->
+				d = new Date()
+				#ひとまずすべてのユーザーにデータをEmitする
+				data = post.dataValues
+				data.created_at = "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDate()} #{d.getHours()}:#{d.getMinutes()} "
+				io.sockets.emit("hand_out_post_card",data)
+			).catch((err)->
 				console.log err
 			)
 		).catch((err)->

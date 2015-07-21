@@ -139,7 +139,7 @@ app.post("/:id/image",(req,res)->
 					console.log "(´・ω・｀)#{err}"
 				)
 		)
-	catch(e)->
+	catch e
 		console.log e
 
 	User.findById(id).then((user)->

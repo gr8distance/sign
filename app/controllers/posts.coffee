@@ -57,17 +57,15 @@ app.get("/:id/edit",(req,res)->
 
 
 app.post("/:id/delete",(req,res)->
-	id = req.body.post_id
-	Post.findById(id).then((post)->
+	data = req.body
+	console.log data
+
+	Post.findById(parseInt(data.post)).then((post)->
 		post.destroy()
-		#req.flash("info","投稿を削除しました")
-		#res.redirect("/")
-		data = {state: true,id: id,flash:"投稿を削除しました"}
+		data = {state: true,id: data.post,flash:"投稿を削除しました"}
 		res.json data
 	).catch((e)->
 		console.log e
-		#req.flash("info","投稿を削除できませんでした(´・ω・｀)")
-		#res.redirect("/")
 		data = {state: false,flash:"削除に失敗しました(´・ω・｀)"}
 		res.json data
 	)

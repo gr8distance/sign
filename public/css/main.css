@@ -166,4 +166,7 @@
   height: 60px;
   overflow: hidden; }
 
+.delete_post_form {
+  cursor: pointer; }
+
 /*# sourceMappingURL=main.css.map */

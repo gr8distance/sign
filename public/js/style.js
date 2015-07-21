@@ -191,7 +191,7 @@
         }
       });
     });
-    return $(".change_permit").submit(function(e) {
+    $(".change_permit").submit(function(e) {
       var data, id, ids, url;
       e.preventDefault();
       console.log("clocked");
@@ -208,6 +208,24 @@
         if (data.state) {
           Materialize.toast(data.flash, 3330);
           return $("#waiting_user_" + data.user_id).fadeOut();
+        } else {
+          return Materialize.toast(data.flash, 3330);
+        }
+      });
+    });
+    return $(document).on("click", ".delete_post_form", function() {
+      var data, id, url;
+      console.log("cliecled");
+      id = $(this).attr("id");
+      data = {
+        post: id.split("_")[2],
+        user: id.split("_")[3]
+      };
+      url = "/posts/" + data.post + "/delete";
+      $("#posted_card_" + data.post).fadeOut();
+      return $.post(url, data, function(data) {
+        if (data.state) {
+          return Materialize.toast(data.flash, 3330);
         } else {
           return Materialize.toast(data.flash, 3330);
         }

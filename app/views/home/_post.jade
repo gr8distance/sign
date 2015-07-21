@@ -4,7 +4,7 @@ mixin _post(post)
 			.card-content
 				.row
 					.col.s2.m3.l2
-						if post.user_image
+						if post.user_image != "/thumb/null"
 							img(src="#{post.user_image}",class="circle  responsive-img")
 						else
 							img(src="/images/amethyst_flat.png",class="circle responsive-img")
@@ -23,9 +23,6 @@ mixin _post(post)
 				if current_user
 					if (current_user != null || typeof current_user!="undefined") && current_user.id == post.user_id
 						a(href="/posts/#{post.id}/edit") 編集
-						form(action="/posts/#{post.id}/delete",method="post",class="right delete_post_form",id="delete_post_#{post.id}")
-							input(type="hidden",name="post_id",value="#{post.id}")
-							button.btn-flat.waves-none.small
-								i.mdi-action-delete.red-text.tiny
+						i.mdi-action-delete.red-text.tiny.delete_post_form.right(id="delete_post_#{post.id}_#{current_user.id}")
 
 +_post(post)

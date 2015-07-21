@@ -1,15 +1,16 @@
 extends ../layout
 
 block content
-	input(id="friends_id",type="hidden",value="#{friends_id}")
 	if current_user
-		.parallax-container
-			.parallax
-				if current_user.image
-					img(src="#{current_user.image}")
-				else
-					img.blur(src='/images/colorfull2.jpg', alt='Aimerthyst')
+		//.parallax-container
+		//	.parallax
+		//		if current_user.image
+		//			img(src="#{current_user.image}")
+		//		else
+		//			img.blur(src='/images/colorfull2.jpg', alt='Aimerthyst')
 		section.section.grey.lighten-3
+			input(id="friends_id",type="hidden",value="#{friends_id}")
+			input(id="current_user_id",type="hidden",value="#{current_user.id}")
 			#scroll_fire.container
 				#card_box.row
 					if posts.length != 0
@@ -28,7 +29,7 @@ block content
 										img(src="#{user.image}").circle
 									else
 										img(src="/images/amethyst_flat.png").circle
-									span.title= friend.name
+									span.title= user.name
 									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
 										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
 										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
