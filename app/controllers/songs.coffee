@@ -18,7 +18,7 @@ app.get("/",(req,res)->
 				current_user: req.session.current_user,
 				songs: v_songs,
 				btn: "song",
-				flash: req.flash("info").0
+				flash: req.flash("info")[0]
 			})
 		).catch((err)->
 			req.flash("info","曲がみつからないよー")
