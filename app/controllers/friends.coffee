@@ -5,34 +5,37 @@ require('../../lib/models')()
 
 #他のユーザー一覧を表示するためのアクション
 app.get("/",(req,res)->
-	
-	User.findAll(limit: 18,order: "created_at desc").then((users)->
-		v_users = []
-		for user in users
-			if user.dataValues.id != req.session.current_user.id
-				v_users.push user
-		
-		req.session.current_user.getFriends().then((friends)->
-			my_friends = []
-			all_friends = ""
-			
+	current_user = req.session.current_user
+	if current_user?
+		current_user.getFriends().then((friends)->
+			#自分の友だちのIDをGETする
+			v_friends = []
 			for friend in friends
-				my_friends.push friend.dataValues.friend_id
-				all_friends += "#{friend.dataValues.friend_id}_"
+				v_friends.push friend.dataValues.friend_id
+		
+			User.findAll(where: {id: v_friends}).then((my_friends)->
+				m_friends = []
+				for i in my_friends
+					m_friends.push i.dataValues
+				
+				User.findAll(limit: 18,order: "created_at desc").then((users)->
+					v_users = []
+					for user in users
+						unless v_friends.indexOf(user.dataValues.id) >= 0
+							v_users.push user.dataValues
 
-			res.render("friend/index",{
-				users: v_users,
-				friends: my_friends,
-				current_user: req.session.current_user,
-				flash: req.flash("info")[0],
-				title: "アメジストに登録しているユーザーを探す",
-				all_friends: all_friends
-			})
+					res.render("friend/index",{
+						title: "ユーザーを見つけよう",
+						friends: m_friends,
+						current_user: current_user,
+						users: v_users
+					})
+				)
+			)
 		)
-	).catch((err)->
-		console.log err
-		console.log "(´・ω・｀)"
-	)
+	else
+		req.flash "info","ログインしている必要があります(・∀・)！！"
+		res.redirect "/"
 )
 
 #次のユーザを順次読み込んでいくためのアクション

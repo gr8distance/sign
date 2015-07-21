@@ -4,7 +4,13 @@ require("./lib/models")()
 _ = require("underscore")
 eimg = require("easyimage")
 
-Song.findAll().then((songs)->
-	for song in songs
-		song.destroy()
+
+User.findById(3).then((user)->
+	u = user
+	console.log u.dataValues
+
+	u.getFriends().then((fs)->
+		for f in fs
+			puts f.dataValues
+	)
 )

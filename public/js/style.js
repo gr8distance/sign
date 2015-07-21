@@ -12,6 +12,7 @@
       selectMonths: true,
       selectYears: 15
     });
+    $('ul.tabs').tabs();
     w = $(window);
     h = w.height();
     $("#before_login_page").css({
@@ -76,7 +77,7 @@
           var i, len, post_card, user;
           for (i = 0, len = data.length; i < len; i++) {
             user = data[i];
-            post_card = "<article class='col s12 m6 l3'> <div class='card small'> <div class='card-image'><img src='" + (user.image != null ? user.image : '/images/colorfull2.jpg') + "' class='blur'> </div> <div class='card-content'><span class='card-title'><a href='/users/" + user.id + "' class='cyan-text'>" + user.name + "</a></span></div> <div class='card-action'> " + (friend_btn(all_friends, user)) + " </div> </div> </article>";
+            post_card = "<li class='collection-item avatar'><img src='" + (user.image != null ? user.image : "/images/colorfull2.jpg") + "' class='circle'> <span class='title'><a href='/users/" + user.id + "'>" + user.name + "</a></span> <div class='secondary-content'> " + (friend_btn(all_friends, user)) + " </div> </li>";
             friend_box.append(post_card);
           }
           loading_friend.hide();

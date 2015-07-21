@@ -20,15 +20,10 @@ block content
 					if current_user
 						unless current_user.id == user.id	
 							if (friends.indexOf(user.id)) >= 0
-								form(action="/friends/unfollow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-									input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
-									input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
-									button.btn-flat.pink.white-text.waves-effect.waves-light#friend_follow_submit フォロー中
-							else
-								form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-									input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
-									input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
-									button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
+								button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form フォロー中
+							else	
+								button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form フォロー
+
 
 		.col.s12.m8
 			#card_box

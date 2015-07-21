@@ -10,6 +10,7 @@ $ ->
 		selectMonths: true, #Creates a dropdown to control month
 		selectYears: 15 #Creates a dropdown of 15 years to control year
 	})
+	$('ul.tabs').tabs()
 
 	#必要があればパララックス・ビューの高さを画面の高さと同じにする
 	w = $(window)
@@ -82,16 +83,12 @@ $ ->
 
 			setTimeout(->
 				for user in data
-					post_card = "<article class='col s12 m6 l3'>
-						<div class='card small'>
-						<div class='card-image'><img src='#{if user.image? then user.image else '/images/colorfull2.jpg'}' class='blur'>
-						</div>
-						<div class='card-content'><span class='card-title'><a href='/users/#{user.id}' class='cyan-text'>#{user.name}</a></span></div>
-						<div class='card-action'>
+					post_card = "<li class='collection-item avatar'><img src='#{if user.image? then user.image else "/images/colorfull2.jpg"}' class='circle'>
+						<span class='title'><a href='/users/#{user.id}'>#{user.name}</a></span>
+						<div class='secondary-content'>
 						#{friend_btn(all_friends,user)}
 						</div>
-						</div>
-						</article>"
+						</li>"
 					friend_box.append(post_card)
 				loading_friend.hide()
 				load_more_friend.fadeIn()
