@@ -13,6 +13,7 @@ app.get("/",(req,res)->
 
 			res.render("notifications/index",{
 				notifications: v_notif,
+				current_user: req.session.current_user,
 				user: user
 			})
 		)

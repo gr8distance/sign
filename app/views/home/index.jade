@@ -2,12 +2,12 @@ extends ../layout
 
 block content
 	if current_user
-		//.parallax-container
-		//	.parallax
-		//		if current_user.image
-		//			img(src="#{current_user.image}")
-		//		else
-		//			img.blur(src='/images/colorfull2.jpg', alt='Aimerthyst')
+		section.parallax-container.hide-on-small-only
+			.parallax
+				if current_user.image
+					img(src="#{current_user.image}")
+				else
+					img.blur(src='/images/colorfull2.jpg', alt='Aimerthyst')
 		section.section.grey.lighten-3
 			input(id="friends_id",type="hidden",value="#{friends_id}")
 			input(id="current_user_id",type="hidden",value="#{current_user.id}")

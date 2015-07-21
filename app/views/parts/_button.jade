@@ -1,3 +1,8 @@
+//メニューを呼び出すためのコード
+.fixed-action-btn(style='bottom: 24px; left: 24px; width: 66px; height: 66px;')
+	a.button-collapse.btn-floating.btn-large.cyan(data-activates='mobile-demo', href='#')
+		i.mdi-navigation-menu.rotate_icon
+
 case btn
 	when "home"
 		//投稿するためのフォームを記述したブロック
@@ -12,7 +17,7 @@ case btn
 		.fixed-action-btn(style='bottom: 25px; right: 24px;',id="call_new_post")
 			a.btn-floating.btn-large.red.waves-effect.waves-light.btn.modal-trigger(href='#create_post')
 				i.large.mdi-content-add.rotate_icon
-	
+					
 	when "cotery"
 		#create_new_cotery.modal
 			.modal-content
@@ -66,7 +71,3 @@ case btn
 				i.large.mdi-content-add.rotate_icon
 
 
-//メニューを呼び出すためのコード
-.fixed-action-btn(style='bottom: 24px; left: 24px; width: 66px; height: 66px;')
-	a.button-collapse.btn-floating.btn-large.cyan(data-activates='mobile-demo', href='#')
-		i.mdi-navigation-menu.rotate_icon
