@@ -32,19 +32,38 @@ app.get("/",(req,res)->
 app.post("/",(req,res)->
 	current_user = req.session.current_user
 	if current_user?
-		#ファイルの存在を確認する
-		#ファイルをimagesから曲を配置するべきディレクトリに移動する
-		#移動を確認した後DBにファイルパスを保存する
-		#保存に成功したらredirect
-		#
-		#
-		#song = req.files
-		#console.log	song
-		#req.flash "info","アップロードしました"
-		#res.redirect "/songs"
+		file = req.files
+
+		fs.stat(file.data.path,(err,stat)->
+			if err
+				console.log err
+				req.flash "info","アップロードに失敗しました(´・ω・｀)"
+				res.redirect "/songs"
+			else
+
+				new_path = "../data/songs/#{file.data.name}"
+				fs.rename(file.data.path,new_path,->
+					data = req.body
+					Song.create({
+						name: data.name,
+						data: new_path,
+						image: "/uploads/images/#{file.image.name}",
+						user_id: req.session.current_user.id,
+						user_name: req.session.current_user.name,
+						user_image: req.session.current_user.image
+					}).then((song)->
+						req.flash "info","音源をアップロードしました"
+						res.redirect "/songs"
+					).catch((e)->
+						console.log e
+						req.flash "info","楽曲の情報を登録できませんでした(´・ω・｀)"
+						res.redirect "/songs"
+					)
+				)
+		)
 	else
 		req.flash "info","ログインしていない場合は楽曲の公開はできません"
-		res.redirect "/"
+		res.redirect "/songs"
 )
 
 

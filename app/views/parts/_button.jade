@@ -49,15 +49,15 @@ case btn
 			.modal-content
 				form#new_song.new_song(enctype='multipart/form-data', action='/songs', accept-charset='UTF-8', method='post')
 					.input-field
-						input#song_name(type='text', name='song[name]')
+						input#song_name(type='text', name='name')
 						label(for='song_name') 曲名
-						input#song_user_id(type='hidden', value='1', name='song[user_id]')
+						input#song_user_id(type='hidden', value='1', name='user_id')
 					.input-field
 						p jackets
-						input#song_image(type='file', name='song[image]')
+						input#song_image(type='file', name='image')
 					.input-field
 						p songs
-						input#song_data(type='file', name='song[data]')
+						input#song_data(type='file', name='data')
 					.input-field
 						button.btn.cyan.waves-effect.waves-light 投稿
 			.modal-action
