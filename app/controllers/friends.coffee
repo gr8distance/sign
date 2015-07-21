@@ -9,7 +9,7 @@ app.get("/",(req,res)->
 	if current_user?
 		current_user.getFriends().then((friends)->
 			#自分の友だちのIDをGETする
-			v_friends = []
+			v_friends = [current_user.id]
 			for friend in friends
 				v_friends.push friend.dataValues.friend_id
 		
