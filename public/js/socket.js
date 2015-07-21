@@ -98,16 +98,13 @@
       data = {
         song_id: $(this).attr("id").split("_")[1]
       };
-      console.log("Clicked " + data);
       return socket.emit("play_song", data);
     });
     return socket.on("send_song_data", function(data) {
       var ctx;
-      consoel.log("RECIEVED");
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       ctx = new AudioContext();
-      console.log(data);
-      ctx.decodeAudioData(data, function(buffer) {
+      return ctx.decodeAudioData(data, function(buffer) {
         var buf_node;
         buf_node = ctx.createBufferSource();
         buf_node.buffer = buffer;
@@ -120,7 +117,6 @@
       }, function() {
         return console.log("Failed decode");
       });
-      return console.log(data);
     });
   });
 
