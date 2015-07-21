@@ -103,6 +103,7 @@
     });
     return socket.on("send_song_data", function(data) {
       var ctx;
+      consoel.log("RECIEVED");
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       ctx = new AudioContext();
       console.log(data);

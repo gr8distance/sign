@@ -143,6 +143,7 @@ $ ->
 	)
 
 	socket.on("send_song_data",(data)->
+		consoel.log "RECIEVED"
 		window.AudioContext = window.AudioContext||window.webkitAudioContext
 		ctx = new AudioContext()
 		console.log data
