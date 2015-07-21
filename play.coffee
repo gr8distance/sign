@@ -6,10 +6,11 @@ eimg = require("easyimage")
 
 
 for i in [0...100]
-	Post.create({
-		body: "hello _ #{i}",
-		user_id: 4,
-		user_name: "USER"
+	User.create({
+		name: "user_#{i}",
+		email: "mail#{i}@mail.com",
+		password: "password",
+		uniq_session_id: "ghsio rhi bhaeoishgalidhsdb ierhg"
 	})
 
 #Talk.findAll(order: "updated_at desc").then((talks)->

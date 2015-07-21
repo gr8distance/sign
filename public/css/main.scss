@@ -13,9 +13,12 @@
   .parallax-container{
     height: 180px;
   }
+  .header_place{
+    margin: 18px;
+  }
 }
 
-@media screen and (min-width: 640px){
+@media screen and (min-width: 600px){
   #scroll_fire{
     width: 80%;
   }

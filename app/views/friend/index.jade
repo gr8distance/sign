@@ -31,13 +31,10 @@ block content
 									a(href="/users/#{user.id}").cyan-text= user.name
 							.card-action
 								if (friends.indexOf(user.id)) >= 0
-									form(action="/friends/unfollow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-										button.btn-flat.pink.white-text.waves-effect.waves-light#friend_follow_submit フォロー中
-								else
-									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
+									button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form フォロー中
+								else	
+									button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form フォロー
 
-			//if posts.length >= 18
 			#read_more_friend.center
 				input(type="hidden",value="1",class="page_id")
 				.preloader-wrapper.active#loading_friend

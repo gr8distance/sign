@@ -55,7 +55,6 @@
     load_more_friend.on("click", function() {
       var all_friends, p, page_id;
       all_friends = $("#all_friends_id").val().split("_");
-      console.log(all_friends);
       $(this).hide();
       loading_friend.show();
       page_id = $(".page_id");
@@ -64,13 +63,20 @@
       return $.post("/friends/more", {
         page_id: p
       }, function(data) {
-        var current_user_id;
+        var current_user_id, friend_btn;
         current_user_id = $("#current_user_id").val();
+        friend_btn = function(all_friends, friend) {
+          if (all_friends.indexOf(friend.id) >= 0) {
+            return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'>フォロー中</button>";
+          } else {
+            return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'>フォロー</button>";
+          }
+        };
         return setTimeout(function() {
           var i, len, post_card, user;
           for (i = 0, len = data.length; i < len; i++) {
             user = data[i];
-            post_card = "<article class='col s12 m6 l3'> <div class='card small'> <div class='card-image'><img src='" + (user.image != null ? user.image : '/images/colorfull2.jpg') + "' class='blur'> </div> <div class='card-content'><span class='card-title'><a href='/users/" + user.id + "' class='cyan-text'>" + user.name + "</a></span></div> <div class='card-action'> <a href='/users/" + user.id + "'>もっと詳しく</a> </div> </div> </article>";
+            post_card = "<article class='col s12 m6 l3'> <div class='card small'> <div class='card-image'><img src='" + (user.image != null ? user.image : '/images/colorfull2.jpg') + "' class='blur'> </div> <div class='card-content'><span class='card-title'><a href='/users/" + user.id + "' class='cyan-text'>" + user.name + "</a></span></div> <div class='card-action'> " + (friend_btn(all_friends, user)) + " </div> </div> </article>";
             friend_box.append(post_card);
           }
           loading_friend.hide();
@@ -112,14 +118,14 @@
         }, 666);
       });
     });
-    $(".be_friend_form").submit(function(e) {
-      var data, form_id, fr_sub, fs, url;
-      e.preventDefault();
-      fr_sub = $("#friend_follow_submit");
-      fr_sub.hide();
-      form_id = $(this).attr("id");
-      fs = form_id.split("_");
+    $(document).on("click", ".be_friend_form", function() {
+      var data, form_id, fs, this_form, url;
+      form_id = $(this).attr("data-friend-id");
+      console.log(form_id);
+      this_form = $(this);
+      this_form.hide();
       url = $(this).attr("action");
+      fs = form_id.split("_");
       data = {};
       data.user_id = fs[4];
       data.friend_id = fs[3];
@@ -127,16 +133,13 @@
         var BASE, path;
         Materialize.toast(data.flash, 3330);
         if (data.state) {
-          fr_sub.show();
           BASE = "/friends";
           path = url.split("/")[2];
           switch (path) {
             case "follow":
-              $("#" + form_id).attr("action", BASE + "/unfollow");
-              return $("#" + form_id + " #friend_follow_submit").text("フォロー中").removeClass("blue").addClass("pink");
+              return this_form.attr("action", BASE + "/unfollow").text("フォロー中").removeClass("blue").addClass("pink").show();
             case "unfollow":
-              $("#" + form_id).attr("action", BASE + "/follow");
-              return $("#" + form_id + " #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue");
+              return this_form.attr("action", BASE + "/follow").text("フォロー").removeClass("pink").addClass("blue").show();
           }
         }
       });

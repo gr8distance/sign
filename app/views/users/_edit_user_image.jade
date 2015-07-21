@@ -1,0 +1,7 @@
+.card-panel
+	h5.font_size_18.brown-text 画像を変更する
+	form(action="/users/#{current_user.id}/image",method="post",enctype="multipart/form-data",id="file_field")
+		.input-field
+			input(type="file",name="image",id="image")
+		.input-field
+			button.btn-flat.white-text.orange アップロード

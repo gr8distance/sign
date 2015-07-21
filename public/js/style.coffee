@@ -62,8 +62,6 @@ $ ->
 
 	load_more_friend.on("click",->
 		all_friends = $("#all_friends_id").val().split("_")
-		console.log all_friends
-
 
 		$(@).hide()
 		loading_friend.show()
@@ -75,6 +73,13 @@ $ ->
 			page_id: p
 		},(data)->
 			current_user_id = $("#current_user_id").val()
+
+			friend_btn = (all_friends,friend) ->
+				if all_friends.indexOf(friend.id) >= 0
+					return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'>フォロー中</button>"
+				else
+					return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'>フォロー</button>"
+
 			setTimeout(->
 				for user in data
 					post_card = "<article class='col s12 m6 l3'>
@@ -83,7 +88,7 @@ $ ->
 						</div>
 						<div class='card-content'><span class='card-title'><a href='/users/#{user.id}' class='cyan-text'>#{user.name}</a></span></div>
 						<div class='card-action'>
-						<a href='/users/#{user.id}'>もっと詳しく</a>
+						#{friend_btn(all_friends,user)}
 						</div>
 						</div>
 						</article>"
@@ -150,40 +155,38 @@ $ ->
 	
 	#友だち追加と削除のボタンをAJAX対応にした
 	#まずはボタンが押されたことを検知する
-	$(".be_friend_form").submit((e)->
-		#とりあえずフォームの送信を停止
-		e.preventDefault()
+	$(document).on("click",".be_friend_form",->
+
+		#友達のIDを取得
+		form_id = $(@).attr("data-friend-id")
+		console.log form_id
 
 		#2重送信を防ぐためにボタンを削除
-		fr_sub = $("#friend_follow_submit")
-		fr_sub.hide()
-		
-		#友達のIDを取得
-		form_id = $(@).attr("id")
-		fs = form_id.split("_")
-		
+		this_form = $(@)
+		this_form.hide()
+
 		#URLと送信しないと行けないデータを取得
 		url = $(@).attr("action")
+
+		fs = form_id.split("_")
 		data = {}
 		data.user_id = fs[4]
 		data.friend_id = fs[3]
-			
+		
 		#AJAXで送信する
 		$.post(url,data,(data)->
 			#戻りのデータから処理を開始
 			Materialize.toast(data.flash,3330)
 
 			if data.state
-				fr_sub.show()
 				BASE = "/friends"
 				path = url.split("/")[2]
+
 				switch path
 					when "follow"
-						$("##{form_id}").attr("action","#{BASE}/unfollow")
-						$("##{form_id} #friend_follow_submit").text("フォロー中").removeClass("blue").addClass("pink")
+						this_form.attr("action","#{BASE}/unfollow").text("フォロー中").removeClass("blue").addClass("pink").show()
 					when "unfollow"
-						$("##{form_id}").attr("action","#{BASE}/follow")
-						$("##{form_id} #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue")
+						this_form.attr("action","#{BASE}/follow").text("フォロー").removeClass("pink").addClass("blue").show()
 		)
 	)
 

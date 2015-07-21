@@ -19,10 +19,15 @@ block content
 							include _post
 							- i++
 					else
+						h5.font_size_22.center-align あなたの写真であなたを表現しよう(・∀・)！！
+						include ../users/_edit_user_form
+						h5.font_size_22.center-align あなたの情報を入力してみよう(・∀・)！！
+						include ../users/_edit_user_image
+						
 						ul.collection.with-header
 							li.collection-header
 								h5.font_size_22 他のユーザーをフォローしてみよう
-
+							
 							for user in users
 								li.collection-item.avatar
 									if user.image
