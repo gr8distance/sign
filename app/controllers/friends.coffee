@@ -27,6 +27,7 @@ app.get("/",(req,res)->
 					res.render("friend/index",{
 						title: "ユーザーを見つけよう",
 						friends: m_friends,
+						already_friends: v_friends,
 						current_user: current_user,
 						users: v_users
 					})

@@ -24,7 +24,7 @@ block content
 							a(href="/users/#{user.id}")= user.name
 
 						.secondary-content
-							if (friends.indexOf(user.id)) >= 0
+							if (already_friends.indexOf(user.id)) >= 0
 								button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form フォロー中
 							else	
 								button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form フォロー
@@ -54,3 +54,10 @@ block content
 						span.title
 							a(href="/users/#{user.id}")= user.name
 						p= user.description
+						.secondary-content
+							if already_friends.indexOf(user.id) >= 0
+								button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form フォロー中
+							else	
+								button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form フォロー
+
+
