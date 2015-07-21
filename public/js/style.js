@@ -83,12 +83,20 @@
     loading.hide();
     card_box = $("#card_box");
     load_more.on("click", function() {
-      var p, page_id;
+      var create_delete_form, current_user_id, p, page_id;
       $(this).hide();
       loading.show();
       page_id = $(".page_id");
       p = parseInt(page_id.val());
       page_id.val("" + (p + 1));
+      create_delete_form = function(post, current_user_id) {
+        if (post.user_id === parseInt(current_user_id)) {
+          return "<a href='/posts/" + post.id + "/edit'>編集</a><i id='delete_post_" + post.id + "_" + post.user_id + "' class='mdi-action-delete red-text tiny delete_post_form right'></i>";
+        } else {
+          return "";
+        }
+      };
+      current_user_id = $("#current_user_id").val();
       return $.post("/posts/more", {
         page_id: p
       }, function(data) {
@@ -96,7 +104,7 @@
           var i, len, post, post_card;
           for (i = 0, len = data.length; i < len; i++) {
             post = data[i];
-            post_card = "<article id='posted_card_" + post.id + "' class='col s12 m6'> <div class='card'> <div class='card-content'> <div class='row'> <div class='col s2 m3 l2'> <img src='" + (post.user_image != null ? post.user_image : "/images/amethyst_flat.png") + "' class='circle responsive-img'> </div> <div class='col s10 m9 l10'><span class='card-title cyan-text'>" + post.user_name + "</span></div> </div> <p>" + (post.body.replace(/\n/g, '<br/>')) + "</p> <span class='font_size_10 right'>" + post.created_at + "</span> </div> <div class='card-action'><a href='/posts/" + post.id + "' class='teal-text'>コメント</a></div> </div> </article>";
+            post_card = "<article id='posted_card_" + post.id + "' class='col s12 m6'> <div class='card'> <div class='card-content'> <div class='row'> <div class='col s2 m3 l2'> <img src='" + (post.user_image != null ? post.user_image : "/images/amethyst_flat.png") + "' class='circle responsive-img'> </div> <div class='col s10 m9 l10'><span class='card-title cyan-text'>" + post.user_name + "</span></div> </div> <p>" + (post.body.replace(/\n/g, '<br/>')) + "</p> <span class='font_size_10 right'>" + post.created_at + "</span> </div> <div class='card-action'> <a href='/posts/" + post.id + "' class='teal-text'>コメント</a> " + (create_delete_form(post, current_user_id)) + " </div> </div> </article>";
             card_box.append(post_card);
           }
           loading.hide();
@@ -153,21 +161,6 @@
           return $("#edit_user_profile").closeModal();
         } else {
           return Materialize.toast(data.flash, 3330);
-        }
-      });
-    });
-    $(".delete_post_form").submit(function(e) {
-      var data, url;
-      e.preventDefault();
-      data = {};
-      data.post_id = $(this).attr("id").split("_")[2];
-      url = $(this).attr("action");
-      $("#posted_card_" + data.post_id).fadeOut();
-      return $.post(url, data, function(data) {
-        if (data.state) {
-          return Materialize.toast("" + data.flash, 3330);
-        } else {
-          return Materialize.toast("" + data.flash, 3330);
         }
       });
     });

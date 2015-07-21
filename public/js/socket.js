@@ -34,7 +34,7 @@
       friends_id.shift();
       create_delete_form = function(data, current_user_id) {
         if (data.user_id === current_user_id) {
-          return "<i id='delete_post_" + data.id + "_" + data.user_id + "' class='mdi-action-delete red-text tiny delete_post_form right'></i>";
+          return "<a href='/posts/" + data.id + "/edit'>編集</a><i id='delete_post_" + data.id + "_" + data.user_id + "' class='mdi-action-delete red-text tiny delete_post_form right'></i>";
         } else {
           return "";
         }

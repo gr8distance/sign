@@ -101,7 +101,7 @@ $ ->
 	load_more = $("#load_more")
 	loading.hide()
 	card_box = $("#card_box")
-
+	
 	load_more.on("click",->
 
 		$(@).hide()
@@ -109,7 +109,15 @@ $ ->
 		page_id = $(".page_id")
 		p = parseInt(page_id.val())
 		page_id.val("#{p+1}")
+		
+		
+		create_delete_form = (post,current_user_id)->
+			if post.user_id == parseInt(current_user_id)
+				return "<a href='/posts/#{post.id}/edit'>編集</a><i id='delete_post_#{post.id}_#{post.user_id}' class='mdi-action-delete red-text tiny delete_post_form right'></i>"
+			else
+				return ""
 
+		current_user_id = $("#current_user_id").val()
 		$.post("/posts/more",{page_id: p},(data)->
 			setTimeout(->
 				for post in data
@@ -125,7 +133,10 @@ $ ->
 						<p>#{post.body.replace(/\n/g,'<br/>')}</p>
 						<span class='font_size_10 right'>#{post.created_at}</span>
 						</div>
-						<div class='card-action'><a href='/posts/#{post.id}' class='teal-text'>コメント</a></div>
+						<div class='card-action'>
+						<a href='/posts/#{post.id}' class='teal-text'>コメント</a>
+						#{create_delete_form(post,current_user_id)}
+						</div>
 						</div>
 						</article>"
 					card_box.append(post_card)
@@ -175,8 +186,8 @@ $ ->
 						$("##{form_id} #friend_follow_submit").text("フォロー").removeClass("pink").addClass("blue")
 		)
 	)
+
 	########################
-	#
 	#####ユーザー情報の編集を行う
 	$("#edit_user_profile_form").submit((e)->
 		#自動送信を解除
@@ -208,22 +219,6 @@ $ ->
 		)
 	)
 	
-	#####投稿を削除する時に使う
-	$(".delete_post_form").submit((e)->
-		e.preventDefault()
-		data = {}
-		data.post_id = $(@).attr("id").split("_")[2]
-		url = $(@).attr("action")
-		$("#posted_card_#{data.post_id}").fadeOut()
-
-		$.post(url,data,(data)->
-			if data.state
-				Materialize.toast("#{data.flash}",3330)
-			else
-				Materialize.toast("#{data.flash}",3330)
-
-		)
-	)
 
 	####サークルへの参加申請
 	$(".commit_cotery").submit((e)->
