@@ -138,13 +138,14 @@ $ ->
 			song_id:  $(@).attr("id").split("_")[1],
 			#user_id: 必要ならユーザーの情報を送ってもいいかもしれない
 		}
+		console.log "Clicked #{data}"
 		socket.emit("play_song",data)
 	)
 
 	socket.on("send_song_data",(data)->
 		window.AudioContext = window.AudioContext||window.webkitAudioContext
 		ctx = new AudioContext()
-
+		console.log data
 		ctx.decodeAudioData(data,(buffer)->
 			buf_node = ctx.createBufferSource()
 			buf_node.buffer = buffer
