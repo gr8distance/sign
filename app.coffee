@@ -138,7 +138,6 @@ io.on("connection",(socket)->
 				if err
 					console.log err
 				else
-					console.log data
 					socket.emit("send_song_data",data)
 			)
 		)

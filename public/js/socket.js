@@ -102,17 +102,18 @@
     });
     return socket.on("send_song_data", function(data) {
       var ctx;
-      if (window.AudioContext) {
-        ctx = new AudioContext();
-      } else if (window.webkitAudioContext()) {
-        ctx = new webkitAudioContext();
-      }
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      ctx = new AudioContext();
       ctx.decodeAudioData(data, function(buffer) {
         var buf_node;
         buf_node = ctx.createBufferSource();
         buf_node.buffer = buffer;
         buf_node.connect(ctx.destination);
-        return buf_node.start(0);
+        buf_node.start(0);
+        return setTimeout(function() {
+          buf_node.stop();
+          return console.log("Song stopped");
+        }, 1000 * 60);
       }, function() {
         return console.log("Failed decode");
       });

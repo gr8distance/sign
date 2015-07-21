@@ -142,16 +142,19 @@ $ ->
 	)
 
 	socket.on("send_song_data",(data)->
-		if window.AudioContext
-			ctx = new AudioContext()
-		else if window.webkitAudioContext()
-			ctx = new webkitAudioContext()
-		
+		window.AudioContext = window.AudioContext||window.webkitAudioContext
+		ctx = new AudioContext()
+
 		ctx.decodeAudioData(data,(buffer)->
 			buf_node = ctx.createBufferSource()
 			buf_node.buffer = buffer
 			buf_node.connect(ctx.destination)
 			buf_node.start(0)
+			
+			setTimeout(->
+				buf_node.stop()
+				console.log "Song stopped"
+			,(1000*60))
 		,->
 			console.log "Failed decode"
 		)
