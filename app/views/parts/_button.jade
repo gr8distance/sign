@@ -53,13 +53,11 @@ case btn
 						label(for='song_name') 曲名
 						input#song_user_id(type='hidden', value='1', name='song[user_id]')
 					.input-field
-						p.btn
-							| ジャケットをアップロード
-							input#song_image(type='file', name='song[image]')
+						p jackets
+						input#song_image(type='file', name='song[image]')
 					.input-field
-						p.btn
-							| 楽曲アップロード
-							input#song_data(type='file', name='song[data]')
+						p songs
+						input#song_data(type='file', name='song[data]')
 					.input-field
 						button.btn.cyan.waves-effect.waves-light 投稿
 			.modal-action

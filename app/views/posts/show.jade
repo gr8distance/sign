@@ -18,7 +18,7 @@ block content
 										if comment.user_image == "null"
 											img(src="/images/amethyst_flat.png").circle
 										else
-											img(src="#{comment.user_image}").circle
+											img(src="/#{comment.user_image}").circle
 										span.title #{comment.user_name}
 										p #{comment.body}
 

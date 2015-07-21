@@ -19,30 +19,13 @@ block content
 							include _post
 							- i++
 					else
-						h5.font_size_22.center-align あなたの写真であなたを表現しよう(・∀・)！！
+						h5.font_size_22.center-align 写真であなたを表現しよう(・∀・)！！
 						include ../users/_edit_user_form
 						h5.font_size_22.center-align あなたの情報を入力してみよう(・∀・)！！
 						include ../users/_edit_user_image
 						
-						ul.collection.with-header
-							li.collection-header
-								h5.font_size_22 他のユーザーをフォローしてみよう
-							
-							for user in users
-								li.collection-item.avatar
-									if user.image
-										img(src="#{user.image}").circle
-									else
-										img(src="/images/amethyst_flat.png").circle
-									span.title= user.name
-									form(action="/friends/follow",method="post",id="be_friend_form_#{user.id}_#{current_user.id}",class="be_friend_form")
-										input(type="hidden",value="#{user.id}",name="friend_id",id="friend_id")
-										input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
-										button.btn-flat.blue.white-text.waves-effect.waves-light#friend_follow_submit フォロー
-
-	
-							
-				//追加の記事を読み込むときはこれQ
+				
+				//追加の記事を読み込むときはこれ
 				if posts.length >= 18
 					#read_more.center
 						input(type="hidden",value="1",class="page_id")
