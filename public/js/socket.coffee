@@ -141,23 +141,26 @@ $ ->
 		socket.emit("play_song",data)
 	)
 
+	window.AudioContext = window.AudioContext||window.webkitAudioContext
+	ctx = new AudioContext()
+
 	socket.on("send_song_data",(data)->
-		window.AudioContext = window.AudioContext||window.webkitAudioContext
-		ctx = new AudioContext()
 		ctx.decodeAudioData(data,(buffer)->
 			buf_node = ctx.createBufferSource()
 			buf_node.buffer = buffer
 			buf_node.connect(ctx.destination)
 			buf_node.start(0)
-			
-			setTimeout(->
+		
+			$(".song_controller").slideDown()
+			$(document).on("click",".stop",->
+				console.log "Stop"
 				buf_node.stop()
-				console.log "Song stopped"
-			,(1000*60))
+			)
 		,->
 			console.log "Failed decode"
 		)
 	)
+
 
 	##サークルに書き込みがあった場合にサークルに関わる人全員に通知を送る
 	#user_id_for_all_page = $("#user_id_for_all_page").val()

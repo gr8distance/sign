@@ -13,8 +13,8 @@ block content
 			if songs.length != 0
 				for song in songs
 					article.col.s12.m4.ml3
-						.card.waves-effect.waves-light(id="song_#{song.id}").song_card
-							.card-image
+						.card
+							.card-image(id="song_#{song.id}").song_card.waves-effect.waves-light
 								if song.image
 									img(src="#{song.image}")
 								else
@@ -25,5 +25,10 @@ block content
 									| song by 
 									span.card-title.cyan-text #{song.user_name}
 								p.grey-text= song.description
+
+							.card-action
+								i.mdi-av-stop.small.teal-text.stop
 			else
 				h1 nothing song	
+
+

@@ -5,7 +5,7 @@
   socket = io();
 
   $(function() {
-    var card_box, data, post, u_id;
+    var card_box, ctx, data, post, u_id;
     post = $("#post");
     card_box = $("#card_box");
     u_id = $("#user_id");
@@ -100,20 +100,20 @@
       };
       return socket.emit("play_song", data);
     });
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    ctx = new AudioContext();
     return socket.on("send_song_data", function(data) {
-      var ctx;
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      ctx = new AudioContext();
       return ctx.decodeAudioData(data, function(buffer) {
         var buf_node;
         buf_node = ctx.createBufferSource();
         buf_node.buffer = buffer;
         buf_node.connect(ctx.destination);
         buf_node.start(0);
-        return setTimeout(function() {
-          buf_node.stop();
-          return console.log("Song stopped");
-        }, 1000 * 60);
+        $(".song_controller").slideDown();
+        return $(document).on("click", ".stop", function() {
+          console.log("Stop");
+          return buf_node.stop();
+        });
       }, function() {
         return console.log("Failed decode");
       });
