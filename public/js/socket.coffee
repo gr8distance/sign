@@ -133,6 +133,31 @@ $ ->
 		$("#comment_body").val("")
 	)
 	
+	$(document).on("click",".song_card",->
+		data = {
+			song_id:  $(@).attr("id").split("_")[1],
+			#user_id: 必要ならユーザーの情報を送ってもいいかもしれない
+		}
+		socket.emit("play_song",data)
+	)
+
+	socket.on("send_song_data",(data)->
+		if window.AudioContext
+			ctx = new AudioContext()
+		else if window.webkitAudioContext()
+			ctx = new webkitAudioContext()
+		
+		ctx.decodeAudioData(data,(buffer)->
+			buf_node = ctx.createBufferSource()
+			buf_node.buffer = buffer
+			buf_node.connect(ctx.destination)
+			buf_node.start(0)
+		,->
+			console.log "Failed decode"
+		)
+		console.log data
+	)
+
 	##サークルに書き込みがあった場合にサークルに関わる人全員に通知を送る
 	#user_id_for_all_page = $("#user_id_for_all_page").val()
 	#console.log "notification_#{user_id_for_all_page}"

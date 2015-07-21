@@ -129,6 +129,21 @@ app.use (err, req, res, next) ->
 io.on("connection",(socket)->
 	console.log("(・∀・)！User connected")
 	
+	#楽曲の再生を実現するためのコード
+	socket.on("play_song",(data)->
+		console.log data
+		Song.findById(data.song_id).then((song)->
+			s = song.dataValues
+			fs.readFile(s.data,(err,data)->
+				if err
+					console.log err
+				else
+					console.log data
+					socket.emit("send_song_data",data)
+			)
+		)
+	)
+
 	#新しいコメントを書くためのコード
 	socket.on("create_new_comment",(data)->
 		if data.first_check
@@ -250,7 +265,7 @@ io.on("connection",(socket)->
 			io.to(data.socket_id).emit("failed_save_data",err)
 		)
 	)
-
+	
 )
 #-----SocketIO------#
 

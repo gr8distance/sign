@@ -88,11 +88,35 @@
       data.first_check = false;
       return socket.emit("create_new_comment", data);
     });
-    return socket.on("sent_create_new_comment", function(data) {
+    socket.on("sent_create_new_comment", function(data) {
       var comment_data;
       comment_data = "<li class='collection-item avatar'> <img src='" + (data.user_image != null ? data.user_image : "/images/amethyst_flat.png") + "' class='circle'> <span class='title'>" + data.user_name + "</span> <p>" + data.body + "</p> </li>";
       $("#comments").append(comment_data);
       return $("#comment_body").val("");
+    });
+    $(document).on("click", ".song_card", function() {
+      data = {
+        song_id: $(this).attr("id").split("_")[1]
+      };
+      return socket.emit("play_song", data);
+    });
+    return socket.on("send_song_data", function(data) {
+      var ctx;
+      if (window.AudioContext) {
+        ctx = new AudioContext();
+      } else if (window.webkitAudioContext()) {
+        ctx = new webkitAudioContext();
+      }
+      ctx.decodeAudioData(data, function(buffer) {
+        var buf_node;
+        buf_node = ctx.createBufferSource();
+        buf_node.buffer = buffer;
+        buf_node.connect(ctx.destination);
+        return buf_node.start(0);
+      }, function() {
+        return console.log("Failed decode");
+      });
+      return console.log(data);
     });
   });
 

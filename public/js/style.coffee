@@ -283,3 +283,4 @@ $ ->
 				Materialize.toast(data.flash,3330)
 		)
 	)
+
