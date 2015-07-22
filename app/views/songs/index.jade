@@ -12,7 +12,7 @@ block content
 		.row
 			if songs.length != 0
 				for song in songs
-					article.col.s12.m4.ml3
+					article.col.s12.m6.ml3
 						.card
 							.card-image(id="song_#{song.id}").song_card.waves-effect.waves-light
 								if song.image
@@ -21,13 +21,9 @@ block content
 									img(src="/images/amethyst_flat.png")
 								span.card-title.ts-grey.white-text= song.name
 							.card-content
-								p.cyan-text.right
-									| song by 
-									span.card-title.cyan-text #{song.user_name}
-								p.grey-text= song.description
-
+								span.card-title.cyan-text #{song.user_name}
 							.card-action
-								i.mdi-av-stop.small.teal-text.stop
+								i.mdi-av-stop.small.teal-text.stop.waves-effect
 			else
 				h1 nothing song	
 

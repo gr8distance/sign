@@ -43,14 +43,14 @@ $ ->
 	)
 	
 	$("#sub").on("click",->
-		console.log "clicked"
+		#console.log "clicked"
 		d = $("#dammy").val() || "stone"
-		console.log d
+		#console.log d
 		data = {}
 		data.send = d
 
 		$.post("/users/ajax",data,(data)->
-			console.log "Return data"
+			#console.log "Return data"
 
 		)
 	)
@@ -77,9 +77,13 @@ $ ->
 
 			friend_btn = (all_friends,friend) ->
 				if all_friends.indexOf(friend.id) >= 0
-					return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'>フォロー中</button>"
+					return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'>
+					<i class='fa fa-heart'/>
+					</button>"
 				else
-					return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'>フォロー</button>"
+					return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'>
+				<i class='fa fa-heart-o'/>	
+				</button>"
 
 			setTimeout(->
 				for user in data
@@ -156,7 +160,7 @@ $ ->
 
 		#友達のIDを取得
 		form_id = $(@).attr("data-friend-id")
-		console.log form_id
+		#console.log form_id
 
 		#2重送信を防ぐためにボタンを削除
 		this_form = $(@)
@@ -181,9 +185,9 @@ $ ->
 
 				switch path
 					when "follow"
-						this_form.attr("action","#{BASE}/unfollow").text("フォロー中").removeClass("blue").addClass("pink").show()
+						this_form.attr("action","#{BASE}/unfollow").empty().append("<i class='fa fa-heart'/>").removeClass("blue").addClass("pink").show()
 					when "unfollow"
-						this_form.attr("action","#{BASE}/follow").text("フォロー").removeClass("pink").addClass("blue").show()
+						this_form.attr("action","#{BASE}/follow").empty().append("<i class='fa fa-heart-o'/>").removeClass("pink").addClass("blue").show()
 		)
 	)
 
@@ -243,7 +247,7 @@ $ ->
 	#####サークルへの参加権限を与えるたり奪ったりするコード
 	$(".change_permit").submit((e)->
 		e.preventDefault()
-		console.log "clocked"
+		#console.log "clocked"
 
 		url = $(@).attr("action")
 		id = $(@).attr("id")
@@ -254,7 +258,7 @@ $ ->
 			permit_user_id: ids[3]
 		}
 		$.post(url,data,(data)->
-			console.log data
+			#console.log data
 			if data.state
 				Materialize.toast data.flash,3330
 				$("#waiting_user_#{data.user_id}").fadeOut()

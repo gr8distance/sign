@@ -40,14 +40,10 @@
     });
     $("#sub").on("click", function() {
       var d, data;
-      console.log("clicked");
       d = $("#dammy").val() || "stone";
-      console.log(d);
       data = {};
       data.send = d;
-      return $.post("/users/ajax", data, function(data) {
-        return console.log("Return data");
-      });
+      return $.post("/users/ajax", data, function(data) {});
     });
     loading_friend = $("#loading_friend");
     load_more_friend = $("#load_more_friend");
@@ -68,9 +64,9 @@
         current_user_id = $("#current_user_id").val();
         friend_btn = function(all_friends, friend) {
           if (all_friends.indexOf(friend.id) >= 0) {
-            return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'>フォロー中</button>";
+            return "<button id='be_friend_form_103_3 friend_follow_submit' data-friend-id='be_friend_form_103_3' action='/friends/unfollow' class='btn-flat pink white-text waves-effect waves-light be_friend_form'> <i class='fa fa-heart'/> </button>";
           } else {
-            return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'>フォロー</button>";
+            return "<button id='be_friend_form_98_3 friend_follow_submit' data-friend-id='be_friend_form_98_3' action='/friends/follow' class='btn-flat blue white-text waves-effect waves-light be_friend_form'> <i class='fa fa-heart-o'/> </button>";
           }
         };
         return setTimeout(function() {
@@ -122,7 +118,6 @@
     $(document).on("click", ".be_friend_form", function() {
       var data, form_id, fs, this_form, url;
       form_id = $(this).attr("data-friend-id");
-      console.log(form_id);
       this_form = $(this);
       this_form.hide();
       url = $(this).attr("action");
@@ -138,9 +133,9 @@
           path = url.split("/")[2];
           switch (path) {
             case "follow":
-              return this_form.attr("action", BASE + "/unfollow").text("フォロー中").removeClass("blue").addClass("pink").show();
+              return this_form.attr("action", BASE + "/unfollow").empty().append("<i class='fa fa-heart'/>").removeClass("blue").addClass("pink").show();
             case "unfollow":
-              return this_form.attr("action", BASE + "/follow").text("フォロー").removeClass("pink").addClass("blue").show();
+              return this_form.attr("action", BASE + "/follow").empty().append("<i class='fa fa-heart-o'/>").removeClass("pink").addClass("blue").show();
           }
         }
       });
@@ -191,7 +186,6 @@
     $(".change_permit").submit(function(e) {
       var data, id, ids, url;
       e.preventDefault();
-      console.log("clocked");
       url = $(this).attr("action");
       id = $(this).attr("id");
       ids = id.split("_");
@@ -201,7 +195,6 @@
         permit_user_id: ids[3]
       };
       return $.post(url, data, function(data) {
-        console.log(data);
         if (data.state) {
           Materialize.toast(data.flash, 3330);
           return $("#waiting_user_" + data.user_id).fadeOut();
