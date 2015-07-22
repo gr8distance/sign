@@ -23,6 +23,7 @@
 		"passport": "*",
 		"passport-local": "*",
 		"config": "*",
-		"log4js": "*"
+		"log4js": "*",
+		"node-mailer": "*"
   }
 }
