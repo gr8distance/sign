@@ -49,7 +49,7 @@ app.get("/:id",(req,res)->
 			Permit.findAll(where: {model_name: "Cotery",model_id: cotery.id}).then((permits)->
 				#for permit in permits
 				#	users.push permit.dataValues
-				Talk.findAll(where: {room_id: room_id},order: "updated_at desc",limit: 54).then((talks)->
+				Talk.findAll(where: {room_id: room_id},limit: 54).then((talks)->
 					res.render("coteries/show",{
 						title: "#{cotery.name}::Aimerthyst",
 						cotery: cotery.dataValues,
@@ -139,14 +139,11 @@ app.post("/add_permit",(req,res)->
 					data.state = true
 					data.flash = "#{data.user_name}さんに参加権限を与えました"
 					res.json data
-					#req.flash "info","管理者権限を付与しました"
-					#res.redirect "/coteries/#{data.cotery_id}"
 				).catch((e)->
 					data.state = false
 					data.flash = "参加権限の取得に失敗しました。"
 					console.log e
 					res.json data
-					#res.redirect "/coteries/#{data.cotery_id}"
 				)
 			)
 		else
@@ -154,8 +151,6 @@ app.post("/add_permit",(req,res)->
 			data.state = false
 			data.flash = "管理者権限がありません "
 			res.json data
-			#req.flash "info","He has not permit!"
-			#res.redirect "/coteries/#{data.cotery_id}"
 	)
 )
 
@@ -214,6 +209,21 @@ app.post("/get_permit",(req,res)->
 						flash: "参加権を申請しました"
 					}
 					res.json d
+					
+					Permit.findAll(where: {model_name: "Cotery",model_id: data.cotery_id, permit: true}).then((permits)->
+						for u in permits
+							console.log u.dataValues
+
+							Notification.create({
+								user_name: user.name,
+								user_image: user.image,
+								message: "#{user.name}さんがサークルに参加を申請しました",
+								model_name: "coteries",
+								model_id: data.cotery_id,
+								pushed: false,
+								user_id: u.user_id
+							})
+					)
 				).catch((e)->
 					d = {
 						state: false,

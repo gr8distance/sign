@@ -7,10 +7,14 @@ block content
 		
 		.col.s12#make_margin_top
 			ul.tabs.hide-on-mobile-only
+				li.tab.col.s6.blue-text
+					a(href="#find_user").active.blue-text 探す
 				li.tab.col.s6
-					a(href="#find_user").active 探す
-				li.tab.col.s6
-					a(href="#following") フォロー中
+					a(href="#following").blue-text フォロー中
+
+			.input-field
+				input(type="text" id="search_user" name="search")
+				label(for="search") 検索
 
 		article(id="find_user")
 			ul.collection#friend_place

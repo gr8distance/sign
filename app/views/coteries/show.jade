@@ -1,75 +1,70 @@
 extends ../layout
 
 block content
-	section.parallax-container
-		.parallax
-			if cotery.image
-				img(src="#{cotery.image}")
-			else
-				img(src="/images/colorfull2.jpg").blur
-	
-	.row
-		.col.s12.m5
-			if users.length >= 1
-				ul.collection.with-header
-					li.collection-header
-						h5.font_size_22 許可を待っているユーザー
-					for user in users
-						if !user.permit
-							li.collection-item.avatar(id="waiting_user_#{user.user_id}")
-								img.circle(src="/images/amethyst_flat.png")
-								span.title.cyan-text= user.user_name
-								form(action="/coteries/add_permit" method="post" id="permit_#{cotery.id}_#{user.user_id}_#{current_user.id}").change_permit
-									.input-field.right
-										button.btn-flat.blue.white-text 許可
+	section
+		.container
+			.row
+				.col.s12
+					if users.length >= 1
+						ul.collection.with-header
+							li.collection-header
+								h5.font_size_22 許可を待っているユーザー
+							for user in users
+								if !user.permit
+									li.collection-item.avatar(id="waiting_user_#{user.user_id}")
+										img.circle(src="/images/amethyst_flat.png")
+										span.title.cyan-text= user.user_name
+										form(action="/coteries/add_permit" method="post" id="permit_#{cotery.id}_#{user.user_id}_#{current_user.id}").change_permit
+											.input-field.right
+												button.btn-flat.blue.white-text 許可
 
-			.state_post_form
-				.forms
-					.input-field
-						textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
-						label(for="cotery_textarea") 書き込もう！
-						input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
-						input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
+				.col.s12
+					#cotery_comments_field.row
+						for talk in talks
+							if current_user.id == talk.user_id
+								.card.blue.lighten-1.white-text
+									.card-content
+										.row
+											.col.s2
+												if talk.dataValues.user_image != "null"
+													img(src="#{talk.user_image}").circle.responsive-img
+												else
+													img(src="/images/amethyst_flat.png").circle.responsive-img.blue
 
-						input(type="hidden",value="#{current_user.name}",name="user_name",id="user_name")
-						input(type="hidden",value="#{current_user.image}",name="user_image",id="user_image")
+											.col.s10
+												= talk.user_name
+										.row
+											.col.s12
+												!{talk.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
 
-						input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
-					.input-field
-						button.btn-flat.right.cyan.white-text#submit_talk 書き込み(・∀・)！
+							else
+								.card.grey.lighten-1.white-text
+									.card-content
+										.row
+											.col.s2
+												if talk.user_image
+													img(src="#{talk.user_image}").circle.responsive-img
+												else
+													img(src="/images/colorfull2.jpg").circle.responsive-img.blue
 
-		.col.s12.m7
-			#cotery_comments_field
-				for talk in talks
-					if current_user.id == talk.user_id
+											.col.s10
+												= talk.user_name
+										.row
+											.col.s12
+												= talk.body.replace(/\n/g,"<br/>")
 
-						.card.blue.lighten-1.white-text
-							.card-content
-								.row
-									.col.s2
-										if talk.dataValues.user_image != "null"
-											img(src="#{talk.user_image}").circle.responsive-img
-										else
-											img(src="/images/amethyst_flat.png").circle.responsive-img.blue
+				.col.s12
+					.state_post_form
+						.forms
+							.input-field
+								textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
+								label(for="cotery_textarea") 書き込もう！
+								input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+								input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
 
-									.col.s10
-										= talk.user_name
-								.row
-									.col.s12
-										!{talk.body.replace("<","&lt;").replace(">","&gt;").replace("\n","<br/>")}
+								input(type="hidden",value="#{current_user.name}",name="user_name",id="user_name")
+								input(type="hidden",value="#{current_user.image}",name="user_image",id="user_image")
 
-					else
-						.card.grey.lighten-1.white-text
-							.card-content
-								.row
-									.col.s2
-										if talk.user_image
-											img(src="#{talk.user_image}").circle.responsive-img
-										else
-											img(src="/images/colorfull2.jpg").circle.responsive-img.blue
-
-									.col.s10
-										= talk.user_name
-								.row
-									.col.s12
-										= talk.body.replace("\n","<br/>")
+								input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
+							.input-field
+								button.btn-flat.right.cyan.white-text#submit_talk 書き込み(・∀・)！
