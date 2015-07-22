@@ -25,13 +25,13 @@ block content
 								.card.blue.lighten-1.white-text
 									.card-content
 										.row
-											.col.s2
+											.col.s2.m1
 												if talk.dataValues.user_image != "null"
 													img(src="#{talk.user_image}").circle.responsive-img
 												else
 													img(src="/images/amethyst_flat.png").circle.responsive-img.blue
 
-											.col.s10
+											.col.s10.m11
 												= talk.user_name
 										.row
 											.col.s12
