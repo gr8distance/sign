@@ -73,7 +73,7 @@ app.get("/:id",(req,res)->
 						for permit in permits
 							unless permit.dataValues.permit
 								users.push permit.dataValues
-						Talk.findAll(where: {room_id: room_id},order: "updated_at desc",limit: 54).then((talks)->
+						Talk.findAll(where: {room_id: room_id},limit: 54).then((talks)->
 							res.render("coteries/show",{
 								title: "#{cotery.name}::Aimerthyst",
 								cotery: cotery.dataValues,
