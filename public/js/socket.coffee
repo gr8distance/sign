@@ -85,10 +85,10 @@ $ ->
 		card_panel = "<article class='card #{if data.user_id == $('#user_id').val() then 'blue' else 'grey'} lighten-1 white-text'>
 			<div class='card-content'>
 			<div class='row'>
-			<div class='col s2'>
+			<div class='col s2 m1'>
 			<img src='#{if data.user_image then "/thumb/#{data.user_image}" else '/images/colorfull2.jpg'}' class='circle responsive-img blue'>
 			</div>
-			<div class='col s10'>
+			<div class='col s10 m11'>
 			<h5 class='font_size_18'>#{data.user_name}</h5>
 			</div>
 			</div>
