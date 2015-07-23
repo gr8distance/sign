@@ -18,3 +18,5 @@ mail_options = {
 	subject: "メールの件名",
 	html: "メールの内容"
 }
+
+##Edit
