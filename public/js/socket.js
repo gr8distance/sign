@@ -67,7 +67,8 @@
     socket.on("sent_talk_from_server", function(data) {
       var card_panel;
       card_panel = "<article class='card " + (data.user_id === $('#user_id').val() ? 'blue' : 'grey') + " lighten-1 white-text'> <div class='card-content'> <div class='row'> <div class='col s2 m1'> <img src='" + (data.user_image ? "/thumb/" + data.user_image : '/images/colorfull2.jpg') + "' class='circle responsive-img blue'> </div> <div class='col s10 m11'> <h5 class='font_size_18'>" + data.user_name + "</h5> </div> </div> <div class='row'> <div class='col s12'> <p class='font_size_12'>" + (data.body.replace(/\n/g, '<br/>')) + "</p> </div> </div> </div> </article>";
-      return $("#cotery_comments_field").append(card_panel);
+      $("#cotery_comments_field").prepend(card_panel);
+      return $("#new_talk").closeModal();
     });
     if (location.pathname.match(/posts\/[0-9]*$/)) {
       data = {

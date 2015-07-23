@@ -100,7 +100,8 @@ $ ->
 			</div>
 			</article>"
 
-		$("#cotery_comments_field").append(card_panel)
+		$("#cotery_comments_field").prepend(card_panel)
+		$("#new_talk").closeModal()
 	)
 
 	#ポストにコメントをするためのコード
