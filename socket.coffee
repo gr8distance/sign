@@ -1,11 +1,9 @@
 express = require("express")
 app = express()
-http = require('http').Server(app)
-io = require('socket.io')(http)
+data = require("./app")
+io = require('socket.io')(data.http)
 
-
-do_socket = ->
-	io.on("connection",(socket)->
+io.on("connection",(socket)->
 		console.log("(・∀・)！User connected")
 		
 		#サークルでトークするためのコード
@@ -58,5 +56,5 @@ do_socket = ->
 		)
 	)
 	#-----SocketIO------#
-	
-module.exports = do_socket
+
+module.exports = data
