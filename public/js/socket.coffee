@@ -94,13 +94,13 @@ $ ->
 			</div>
 			<div class='row'>
 			<div class='col s12'>
-			<p class='font_size_12'>#{data.body.replace(/\n/g,'<br/>')}</p>
+			<p>#{data.body.replace(/\n/g,'<br/>')}</p>
 			</div>
 			</div>
 			</div>
 			</article>"
 
-		$("#cotery_comments_field").prepend(card_panel)
+		$("#cotery_comments_field").append(card_panel)
 		$("#new_talk").closeModal()
 	)
 

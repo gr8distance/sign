@@ -1,0 +1,20 @@
+.fixed-action-btn(style='bottom: 25px; right: 24px;')
+	a.btn-floating.btn-large.orange.waves-effect.waves-light.btn.modal-trigger(href='#new_talk')
+		i.large.material-icons mode_edit
+
+section.modal.bottom-sheet#new_talk
+	article.container
+		.modal-content
+			.col.s12
+				.state_post_form
+					.forms
+						.input-field
+							textarea.materialize-textarea(name="cotery_textarea",id="circle_talk")
+							label(for="cotery_textarea") 掲示板に書き込み
+							input(type="hidden",value="#{current_user.id}",name="user_id",id="user_id")
+							input(type="hidden",value="#{cotery.id}",name="circle_id",id="circle_id")
+							input(type="hidden",value="#{current_user.name}",name="user_name",id="user_name")
+							input(type="hidden",value="#{current_user.image}",name="user_image",id="user_image")
+							input(type="hidden",value="#{room_id}",name="room_id",id="room_id")
+						.input-field
+							button.btn-flat.right.orange.white-text#submit_talk 送信
