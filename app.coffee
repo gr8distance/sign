@@ -122,7 +122,7 @@ app.use (err, req, res, next) ->
 
 
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
 
 
@@ -269,34 +269,34 @@ io.on("connection",(socket)->
 )
 #-----SocketIO------#
 
-cluster = require('cluster')
-numCPUs = require('os').cpus().length
-
-if cluster.isMaster
-	for i in [0...numCPUs]
-		cluster.fork()
-else
-	try
-		switch app.get("env")
-			when "development"
-				http.listen(3000,->
-					console.log "Server is running!"
-					console.log "development"
-				)
-			when "production"
-				http.listen(80,->
-					console.log "Server is running!"
-					console.log "Production"
-				)
-	catch err
-		console.log err
-=======
-#HTTPのデータを外部ファイル（SOCKETとENGING)に移動するため
-#HTTPプロパティにはHTTPオブジェクトを
-#ENVプロパティには実行時の環境（DEV,PRODUCTION)などを書き出す
-data = {
-	http: http,
-	env: app.get("env")
-}
-module.exports = data
->>>>>>> 753f876afae95aa36e783c1e79dc7570ede514fa
+#cluster = require('cluster')
+#numCPUs = require('os').cpus().length
+#
+#if cluster.isMaster
+#	for i in [0...numCPUs]
+#		cluster.fork()
+#else
+try
+	switch app.get("env")
+		when "development"
+			http.listen(3000,->
+				console.log "Server is running!"
+				console.log "development"
+			)
+		when "production"
+			http.listen(80,->
+				console.log "Server is running!"
+				console.log "Production"
+			)
+catch err
+	console.log err
+#=======
+##HTTPのデータを外部ファイル（SOCKETとENGING)に移動するため
+##HTTPプロパティにはHTTPオブジェクトを
+##ENVプロパティには実行時の環境（DEV,PRODUCTION)などを書き出す
+#data = {
+#	http: http,
+#	env: app.get("env")
+#}
+#module.exports = data
+#>>>>>>> 753f876afae95aa36e783c1e79dc7570ede514fa
