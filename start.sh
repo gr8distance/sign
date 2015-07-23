@@ -1,4 +1,4 @@
 #! /bin/bash
 
-sudo forever stop app.coffee
+sudo forever stop enging.coffee
 sudo NODE_ENV=production forever start -c coffee enging.coffee
