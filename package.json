@@ -24,6 +24,9 @@
 		"passport-local": "*",
 		"config": "*",
 		"log4js": "*",
-		"node-mailer": "*"
+		"node-mailer": "*",
+		"mocha": "*",
+		"chai": "*",
+		"cluster": "*"
   }
 }

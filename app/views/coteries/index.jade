@@ -1,14 +1,7 @@
 extends ../layout
 
 block content
-	section.parallax-container
-		.parallax
-			if current_user.image
-				img(src="#{current_user.image}")
-			else
-				img(src="/images/colorfull2.jpg").blur
-	
-	.container
+	section.container
 		.row
 			if coteries.length != 0
 				ul.collection.with-header
