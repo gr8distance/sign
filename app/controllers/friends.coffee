@@ -39,6 +39,44 @@ app.get("/",(req,res)->
 		res.redirect "/"
 )
 
+#ユーザーを検索するためのアクションを実装する
+app.post("/search",(req,res)->
+	current_user = req.session.current_user
+	if current_user?
+		data = req.body
+
+		current_user.getFriends().then((friends)->
+			#自分の友だちのIDをGETする
+			v_friends = [current_user.id]
+			for friend in friends
+				v_friends.push friend.dataValues.friend_id
+		
+			User.findAll(where: {id: v_friends}).then((my_friends)->
+				m_friends = []
+				for i in my_friends
+					m_friends.push i.dataValues
+				
+				User.findAll(where: {name: data.search},limit: 18,order: "created_at desc").then((users)->
+					v_users = []
+					for user in users
+						unless v_friends.indexOf(user.dataValues.id) >= 0
+							v_users.push user.dataValues
+
+					res.render("friend/index",{
+						title: "ユーザーを見つけよう",
+						friends: m_friends,
+						already_friends: v_friends,
+						current_user: current_user,
+						users: v_users
+					})
+				)
+			)
+		)
+	else
+		req.flash "info","ログインしてから利用してください"
+		res.redirect "/"
+)
+
 #次のユーザを順次読み込んでいくためのアクション
 app.post("/more",(req,res)->
 	data = req.body

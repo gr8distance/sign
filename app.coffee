@@ -122,6 +122,7 @@ app.use (err, req, res, next) ->
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -289,3 +290,13 @@ else
 				)
 	catch err
 		console.log err
+=======
+#HTTPのデータを外部ファイル（SOCKETとENGING)に移動するため
+#HTTPプロパティにはHTTPオブジェクトを
+#ENVプロパティには実行時の環境（DEV,PRODUCTION)などを書き出す
+data = {
+	http: http,
+	env: app.get("env")
+}
+module.exports = data
+>>>>>>> 753f876afae95aa36e783c1e79dc7570ede514fa
