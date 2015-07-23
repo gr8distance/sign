@@ -1,5 +1,5 @@
-express = require("express")
-app = express()
+cluster = require('cluster')
+numCPUs = require('os').cpus().length
 data = require("./app")
 io = require('socket.io')(data.http)
 
@@ -56,5 +56,3 @@ io.on("connection",(socket)->
 		)
 	)
 	#-----SocketIO------#
-
-module.exports = data
