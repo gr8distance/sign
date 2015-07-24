@@ -1,4 +1,3 @@
 #! /bin/bash
 
-sudo forever stop enging.coffee
-sudo NODE_ENV=production forever start -c coffee enging.coffee
+sudo NODE_ENV=production pm2 reload app.coffee

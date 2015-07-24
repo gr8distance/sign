@@ -1,3 +1,3 @@
 #!/bin/bash
 
-coffee enging.coffee
+coffee app.coffee

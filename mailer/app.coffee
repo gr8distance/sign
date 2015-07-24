@@ -1,22 +1,24 @@
-mailer = require("nodemailer")
+nodemailer = require "nodemailer"
 
-#Mail sessings
-setting = {
-	host: "",
+transporter = nodemailer.createTransport({
+	service: 'Gmail',
 	auth: {
-		user: "ユーザ名",
-		pass: "パスワード",
-		port: "SMTPポート番号"
+		user: "info@aimerthyst.co",
+		pass: "Lancelot183"
 	}
+})
+
+mailOptions = {
+	from: 'Fred Foo ✔ <foo@blurdybloop.com>',
+	to: "suzaku622@gmail.com",
+	subject: 'Hello ✔',
+	text: 'Hello world ✔',
+	html: '<b>Hello world ✔</b>'
 }
 
-#mail送信時の送信先などの設定・
-#この設定はアプリケーションのコントローラ内部で設定すると良いかもしれない
-mail_options = {
-	from: "送信者のメールアドレス",
-	to: "送信先メールアドレス",
-	subject: "メールの件名",
-	html: "メールの内容"
-}
+transporter.sendMail(mailOptions,(error, info)->
+	if error
+		console.log "Message sent"
+)
 
-##Edit
+
