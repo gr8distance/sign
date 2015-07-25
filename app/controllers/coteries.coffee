@@ -19,7 +19,7 @@ app.get("/",(req,res)->
 
 				console.log v_permits
 				res.render("coteries/index",{
-					title: "サークル::Aimerthyst",
+					title: "サークル一覧::Aimerthyst:アメジスト",
 					current_user: req.session.current_user,
 					coteries: v_coteries,
 					btn: "cotery",
@@ -51,7 +51,7 @@ app.get("/:id",(req,res)->
 				#	users.push permit.dataValues
 				Talk.findAll(where: {room_id: room_id},limit: 54).then((talks)->
 					res.render("coteries/show",{
-						title: "#{cotery.name}::Aimerthyst",
+						title: "#{cotery.name}::Aimerthyst:アメジスト",
 						cotery: cotery.dataValues,
 						current_user: req.session.current_user,
 						room_id: room_id,

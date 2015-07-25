@@ -15,6 +15,7 @@ app.get("/:id",(req,res)->
 			post.getUser().then((user)->
 				post.user = user.dataValues
 				res.render("posts/show",{
+					title: "#{post.body}::Aimerthyst:アメジスト"
 					post:	post,
 					current_user: req.session.current_user,
 					room_id: User.hash("posts_#{id}"),
@@ -42,7 +43,8 @@ app.get("/:id/edit",(req,res)->
 
 			res.render("posts/edit",{
 				current_user: req.session.current_user,
-				post: post.dataValues
+				post: post.dataValues,
+				title: "編集::Aimerthyst:アメジスト"
 			})
 		).catch((err)->
 			console.log err

@@ -14,7 +14,7 @@ app.get("/",(req,res)->
 				v_songs.push song
 
 			res.render("songs/index",{
-				title: "楽曲集::Aimerthyst:",
+				title: "楽曲集::Aimerthyst:アメジスト",
 				current_user: req.session.current_user,
 				songs: v_songs,
 				btn: "song",

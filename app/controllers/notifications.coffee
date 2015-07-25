@@ -12,6 +12,7 @@ app.get("/",(req,res)->
 				v_notif.push notif.dataValues
 
 			res.render("notifications/index",{
+				title:"通知::Aimerthyst:アメジスト",
 				notifications: v_notif,
 				current_user: req.session.current_user,
 				user: user

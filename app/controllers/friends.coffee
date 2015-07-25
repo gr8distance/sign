@@ -25,7 +25,7 @@ app.get("/",(req,res)->
 							v_users.push user.dataValues
 
 					res.render("friend/index",{
-						title: "ユーザーを見つけよう",
+						title: "ユーザーを見つけよう::Aimerthyst:アメジスト",
 						friends: m_friends,
 						already_friends: v_friends,
 						current_user: current_user,

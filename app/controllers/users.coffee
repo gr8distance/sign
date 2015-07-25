@@ -11,7 +11,7 @@ app.get("/new",(req,res)->
 	f = req.flash("info")
 
 	res.render("users/new",{
-		title: "User new",
+		title: "新規ユーザー登録::Aimerthyst:アメジスト",
 		pretty: true,
 		flash: f[0]
 	})
@@ -57,7 +57,7 @@ app.get("/:id",(req,res)->
 
 					user.getPosts(order: "updated_at desc",limit: 18).then((posts)->
 						res.render("users/show",{
-							title: user.name,
+							title: "#{user.name}:Aimerthyst:アメジスト",
 							user: user,
 							posts: posts,
 							current_user: req.session.current_user,
@@ -161,7 +161,7 @@ app.post("/:id/image",(req,res)->
 app.get("/:id/edit",(req,res)->
 	if req.session.current_user?
 		res.render("users/edit",{
-			titiel: "プロフィールの編集",
+			titiel: "プロフィールの編集::Aimerthyst:アメジスト",
 			current_user: req.session.current_user,
 			flash: req.flash("info")[0]
 		})

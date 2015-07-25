@@ -29,7 +29,7 @@ app.get("/", (req, res) ->
 				User.findAll(order: "updated_at desc",limit: 3).then((users)->
 					#ビューを生成していろいろなデータを送り込む
 					res.render("home/index",{
-						title: "Aimerthyst:ホーム",
+						title: "ホーム::Aimerthyst::アメジスト::",
 						flash: req.flash("info")[0],
 						current_user: req.session.current_user,
 						posts: v_posts,
@@ -63,7 +63,7 @@ app.get("/", (req, res) ->
 				console.log e
 				res.render("home/index",{
 					posts: v_posts,
-					title: "Aimerthyst:ホーム",
+					title: "ホーム:Aimerthyst:アメジスト",
 					flash: req.flash("info")[0],
 					aimerthyst: []
 				})

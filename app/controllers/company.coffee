@@ -5,7 +5,7 @@ require('../../lib/models')()
 
 app.get("/",(req,res)->
 	res.render("company/index",{
-		title: "Aimerthyst運営チームについて"
+		title: "Aimerthyst(アメジスト)運営チームについて"
 		pretty: true
 	})
 )
@@ -23,7 +23,7 @@ app.post("/",(req,res)->
 
 app.get("/contact",(req,res)->
 	res.render("company/contact",{
-		title: "お問い合わせAimerthyst",
+		title: "お問い合わせAimerthyst:アメジスト",
 		current_user: req.session.current_user
 	})
 )
@@ -32,7 +32,7 @@ app.get("/privacy_policy",(req,res)->
 	
 	Policy.findAll().then((p)->
 		res.render("company/privacy",{
-			title: "プライバシーポリシーAimerthyst",
+			title: "プライバシーポリシー::Aimerthyst:アメジスト",
 			policies: p,
 			current_user: req.session.current_user
 		})
@@ -41,7 +41,7 @@ app.get("/privacy_policy",(req,res)->
 
 app.get("/low",(req,res)->
 	res.render("company/low",{
-		title: "プライバシーポリシー"
+		title: "特定商取引法に基づく表記::Aimerthyst:アメジスト"
 	})
 )
 
