@@ -1,75 +1,76 @@
 extends ../layout
 
 block content
-	section.container
-		input(id="all_friends_id",type="hidden",value="#{all_friends}")
-		input(id="current_user_id",type="hidden",value="#{current_user.id}")
-		
-		.col.s12#make_margin_top
-			ul.tabs.hide-on-mobile-only
-				li.tab.col.s6.blue-text
-					a(href="#find_user").active.blue-text 探す
-				li.tab.col.s6
-					a(href="#following").blue-text フォロー中
+	section
+		.container
+			input(id="all_friends_id",type="hidden",value="#{all_friends}")
+			input(id="current_user_id",type="hidden",value="#{current_user.id}")
 			
-			form("/friends/search" method="post")
-				.row
-					.input-field.col.s9
-						input(type="text" id="search_user" name="search")
-						label(for="search") 検索
-					.input-field.col.s3
-						input(type="submit" value="SEARCH")
+			.col.s12#make_margin_top
+				ul.tabs.hide-on-mobile-only
+					li.tab.col.s6.blue-text
+						a(href="#find_user").active.blue-text 探す
+					li.tab.col.s6
+						a(href="#following").blue-text フォロー中
+				
+				form("/friends/search" method="post")
+					.row
+						.input-field.col.s9
+							input(type="text" id="search_user" name="search")
+							label(for="search") 検索
+						.input-field.col.s3
+							input(type="submit" value="SEARCH")
 
-		article(id="find_user")
-			ul.collection#friend_place
-				for user in users
-					li.collection-item.avatar
-						if user.image
-							img(src="/thumb#{user.image}").circle
-						else
-							img(src="/images/colorfull2.jpg").circle
-						span.title
-							a(href="/users/#{user.id}")= user.name
+			article(id="find_user")
+				ul.collection#friend_place
+					for user in users
+						li.collection-item.avatar
+							if user.image
+								img(src="/thumb#{user.image}").circle
+							else
+								img(src="/images/colorfull2.jpg").circle
+							span.title
+								a(href="/users/#{user.id}")= user.name
 
-						.secondary-content
-							if (already_friends.indexOf(user.id)) >= 0
-								button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form 
-									i.fa.fa-heart
-							else	
-								button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form 
-									i.fa.fa-heart-o
+							.secondary-content
+								if (already_friends.indexOf(user.id)) >= 0
+									button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form 
+										i.fa.fa-heart
+								else	
+									button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form 
+										i.fa.fa-heart-o
 
-			
-			#read_more_friend.center
-				input(type="hidden",value="1",class="page_id")
-				.preloader-wrapper.active#loading_friend
-					.spinner-layer.spinner-blue-only
-						.circle-clipper.left
-							.circle
-						.gap-patch
-							.circle
-						.circle-clipper.right
-							.circle
-				i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more_friend
-						
+				
+				#read_more_friend.center
+					input(type="hidden",value="1",class="page_id")
+					.preloader-wrapper.active#loading_friend
+						.spinner-layer.spinner-blue-only
+							.circle-clipper.left
+								.circle
+							.gap-patch
+								.circle
+							.circle-clipper.right
+								.circle
+					i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more_friend
+							
 
-		article#following
-			ul.collection
-				for user in friends
-					li.collection-item.avatar
-						if user.image
-							img(src="/thumb#{user.image}").circle
-						else
-							img(src="/images/amethyst_flat.png").circle
-						span.title
-							a(href="/users/#{user.id}")= user.name
-						p.truncate= user.description
-						.secondary-content
-							if already_friends.indexOf(user.id) >= 0
-								button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form 
-									i.fa.fa-heart
-							else	
-								button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form 
-									i.fa.fa-heart
+			article#following
+				ul.collection
+					for user in friends
+						li.collection-item.avatar
+							if user.image
+								img(src="/thumb#{user.image}").circle
+							else
+								img(src="/images/amethyst_flat.png").circle
+							span.title
+								a(href="/users/#{user.id}")= user.name
+							p.truncate= user.description
+							.secondary-content
+								if already_friends.indexOf(user.id) >= 0
+									button.btn-flat.pink.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/unfollow").be_friend_form 
+										i.fa.fa-heart
+								else	
+									button.btn-flat.blue.white-text.waves-effect.waves-light(id="be_friend_form_#{user.id}_#{current_user.id} friend_follow_submit" data-friend-id="be_friend_form_#{user.id}_#{current_user.id}" action="/friends/follow").be_friend_form 
+										i.fa.fa-heart
 
 

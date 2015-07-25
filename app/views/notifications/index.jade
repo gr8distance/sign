@@ -1,21 +1,22 @@
 extends ../layout
 
 block content
-	.container
-		.row
-			ul.collection.with-header
-				li.collection-header
-					h5.font_size_22 通知一覧
-				if notifications.length != 0
-					for i in notifications
-						li.collection-item.avatar
-							i.mdi-notification-sms-failed.circle.teal
-							if i.model_name == "Cotery"
-								a(href="/coteries/#{i.model_id}") 
-									span #{i.message}
-							else
-								a(href="/#{i.model_name}/#{i.model_id}") 
-									span #{i.message}
-							p.font_size_12 #{i.created_at.getFullYear()}-#{i.created_at.getMonth()+1}-#{i.created_at.getDate()} #{i.created_at.getHours()}:#{i.created_at.getMinutes()}
-				else
-					li.collection-item 通知はありません
+	section
+		article.container
+			.row
+				ul.collection.with-header
+					li.collection-header
+						h5.font_size_22 通知一覧
+					if notifications.length != 0
+						for i in notifications
+							li.collection-item.avatar
+								i.mdi-notification-sms-failed.circle.teal
+								if i.model_name == "Cotery"
+									a(href="/coteries/#{i.model_id}") 
+										span #{i.message}
+								else
+									a(href="/#{i.model_name}/#{i.model_id}") 
+										span #{i.message}
+								p.font_size_12 #{i.created_at.getFullYear()}-#{i.created_at.getMonth()+1}-#{i.created_at.getDate()} #{i.created_at.getHours()}:#{i.created_at.getMinutes()}
+					else
+						li.collection-item 通知はありません

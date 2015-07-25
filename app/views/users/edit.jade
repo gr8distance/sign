@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 	if current_user
-		section.parallax-container
+		.parallax-container
 			.parallax
 				if current_user.image
 					img(src="#{current_user.image}")
