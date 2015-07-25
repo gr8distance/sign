@@ -127,7 +127,7 @@ $ ->
 		comment_data = "<li class='collection-item avatar'>
 		<img src='#{if data.user_image? then data.user_image else "/images/amethyst_flat.png"}' class='circle'>
 		<span class='title'>#{data.user_name}</span>
-		<p>#{data.body}</p>
+		<p>#{data.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}</p>
 	  </li>"
 		#console.log data
 		$("#comments").append(comment_data)

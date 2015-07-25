@@ -91,7 +91,7 @@
     });
     socket.on("sent_create_new_comment", function(data) {
       var comment_data;
-      comment_data = "<li class='collection-item avatar'> <img src='" + (data.user_image != null ? data.user_image : "/images/amethyst_flat.png") + "' class='circle'> <span class='title'>" + data.user_name + "</span> <p>" + data.body + "</p> </li>";
+      comment_data = "<li class='collection-item avatar'> <img src='" + (data.user_image != null ? data.user_image : "/images/amethyst_flat.png") + "' class='circle'> <span class='title'>" + data.user_name + "</span> <p>" + (data.body.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br/>")) + "</p> </li>";
       $("#comments").append(comment_data);
       return $("#comment_body").val("");
     });
