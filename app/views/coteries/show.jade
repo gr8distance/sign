@@ -1,55 +1,56 @@
 extends ../layout
 
 block content
-	section.container
-		.row
-			.col.s12#make_margin_top
-				ul.tabs
-					li.tab.col.s6
-						a(href="#talk").blue-text.active トーク
-					li.tab.col.s6
-						a(href="#permit").blue-text 参加者
+	section
+		.container
+			.row
+				.col.s12#make_margin_top
+					ul.tabs
+						li.tab.col.s6
+							a(href="#talk").blue-text.active トーク
+						li.tab.col.s6
+							a(href="#permit").blue-text 参加者
 
 
-		
-			article.col.s12#talk
-				#talk_place
-					#cotery_comments_field.row
-						for talk in talks
-							if current_user.id == talk.user_id
-								.card.blue.lighten-1.white-text
-									.card-content
-										.row
-											.col.s2.m1
-												if talk.dataValues.user_image != "null"
-													img(src="#{talk.user_image}").circle.responsive-img
-												else
-													img(src="/images/amethyst_flat.png").circle.responsive-img.blue
+			
+				article.col.s12#talk
+					#talk_place
+						#cotery_comments_field.row
+							for talk in talks
+								if current_user.id == talk.user_id
+									.card.blue.lighten-1.white-text
+										.card-content
+											.row
+												.col.s2.m1
+													if talk.dataValues.user_image != "null"
+														img(src="#{talk.user_image}").circle.responsive-img
+													else
+														img(src="/images/amethyst_flat.png").circle.responsive-img.blue
 
-											.col.s10.m11
-												= talk.user_name
-										.row
-											.col.s12
-												!{talk.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
+												.col.s10.m11
+													= talk.user_name
+											.row
+												.col.s12
+													!{talk.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
 
-							else
-								.card.grey.lighten-1.white-text
-									.card-content
-										.row
-											.col.s2
-												if talk.user_image
-													img(src="#{talk.user_image}").circle.responsive-img
-												else
-													img(src="/images/colorfull2.jpg").circle.responsive-img.blue
+								else
+									.card.grey.lighten-1.white-text
+										.card-content
+											.row
+												.col.s2
+													if talk.user_image
+														img(src="#{talk.user_image}").circle.responsive-img
+													else
+														img(src="/images/colorfull2.jpg").circle.responsive-img.blue
 
-											.col.s10
-												= talk.user_name
-										.row
-											.col.s12
-												!{talk.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
-					#sc_end
+												.col.s10
+													= talk.user_name
+											.row
+												.col.s12
+													!{talk.body.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>")}
+						#sc_end
 
-			article.col.s12#permit
-				include ./_permit
+				article.col.s12#permit
+					include ./_permit
 
 	include ./_form

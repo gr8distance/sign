@@ -1,28 +1,28 @@
 extends ../layout
 
 block content
-	section.container
-		.row
-			if coteries.length != 0
-				ul.collection.with-header
-					li.collection-header
-						h5.orange-text サークル一覧
-					for cotery in coteries
-						li.collection-item.avatar
-							img(src="/images/colorfull2.jpg").circle
-							span.title= cotery.name
-							.secondary-content
-								if cotery.permit
-									a(href="/coteries/#{cotery.id}").orange-text サークルを見る　
-								else
-									if permits.indexOf(cotery.id) >= 0
-										if permits_array[permits.indexOf(cotery.id)].permit
-											a(href="/coteries/#{cotery.id}").cyan-text サークルを見る
-										else
-											p 参加許可を待っています
+	section
+		.container
+			.row
+				if coteries.length != 0
+					ul.collection.with-header
+						li.collection-header
+							h5.orange-text サークル一覧
+						for cotery in coteries
+							li.collection-item.avatar
+								img(src="/images/colorfull2.jpg").circle
+								span.title= cotery.name
+								.secondary-content
+									if cotery.permit
+										a(href="/coteries/#{cotery.id}").orange-text サークルを見る　
 									else
-										form(method="post",action="/coteries/get_permit" class="commit_cotery")
-											input(type="hidden",value="#{current_user.id}",name="user_id")
-											input(type="hidden",value="#{cotery.id}",name="cotery_id")
-											button(type="submit" id="commit_cotery_#{cotery.id}_#{current_user.id}").commit_btn.btn-flat.waves-effect.waves-light.cyan.white-text サークルに参加申請する
-
+										if permits.indexOf(cotery.id) >= 0
+											if permits_array[permits.indexOf(cotery.id)].permit
+												a(href="/coteries/#{cotery.id}").cyan-text サークルを見る
+											else
+												p 参加許可を待っています
+										else
+											form(method="post",action="/coteries/get_permit" class="commit_cotery")
+												input(type="hidden",value="#{current_user.id}",name="user_id")
+												input(type="hidden",value="#{cotery.id}",name="cotery_id")
+												button(type="submit" id="commit_cotery_#{cotery.id}_#{current_user.id}").commit_btn.btn-flat.waves-effect.waves-light.cyan.white-text サークルに参加申請する
