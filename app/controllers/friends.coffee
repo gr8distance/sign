@@ -1,7 +1,7 @@
 express = require('express')
 app = express.Router()
 require('../../lib/models')()
-
+mailer = require("../../mailer")
 
 #他のユーザー一覧を表示するためのアクション
 app.get("/",(req,res)->

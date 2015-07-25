@@ -24,7 +24,7 @@ task :controller do
 
 	us = "_=require('underscore')\n"
 	t1 = "express = require('express')\n"
-	t2 = "app = express.Router()\n"
+	t2 = "app = express.Router()\nmailer = require('../../mailer')"
 	t3 = "require('../../lib/models')()\n\n\n\n\n\n\n"
 	t4 = "module.exports = app"
 	

@@ -4,6 +4,7 @@ easyimg = require("easyimage")
 _ = require("underscore")
 require("../../lib/models")()
 fs = require("fs")
+mailer = require("../../mailer")
 
 app.get("/new",(req,res)->
 	#console.log sql
@@ -159,11 +160,14 @@ app.post("/:id/image",(req,res)->
 #編集ページ
 app.get("/:id/edit",(req,res)->
 	if req.session.current_user?
+		mailer(req.session.current_user.email,"Test!","send!")
+
 		res.render("users/edit",{
 			titiel: "プロフィールの編集",
 			current_user: req.session.current_user,
 			flash: req.flash("info")[0]
 		})
+
 	else
 		req.flash("info","ログインして下さい")
 		res.redirect("/")
