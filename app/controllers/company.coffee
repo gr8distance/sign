@@ -19,7 +19,6 @@ app.post("/",(req,res)->
 		req.flash("info","問い合わせに失敗")
 		res.redirect("/company/contact")
 	)
-
 )
 
 app.get("/contact",(req,res)->
@@ -40,6 +39,11 @@ app.get("/privacy_policy",(req,res)->
 	)
 )
 
+app.get("/low",(req,res)->
+	res.render("company/low",{
+		title: "プライバシーポリシー"
+	})
+)
 
 
 module.exports = app

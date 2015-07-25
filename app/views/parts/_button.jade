@@ -1,7 +1,7 @@
 //メニューを呼び出すためのコード
 .fixed-action-btn(style='bottom: 24px; left: 24px; width: 66px; height: 66px;')
 	a.button-collapse.btn-floating.btn-large.cyan(data-activates='mobile-demo', href='#')
-		i.mdi-navigation-menu.rotate_icon
+		i.mdi-navigation-menu.large
 
 case btn
 	when "home"
@@ -14,9 +14,9 @@ case btn
 				a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#') Close
 
 		//投稿するためのフォームを呼び出すためのコード
-		.fixed-action-btn(style='bottom: 25px; right: 24px;',id="call_new_post")
+		.fixed-action-btn(style='bottom: 25px; right: 24px;',id="call_new_post",data-position="left",data-delay="18",data-tooltip="新規書き込み").tooltipped
 			a.btn-floating.btn-large.red.waves-effect.waves-light.btn.modal-trigger(href='#create_post')
-				i.large.mdi-content-add.rotate_icon
+				i.large.mdi-content-add
 					
 	when "cotery"
 		#create_new_cotery.modal

@@ -21,6 +21,7 @@ conf = require('config')
 Log4js = require('log4js')
 cluster = require('cluster')
 numCPUs = require('os').cpus().length
+mailer = require("./mailer")
 
 
 #------Logファイルの設定-----#
@@ -148,7 +149,9 @@ catch err
 #-----SocketIO------#
 io.on("connection",(socket)->
 	console.log("(・∀・)！User connected")
-	
+
+
+
 	#楽曲の再生を実現するためのコード
 	socket.on("play_song",(data)->
 		console.log data
@@ -162,6 +165,7 @@ io.on("connection",(socket)->
 			)
 		)
 	)
+
 
 	#新しいコメントを書くためのコード
 	socket.on("create_new_comment",(data)->
@@ -186,7 +190,11 @@ io.on("connection",(socket)->
 							model_name: "posts",
 							model_id: data.post_id,
 							message: "#{data.user_name}さんがあなたの書き込みにコメントしました。"
-						})
+						}).then((notice)->
+							text = "#{user.name}さんがあなたの投稿にコメントをしました！\nアクセスして確認してみましょう(・∀・)！！
+							\nhttp://aimerthyst.co/posts/#{post.id}"
+							mailer(user.email,"Aimerthystからのお知らせ",text)
+						)
 					)
 				)
 			).catch((e)->

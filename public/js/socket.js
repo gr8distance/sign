@@ -36,7 +36,7 @@
         if (data.user_id === current_user_id) {
           return "<a href='/posts/" + data.id + "/edit'>編集</a><i id='delete_post_" + data.id + "_" + data.user_id + "' class='mdi-action-delete red-text tiny delete_post_form right'></i>";
         } else {
-          return "";
+          return Materialize.toast("<a href='/posts/" + data.id + "'>" + data.user_name + "さんの新しい書き込み(・∀・)！</a>", 3330);
         }
       };
       if (friends_id.indexOf("" + data.user_id) >= 0) {

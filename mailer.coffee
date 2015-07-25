@@ -22,9 +22,3 @@ module.exports = send_mail = (email,subject,text) ->
 		if error
 			console.log "Message sent"
 	)
-
-
-#email = "suzaku622@gmail.com"
-#sub = "テストの送信であることを確認する"
-#text = "これはテストの送信です(・∀・)！！"
-#send_mail(email,sub,text)

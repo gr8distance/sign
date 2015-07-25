@@ -1,10 +1,10 @@
 $ ->
 	$('.parallax').parallax()
-	#$(".nav-wrapper").pushpin({top: 0});
 	$(".dropdown-button").dropdown()
 	$(".button-collapse").sideNav()
 	$('.modal-trigger').leanModal()
 	$(".dropdown-button").dropdown()
+	$('.tooltipped').tooltip({delay: 50})
 	$('.materialboxed').materialbox()
 	$('.datepicker').pickadate({
 		selectMonths: true, #Creates a dropdown to control month
@@ -286,15 +286,16 @@ $ ->
 	)
 	
 	#掲示板の表示をいい感じにする
-	header_h = $("header").height()
-	menu_h =  $("#make_margin_top").height()
-	over_head = menu_h + header_h
-	win_blank = h - over_head - 18
+	#header_h = $("header").height()
+	#menu_h =  $("#make_margin_top").height()
+	#over_head = menu_h + header_h
+	#win_blank = h - over_head - 18
+	#
 
-	$("#talk_place").css({
-		height: win_blank,
-		overflow: "scroll",
-		" -webkit-overflow-scrolling": "touch"
-	}).animate({scrollTop: $("#sc_end").offset().top},10)
+	#$("#talk_place").css({
+	#	height: win_blank,
+	#	overflow: "scroll",
+	#	" -webkit-overflow-scrolling": "touch"
+	#}).animate({scrollTop: $("#sc_end").offset().top},10)
 
 
