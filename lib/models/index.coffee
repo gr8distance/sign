@@ -23,43 +23,6 @@ createModels = ->
 			eval("#{cap(r)}.hash = hash")
 	
 
-	User.hasMany(Post)
-	User.hasMany(Timeline)
-	
-	Post.belongsTo(User)
-	Timeline.belongsTo(User)
-	
-	User.hasMany(Comment)
-	Post.hasMany(Comment)
-	Comment.belongsTo(User)
-	Comment.belongsTo(Post)
-
-	User.hasMany(Session)
-	Session.belongsTo(User)
-	
-	User.hasMany(Friend)
-	Friend.belongsTo(User)
-	
-	User.hasMany(Song)
-	Song.belongsTo(User)
-	
-	User.hasMany(Cotery)
-	Cotery.belongsTo(User)
-	
-	Cotery.hasMany(Talk)
-	Talk.belongsTo(Cotery)
-
-	User.hasMany(Talk)
-	Talk.belongsTo(User)
-	
-	User.hasMany(Blog)
-	Blog.belongsTo(User)
-
-	User.hasMany(Notification)
-	Notification.belongsTo(User)
-
-	User.hasMany(Permit)
-	Permit.belongsTo(User)
 #sql.s.sync({force: true})
 #sql.s.sync()
 

@@ -8,24 +8,21 @@ User = sql.s.define("User",{
 	},
 	email: {
 		type: sql.S.STRING,
-		unique: true
-	},
-	password: {
-		type: sql.S.STRING,
+		unique: true,
 		allowNull: false
-	},
-	image: {
-		type: sql.S.STRING,
 	},
 	uniq_session_id: {
 		type: sql.S.STRING,
 		allowNull: false
-	},last_login: {
+	},
+	token: {
+		type: sql.S.STRING,
+		unique: true,
+		allowNull: false
+	},
+	last_login: {
 		type: sql.S.DATE,
 		defaultValue: new Date
-	},
-	description: {
-		type: sql.S.TEXT
 	}
 },{
 	paranoid: true,
@@ -38,6 +35,6 @@ User.make_session = (name,email)->
 	return sha512.digest('hex')
 
 #sql.s.sync({force: true})
-#
-#
+
+
 module.exports = User

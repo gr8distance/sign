@@ -1,3 +1,3 @@
 #!/bin/bash
 
-coffee app.coffee
+hotcoffee app.coffee

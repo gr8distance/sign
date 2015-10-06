@@ -3,19 +3,19 @@
 		{
 			"type":     "dateFile",
 				"category": "system",
-				"filename": "../logs/system.log",
+				"filename": "./logs/system.log",
 				"pattern":  "-yyyy-MM-dd"
 		},
 		{
 			"type":     "dateFile",
 			"category": "access",
-			"filename": "../logs/access.log",
+			"filename": "./logs/access.log",
 			"pattern":  "-yyyy-MM-dd"
 		},
 		{
 			"type":     "dateFile",
 			"category": "error",
-			"filename": "../logs/error.log",
+			"filename": "./logs/error.log",
 			"pattern":  "-yyyy-MM-dd hh:mm:ss:sss"
 		}
 	]
