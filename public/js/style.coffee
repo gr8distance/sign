@@ -11,6 +11,10 @@ $ ->
 		selectYears: 15 #Creates a dropdown of 15 years to control year
 	})
 	$('ul.tabs').tabs()
+	$('.slider').slider({
+		full_width: true,
+		height: 333
+	})
 
 	#必要があればパララックス・ビューの高さを画面の高さと同じにする
 	w = $(window)

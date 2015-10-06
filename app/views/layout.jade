@@ -9,7 +9,6 @@ html(lang="ja")
 		link(rel='stylesheet', href='/css/materialize.css')
 		link(rel='stylesheet', href='/css/style.css')
 		link(rel='stylesheet', href='/css/main.css')
-		link(rel='stylesheet', href='/css/validationEngine.jquery.css')
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
 		link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
@@ -17,16 +16,13 @@ html(lang="ja")
 		link(href='/images/amethyst_flat.png', rel='apple-touch-icon')
 		title= title
 
-	body.grey.lighten-3
+	body
 		include parts/_header		
 		
 		block content
 		
 		include parts/_footer
 
-		if current_user
-			include parts/_button
-			input(id="user_id_for_all_page",type="hidden",value="#{current_user.id}")
 
 		script(src="/js/jquery.js")
 		script(src="/js/materialize.js")

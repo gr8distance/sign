@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+	.container
+		.card-panel
+			h3.thin What are you finding?
+			form(action="")
+				.input-field
+					.row
+						.col.s8.m9
+							input(type="text" name="search" placeholder="Enter name,ID,email")
+						.col.s4.m3
+							button.waves-light.btn-flat.waves-effect.indigo.white-text Lookup!
+	
+	section.container
+		- var i = 18
+		.row
+			while i--
+				.col.s12.m4.l3
+					.card.small
+						.card-image
+							img(src="/images/star2.jpg")
+							span.card-title Exaple user
+						.card-content
+							p This is user example
+						.card-action
+							i.fa.fa-heart.pink-text

@@ -1,70 +1,38 @@
 extends ../layout
 
 block content
-	if current_user
-		section.section.grey.lighten-3
-			input(id="friends_id",type="hidden",value="#{friends_id}")
-			input(id="current_user_id",type="hidden",value="#{current_user.id}")
-			#scroll_fire.container
-				#card_box.row
-					if posts.length != 0
-						- i = 0
-						for post in posts
-							include _post
-							- i++
-					else
-						h5.font_size_22.center-align 写真であなたを表現しよう(・∀・)！！
-						include ../users/_edit_user_form
-						h5.font_size_22.center-align あなたの情報を入力してみよう(・∀・)！！
-						include ../users/_edit_user_image
-						
-				
-				//追加の記事を読み込むときはこれ
-				if posts.length >= 18
-					#read_more.center
-						input(type="hidden",value="1",class="page_id")
-						.preloader-wrapper.active#loading
-							.spinner-layer.spinner-blue-only
-								.circle-clipper.left
-									.circle
-								.gap-patch
-									.circle
-								.circle-clipper.right
-									.circle
-						i.mdi-navigation-expand-more.center.cyan-text.small.btn-flat#load_more
+	.slider
+		ul.slides
+			li
+				img(src="/images/star1.jpg")
+			li
+				img(src="/images/star2.jpg")
+			li
+				img(src="/images/star3.jpg")
 
-
-
-	else
-		section.parallax-container
-			.parallax
-				img(src="/images/colorfull2.jpg",class="blur")
-		.row
-			.col.s12.m4.grey.lighten-5
-				h1.tangerine.cyan-text Aimerthyst
-				p.cyan-text ログインはこちらから
-				include ../auth/_login_form
-				include ../auth/_attention	
-				
-				article
-					h5.font_size_22.orange-text Aimerthyst運営のアカウント
-					.card
-						.card-image
-							img(src="#{aimerthyst.image}")
-							span.card-title.ts-grey #{aimerthyst.name}
-						.card-content
-							p  
-								| Aimerthyst運営チームのアカウントです
-								| 少しでも興味を持っていただければ幸いです(・∀・)！！
-						.card-action
-							a(href="/company") 会社概要
-							a(href="/users/#{aimerthyst.id}") もっと見る
-
-			.col.s12.m8.cyan.lighten-5
-				.row
-					for post in posts
-						include _post
-
-				.card-panel
+	section
+		.container
+			.row
+				.col.s12.m4
 					.center
-						a.cyan-text(href="/users/1") もっと詳しく見てみよう(・∀・)！！
+						h1.thin.indigo-text Map
+					p.black-text
+						| ”現在地を知ること”
+						| それは今の私達を知る一番簡単で確実な方法です。
+						| 私達のサービスはそれを簡単に共有できます。
+
+				.col.s12.m4
+					.center
+						h1.thin.teal-text SMS
+					p.black-text
+						| 現在地の共有とメッセージの送信は常にセットで利用できます。
+						| いくら制度が高くなってもGPSの制度には限界がありますから
+						| メッセージを併せた強力な現在地共有を提供します。
+
+				.col.s12.m4
+					.center
+						h1.thin.pink-text Pin
+					p.black-text
+						| Signalはビジネスにも利用できます。
+						| 例えばお店の前を通りかかったフォロワーにセール情報を送ったりすることも簡単です。
+						| 店内の所定の場所に顧客を誘導するのもSignalを使えば簡単に実現できます。
