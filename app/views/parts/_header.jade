@@ -10,7 +10,7 @@ header.navbar-fixed
 				a.thin(href="/friends/") Friend
 			if user_signed_in
 				li
-					a.thin(href="http://auth.aimer.dev") Setting
+					a.thin(href="/user/setting/#{current_user.email}/#{current_user.token}") Setting
 			li
 				if user_signed_in
 					a.thin(href="http://auth.aimer.dev/logout") Logout
